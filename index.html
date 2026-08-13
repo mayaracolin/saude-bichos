@@ -182,6 +182,18 @@
   ::-webkit-scrollbar{width:5px;height:5px;}
   ::-webkit-scrollbar-track{background:var(--bg2);}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+  /* PASSWORD MODAL */
+  .pwd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;display:flex;align-items:center;justify-content:center;}
+  .pwd-modal{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px 32px;width:290px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .pwd-modal h3{font-size:15px;font-weight:700;margin-bottom:5px;}
+  .pwd-modal p{font-size:12px;color:var(--text-muted);margin-bottom:18px;}
+  .pwd-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:10px 14px;color:var(--text);font-size:15px;text-align:center;letter-spacing:4px;margin-bottom:10px;transition:border-color .2s;}
+  .pwd-input:focus{outline:none;border-color:var(--accent-fin);}
+  .pwd-error{color:var(--red);font-size:11px;margin-bottom:10px;display:none;}
+  .pwd-btn{width:100%;border:none;border-radius:9px;padding:9px 0;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:7px;}
+  .pwd-btn-primary{background:var(--accent-fin);color:#000;}
+  .pwd-btn-ghost{background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);}
 </style>
 </head>
 <body>
@@ -1658,6 +1670,19 @@
 </div>
 
 
+<!-- PASSWORD MODAL -->
+<div class="pwd-overlay" id="pwd-overlay" style="display:none" onclick="if(event.target===this)closePwd()">
+  <div class="pwd-modal">
+    <div style="font-size:36px;margin-bottom:10px">🔒</div>
+    <h3>Área Financeira</h3>
+    <p>Digite a senha para acessar</p>
+    <input type="password" class="pwd-input" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPwd()">
+    <div class="pwd-error" id="pwd-error">Senha incorreta — tente novamente</div>
+    <button class="pwd-btn pwd-btn-primary" onclick="checkPwd()">Entrar</button>
+    <button class="pwd-btn pwd-btn-ghost" onclick="closePwd()">Cancelar</button>
+  </div>
+</div>
+
 <script>
 // ── INNER TABS ──
 function showInner(pet, pane, el) {
@@ -1668,12 +1693,41 @@ function showInner(pet, pane, el) {
 }
 
 // ── TABS ──
+let _finUnlocked = false;
+let _pendingFinEl = null;
+
 function showTab(pet, el) {
+  if (pet === 'fin' && !_finUnlocked) {
+    _pendingFinEl = el;
+    document.getElementById('pwd-overlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('pwd-input').focus(), 80);
+    return;
+  }
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => { t.className = 'tab'; });
   document.getElementById('tab-' + pet).classList.add('active');
   el.classList.add('active-' + pet);
   if (pet === 'fin') renderFin();
+}
+
+function closePwd() {
+  document.getElementById('pwd-overlay').style.display = 'none';
+  document.getElementById('pwd-input').value = '';
+  document.getElementById('pwd-error').style.display = 'none';
+  _pendingFinEl = null;
+}
+
+function checkPwd() {
+  const v = document.getElementById('pwd-input').value;
+  if (v === 'biscoito1403') {
+    _finUnlocked = true;
+    closePwd();
+    if (_pendingFinEl) showTab('fin', _pendingFinEl);
+  } else {
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
 }
 
 // ── FINANCEIRO ──
