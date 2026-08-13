@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐾 Saúde dos Bichos — May</title>
+<style>
+  :root {
+    --bg:#0f1117;--bg2:#1a1d27;--bg3:#22263a;--card:#1e2235;--border:#2e3354;
+    --accent-panty:#c084fc;--accent-biscoito:#60a5fa;--accent-mani:#86efac;--accent-fin:#f59e0b;
+    --accent-weed:#fb923c;--accent-kali:#f472b6;
+    --text:#e2e8f0;--text-muted:#94a3b8;
+    --green:#4ade80;--yellow:#facc15;--red:#f87171;--orange:#fb923c;--purple:#a78bfa;--teal:#2dd4bf;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.6;}
+
+  .header{background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;gap:14px;}
+  .header h1{font-size:19px;font-weight:700;}
+  .header p{color:var(--text-muted);font-size:11px;margin-top:1px;}
+  .paw{font-size:26px;}
+
+  .tabs{display:flex;gap:2px;padding:12px 28px 0;border-bottom:1px solid var(--border);background:var(--bg2);flex-wrap:wrap;}
+  .tab{padding:8px 16px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;border:1px solid transparent;border-bottom:none;font-size:13px;font-weight:600;transition:all .2s;background:transparent;color:var(--text-muted);}
+  .tab:hover{color:var(--text);background:var(--bg3);}
+  .tab.active-panty{background:var(--card);border-color:var(--border);color:var(--accent-panty);border-bottom:2px solid var(--accent-panty);}
+  .tab.active-biscoito{background:var(--card);border-color:var(--border);color:var(--accent-biscoito);border-bottom:2px solid var(--accent-biscoito);}
+  .tab.active-mani{background:var(--card);border-color:var(--border);color:var(--accent-mani);border-bottom:2px solid var(--accent-mani);}
+  .tab.active-fin{background:var(--card);border-color:var(--border);color:var(--accent-fin);border-bottom:2px solid var(--accent-fin);}
+  .tab.active-weed{background:var(--card);border-color:var(--border);color:var(--accent-weed);border-bottom:2px solid var(--accent-weed);}
+  .tab.active-kali{background:var(--card);border-color:var(--border);color:var(--accent-kali);border-bottom:2px solid var(--accent-kali);}
+
+  .content{display:none;}
+  .content.active{display:block;}
+
+  /* PET LAYOUT */
+  .pet-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 110px);}
+  .pet-sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:18px 16px;overflow-y:auto;position:sticky;top:0;max-height:calc(100vh - 110px);}
+  .pet-main{padding:22px 26px;overflow-y:auto;max-height:calc(100vh - 110px);}
+  @media(max-width:900px){.pet-layout{grid-template-columns:1fr;}.pet-sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--border);}}
+
+  .pet-avatar-lg{font-size:48px;text-align:center;margin-bottom:8px;line-height:1.2;}
+  .pet-name-lg{font-size:17px;font-weight:800;text-align:center;margin-bottom:2px;}
+  .pet-alias{font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:10px;}
+  .sidebar-divider{height:1px;background:var(--border);margin:12px 0;}
+  .sidebar-row{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;font-size:11px;}
+  .sidebar-label{color:var(--text-muted);flex-shrink:0;margin-right:6px;}
+  .sidebar-val{font-weight:600;text-align:right;font-size:11px;line-height:1.4;}
+  .sidebar-section{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin:12px 0 5px;}
+
+  .badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;margin:2px 2px 0 0;}
+  .badge-renal{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3);}
+  .badge-watch{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3);}
+  .badge-stable{background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3);}
+  .badge-resp{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3);}
+  .badge-urg{background:rgba(248,113,113,.3);color:#fca5a5;border:1px solid rgba(248,113,113,.5);}
+  .badge-info{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3);}
+
+  /* KPI BOXES */
+  .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:4px;}
+  .kpi-box{background:var(--bg3);border-radius:8px;padding:8px 9px;border:1px solid var(--border);}
+  .kpi-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;}
+  .kpi-val{font-size:15px;font-weight:800;margin-top:1px;line-height:1.2;}
+  .kpi-sub{font-size:9px;color:var(--text-muted);margin-top:1px;}
+  .kpi-red{color:var(--red);}
+  .kpi-orange{color:var(--orange);}
+  .kpi-green{color:var(--green);}
+  .kpi-yellow{color:var(--yellow);}
+
+  /* INNER TABS */
+  .inner-tabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:1px solid var(--border);}
+  .inner-tab{padding:6px 14px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;}
+  .inner-tab:hover{color:var(--text);}
+  .inner-tab.it-active{color:var(--text);border-bottom-color:var(--text);}
+  .inner-pane{display:none;}
+  .inner-pane.ip-active{display:block;}
+
+  .section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:10px;margin-top:18px;}
+  .section-title:first-child{margin-top:0;}
+
+  .alert-box{border-radius:9px;padding:10px 13px;margin-bottom:7px;display:flex;gap:9px;align-items:flex-start;font-size:12px;}
+  .alert-red{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);}
+  .alert-orange{background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.2);}
+  .alert-green{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);}
+  .alert-blue{background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);}
+  .alert-purple{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);}
+  .alert-yellow{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.2);}
+  .alert-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+  .alert-title{font-weight:700;margin-bottom:1px;font-size:12px;}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
+  .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:10px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  @media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+  .cmp-table{width:100%;border-collapse:collapse;}
+  .cmp-table th{background:var(--bg3);padding:6px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .cmp-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:12px;}
+  .cmp-table tr:last-child td{border-bottom:none;}
+  .cmp-table tr:hover td{background:rgba(255,255,255,.025);}
+  .val{font-weight:600;}
+  .val-alert{color:var(--red);}
+  .val-ok{color:var(--green);}
+  .val-warn{color:var(--orange);}
+  .ref{font-size:10px;color:var(--text-muted);}
+
+  .us-item{background:var(--bg3);border-radius:8px;padding:9px 11px;margin-bottom:5px;}
+  .us-organ{font-weight:700;font-size:12px;color:var(--purple);margin-bottom:2px;}
+  .us-text{font-size:11px;color:var(--text);line-height:1.5;}
+  .ok{color:var(--green);}
+  .warn{color:var(--orange);}
+  .bad{color:var(--red);}
+
+  .rx-item{background:var(--bg3);border-radius:8px;padding:9px 11px;margin-bottom:5px;}
+  .rx-drug{font-weight:700;font-size:13px;color:var(--teal);}
+  .rx-dose{font-size:11px;color:var(--text);margin-top:2px;}
+  .rx-date{font-size:10px;color:var(--text-muted);margin-top:2px;}
+
+  .stat-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-name{color:var(--text-muted);font-size:12px;}
+  .stat-val{font-weight:600;font-size:12px;}
+
+  .iris-bar{display:flex;gap:3px;margin:7px 0;}
+  .iris-stage{flex:1;height:7px;border-radius:3px;background:var(--border);}
+  .iris-stage.a1{background:#4ade80;}.iris-stage.a2{background:#facc15;}.iris-stage.a3{background:#f97316;}.iris-stage.a4{background:#ef4444;}
+  .iris-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);}
+
+  .timeline{display:flex;gap:0;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:thin;}
+  .tl-item{display:flex;flex-direction:column;align-items:center;min-width:105px;position:relative;}
+  .tl-item:not(:last-child)::after{content:'';position:absolute;top:12px;left:60%;width:calc(100% - 24px);height:2px;background:var(--border);z-index:0;}
+  .tl-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid var(--border);background:var(--bg3);z-index:1;position:relative;}
+  .tl-dot.new{border-color:var(--red);box-shadow:0 0 6px rgba(248,113,113,.4);}
+  .tl-date{font-size:10px;color:var(--text-muted);margin-top:4px;}
+  .tl-label{font-size:10px;color:var(--text);text-align:center;margin-top:2px;max-width:96px;}
+
+  /* FINANCEIRO */
+  .fin-layout{padding:22px 26px;}
+  .fin-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+  @media(max-width:900px){.fin-kpi-row[style*='repeat(5']{grid-template-columns:1fr 1fr!important;}}
+  .fin-kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;}
+  .fk-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;}
+  .fk-val{font-size:21px;font-weight:800;margin:4px 0 2px;color:var(--accent-fin);}
+  .fk-sub{font-size:10px;color:var(--text-muted);}
+  @media(max-width:768px){.fin-kpi-row{grid-template-columns:1fr 1fr;}}
+
+  .fin-top-row{display:grid;grid-template-columns:1fr 240px;gap:12px;margin-bottom:18px;}
+  @media(max-width:800px){.fin-top-row{grid-template-columns:1fr;}}
+  .fin-chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;}
+  .fin-pet-split{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;}
+  .ps-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+  .ps-row:last-child{margin-bottom:0;}
+  .ps-emoji{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+  .ps-name{font-size:11px;font-weight:600;width:56px;flex-shrink:0;}
+  .ps-track{flex:1;background:var(--bg3);border-radius:3px;height:13px;overflow:hidden;}
+  .ps-fill{height:100%;border-radius:3px;transition:width .4s;}
+  .ps-amt{font-size:11px;font-weight:700;color:var(--text);width:75px;text-align:right;flex-shrink:0;}
+
+  .fin-filter-row{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap;}
+  .fin-filter-row span{font-size:11px;color:var(--text-muted);font-weight:600;}
+
+  .cat-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;}
+  .cat-exame{background:rgba(96,165,250,.15);color:#60a5fa;}
+  .cat-med{background:rgba(45,212,191,.15);color:#2dd4bf;}
+  .cat-alim{background:rgba(74,222,128,.15);color:#4ade80;}
+  .cat-conv{background:rgba(167,139,250,.15);color:#a78bfa;}
+  .cat-consul{background:rgba(251,146,60,.15);color:#fb923c;}
+  .cat-outro{background:rgba(148,163,184,.15);color:#94a3b8;}
+  .cat-higiene{background:rgba(244,114,182,.15);color:#f472b6;}
+  .month-dropdown{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px;cursor:pointer;min-width:160px;}
+  .month-dropdown:focus{outline:none;border-color:var(--accent-fin);}
+
+  .notice{background:rgba(148,163,184,.06);border:1px solid var(--border);border-radius:var(--radius);padding:9px 13px;font-size:11px;color:var(--text-muted);margin-top:18px;text-align:center;}
+  .form-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:12px;}
+  .form-input:focus{outline:none;border-color:var(--accent-fin);}
+  .btn-primary{background:var(--accent-fin);color:#000;border:none;border-radius:8px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;}
+  .btn-ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:6px 11px;font-size:11px;cursor:pointer;}
+  .btn-danger{background:var(--bg3);color:var(--red);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:6px 11px;font-size:11px;cursor:pointer;}
+
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:var(--bg2);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="paw">🐾</div>
+  <div>
+    <h1>Saúde dos Bichos</h1>
+    <p>Sistema de acompanhamento veterinário · Panty · Biscoito · Mani · Weed · Kali · Atualizado em 13/08/2026</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active-panty" onclick="showTab('panty',this)">🐱 Panty</div>
+  <div class="tab" onclick="showTab('biscoito',this)">🐱 Biscoito</div>
+  <div class="tab" onclick="showTab('mani',this)">🐶 Mani</div>
+  <div class="tab" onclick="showTab('weed',this)">🐶 Weed</div>
+  <div class="tab" onclick="showTab('kali',this)">🐱 Kali</div>
+  <div class="tab" onclick="showTab('fin',this)">💰 Financeiro</div>
+</div>
+
+
+<div id="tab-panty" class="content active">
+<div class="pet-layout">
+
+  <!-- SIDEBAR -->
+  <div class="pet-sidebar">
+    <div class="pet-avatar-lg">🐱</div>
+    <div class="pet-name-lg">Panty</div>
+    <div class="pet-alias">Pantera · Gata SRD · Fêmea</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Creatinina</div>
+        <div class="kpi-val kpi-orange">2,89</div>
+        <div class="kpi-sub">mg/dL ↓ jul/26 🎉</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Ureia</div>
+        <div class="kpi-val kpi-yellow">70,9</div>
+        <div class="kpi-sub">mg/dL ⚠️ jul/26</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">IRIS</div>
+        <div class="kpi-val kpi-orange">3</div>
+        <div class="kpi-sub">DRC (melhorou!)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">RPCU</div>
+        <div class="kpi-val kpi-green">0,07</div>
+        <div class="kpi-sub">jul/26 ✅ normal</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Identificação</div>
+    <div class="sidebar-row"><span class="sidebar-label">Nascida</span><span class="sidebar-val">02/08/2010 · ~15a 9m</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Castrada</span><span class="sidebar-val">Sim</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Chip</span><span class="sidebar-val" style="font-size:10px">981020004087847</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Resp.</span><span class="sidebar-val">Yuri / Mayara</span></div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Status</div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px;">
+      <span class="badge badge-renal">DRC Estágio 3</span>
+      <span class="badge badge-urg">Microureterólitos</span>
+      <span class="badge badge-watch">Monitoramento ativo</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Veterinárias</div>
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.7">
+      Dra. Camilla P. Carvalho<br>Dra. Aline Mello<br>Dra. Fernanda Frois<br>
+      Dra. Barbara Marques<br>Dra. Isabela Pomponi<br>Dr. Matheus Cadamuro
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">💊 Medicações atuais</div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Gaviz 5mg</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 cp/24h · 7 dias</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Mirtz 2mg <span style="color:var(--orange);font-size:10px">contínuo</span></div>
+      <div style="font-size:10px;color:var(--text-muted)">1 cp/48h</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Tansulosina 0,025mg 🆕</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 dose/24h · relaxante ureteral</div>
+    </div>
+
+    <div style="background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:8px;padding:9px 10px;margin-top:8px;font-size:10px;">
+      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames realizados (jul/26)</div>
+      Creatinina · Ureia · Urina+RPCU · US abdominal<br>
+      <span style="color:var(--text-muted)">Animall Vet · 25/07/2026</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="pet-main">
+    <!-- INNER TABS -->
+    <div class="inner-tabs">
+      <button class="inner-tab it-active" onclick="showInner('panty','alertas',this)">⚡ Alertas</button>
+      <button class="inner-tab" onclick="showInner('panty','exames',this)">🔬 Exames</button>
+      <button class="inner-tab" onclick="showInner('panty','imagem',this)">🔊 Imagem</button>
+      <button class="inner-tab" onclick="showInner('panty','historico',this)">📅 Histórico</button>
+    </div>
+
+    <!-- PANE: ALERTAS -->
+    <div id="panty-alertas" class="inner-pane ip-active">
+      <div class="section-title">🚨 Críticos</div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🚨</div>
+        <div><div class="alert-title">Microureterólitos — ureter esquerdo (US 12/05/26)</div>Cristais agrupados no terço médio (0,15–0,16cm). Suspeita de <b>obstrução ureteral parcial</b>. Tansulosina prescrita para relaxar musculatura.</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🚨</div>
+        <div><div class="alert-title">Rim esquerdo atrofiou: 1,55cm (era 1,89cm em mar/26)</div>Progressão rápida. Pielectasia + nefrólito 0,23cm. <b>Nefropatia crônica avançada / atrofia renal esquerda.</b></div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">⚖️</div>
+        <div><div class="alert-title">Peso crítico — 4,2kg (21/05/26)</div>Mirtz contínuo como estimulante de apetite. Monitorar ingestão.</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">📈</div>
+        <div><div class="alert-title">Creatinina 5,20 mg/dL — progressão (3,00→2,61→2,69→5,20)</div>Ref. 0,5–1,7. Reavaliação urgente em curso.</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">⚠️ Atenção</div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🫀</div>
+        <div><div class="alert-title">Esteatose hepática discreta (US 12/05/26)</div>Ecogenicidade discretamente acentuada — hepatopatia vacuolar. Correlacionar com DRC.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🫁</div>
+        <div><div class="alert-title">Espessamentos focais no estômago / duodeno inflamatório (US mai-jul/26)</div>Alteração pancreática leve associada. Hipótese: DII ou linfoma — biópsia necessária para diagnóstico definitivo. <b>Encaminhada para Dra. Gabriele (gastro) · Animall Vet.</b></div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🧪</div>
+        <div><div class="alert-title">Repetir exames em 45–60 dias (~10/09/2026)</div>Monitorar creatinina, fósforo, pH urinário e cálculos ureterais. Consulta de retorno com Dra. Bárbara.</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">✅ Positivos</div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Bexiga normalizada — parede 0,16cm (US mai/26)</div>Cistite resolvida (era 0,24cm em mar/26). Ainda há sedimento, sem espessamento parietal.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">UPC 0,02 — sem perda proteica renal significativa (mar/26)</div>Dado muito positivo para DRC avançada. Repetição solicitada via cistocentese.</div>
+      </div>
+
+      <!-- MELHORA CREATININA -->
+      <div class="alert-box alert-green" style="margin-top:8px">
+        <div class="alert-icon">🎉</div>
+        <div><div class="alert-title">Creatinina caiu de 5,20 → 2,89 mg/dL — melhora expressiva!</div>Em mai/26 estava em 5,20 (limiar IRIS 4). Agora em 2,89 (IRIS 3). Queda de 44% em ~2 meses. Tratamento com Tansulosina + dieta renal + Mirtz surte efeito.</div>
+      </div>
+
+      <!-- IRIS -->
+      <div class="section-title" style="margin-top:16px">🔬 Estadiamento IRIS — Creatinina jul/26: 2,89 mg/dL</div>
+      <div class="card">
+        <div class="iris-bar">
+          <div class="iris-stage"></div><div class="iris-stage"></div>
+          <div class="iris-stage a3"></div><div class="iris-stage a4"></div>
+        </div>
+        <div class="iris-labels"><span>E1 &lt;1,6</span><span>E2 1,6–2,8</span><span>E3 2,9–5,0</span><span>E4 &gt;5,0</span></div>
+        <div style="margin-top:8px;font-size:11px;color:var(--orange)">⚠️ Fronteira estágios 3–4. Obstrução ureteral pode estar elevando artificialmente — reavaliação urgente.</div>
+      </div>
+
+      <!-- RESUMO VET -->
+      <div class="section-title" style="margin-top:16px">📝 Resumo para veterinária</div>
+      <div class="alert-box alert-purple">
+        <div class="alert-icon">📋</div>
+        <div>
+          <div class="alert-title">Panty · ~17a 4m · Gata SRD · Chip 981020004087847 · Peso 4,2kg (21/05/26)</div>
+          DRC estágio 3. <b>Creatinina caiu de 5,20 → 2,89 mg/dL (jul/26) — melhora de 44%!</b> Ureia 70,90 mg/dL (acima ref.). RPCU 0,07 (normal ✅). <b>US 25/07/26 (Vet To Go): microureterólitos ureter esq. persistem (0,11–0,33cm) + ectasia 0,16cm. RE estável (1,55cm, atrofiado). RD 3,24cm, infarto (0,19×0,53cm). Fígado NORMALIZADO ✅ (era esteatose em mai). Pâncreas 0,74cm, leve espessamento. Sedimento vesical sem cistólitos.</b> Urina Tipo 1: pH 5,0 (baixo), densidade 1020 (mínima), sem proteína/cristais. Medicações: Mirtz 2mg contínuo, Tansulosina 0,025mg contínuo.
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: EXAMES -->
+    <div id="panty-exames" class="inner-pane">
+      <div class="section-title">📊 Função Renal</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Ref.</th><th>Evolução</th></tr></thead>
+          <tbody>
+            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,00</td><td class="val val-alert">2,61</td><td class="val val-alert">2,69</td><td class="val val-alert">5,20</td><td class="val val-alert">2,89 🎉</td><td class="ref">0,5–1,7 mg/dL</td><td>🟢 Melhorou!</td></tr>
+            <tr><td><b>Ureia</b></td><td class="val val-alert">87,89</td><td class="val val-alert">128,6</td><td class="val val-alert">84,85</td><td class="val val-alert">80,0</td><td class="val val-alert">70,90</td><td class="ref">10–60 mg/dL</td><td>🟡 Ainda alta</td></tr>
+            <tr><td><b>Fósforo</b></td><td>—</td><td>—</td><td>—</td><td class="val val-ok">4,40</td><td>—</td><td class="ref">DRC: 2,7–4,6</td><td>🟢 No alvo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🩸 Hemograma</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Ref.</th><th>Evolução</th></tr></thead>
+          <tbody>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">8,69</td><td class="val val-ok">8,13</td><td class="val val-ok">9,08</td><td class="val val-alert">10,98</td><td class="ref">5,0–10,0</td><td>⚠️ Acima</td></tr>
+            <tr><td><b>Hemoglobina</b></td><td class="val val-ok">13,80</td><td class="val val-ok">13,0</td><td class="val val-ok">14,40</td><td class="val val-alert">16,1</td><td class="ref">8–15 g/dL</td><td>⚠️ Acima</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-ok">45,0</td><td class="val val-ok">39,7</td><td class="val val-alert">49,0</td><td class="val val-alert">49,3</td><td class="ref">24–45%</td><td>🔴 Acima</td></tr>
+            <tr><td><b>Leucócitos</b></td><td class="val val-ok">7.900</td><td class="val val-ok">10.920</td><td class="val val-ok">16.000</td><td class="val val-ok">12.300</td><td class="ref">5.500–19.500</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Plaquetas</b></td><td class="val val-ok">301 mil</td><td class="val val-alert">105 mil ⚠️</td><td class="val val-ok">300 mil</td><td class="val val-ok">324 mil</td><td class="ref">200–800 mil</td><td>🟢 Ok</td></tr>
+            <tr><td><b>Proteínas Totais</b></td><td class="val val-alert">8,50</td><td class="val val-alert">8,2</td><td class="val val-alert">8,20</td><td class="val val-ok">7,6</td><td class="ref">6,0–8,0</td><td>🟢 Normalizou</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">💨 Hemogasometria — 13/05/2026</div>
+      <div class="alert-box alert-yellow" style="margin-bottom:10px"><div class="alert-icon">📋</div><div>Laudo classifica como "canino" — erro do sistema. Chip confirma ser a Panty. Vet: Dra. Isabela Pomponi · Animal Bello.</div></div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Gases e Ácido-Base</div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-ok">7,387 ✅</span></div>
+          <div class="stat-row"><span class="stat-name">pCO₂</span><span class="stat-val val-ok">35,6 mmHg ✅</span></div>
+          <div class="stat-row"><span class="stat-name">pO₂</span><span class="stat-val val-alert">199 mmHg ⚠️ (artefato/O₂)</span></div>
+          <div class="stat-row"><span class="stat-name">HCO₃</span><span class="stat-val val-ok">21,4 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">BE(ecf)</span><span class="stat-val val-warn">-3,6 acidose leve compensada</span></div>
+          <div class="stat-row"><span class="stat-name">Ânion Gap</span><span class="stat-val val-warn">23 — limítrofe</span></div>
+          <div class="stat-row"><span class="stat-name">Ácido Lático</span><span class="stat-val val-warn">2,66 mmol/L — limítrofe</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Eletrólitos</div>
+          <div class="stat-row"><span class="stat-name">Sódio</span><span class="stat-val val-alert">156,0 mmol/L ⚠️ (ref. 138–150)</span></div>
+          <div class="stat-row"><span class="stat-name">Potássio</span><span class="stat-val val-ok">4,85 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cloreto</span><span class="stat-val val-ok">111,9 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cálcio ionizado</span><span class="stat-val val-ok">1,28 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Hematócrito (PCV)</span><span class="stat-val val-ok">50% ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Hemoglobina</span><span class="stat-val val-ok">16,9 g/dL ✅</span></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">🧪 Urina Tipo 1 + RPCU — 25/07/2026 · Lyra Lab</div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Caracteres Físicos e Químicos</div>
+          <div class="stat-row"><span class="stat-name">Densidade</span><span class="stat-val val-warn">1020 (ref. 1020–1050) ↓ mínimo</span></div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-warn">5,0 (ref. 5,5–6,5) ⚠️</span></div>
+          <div class="stat-row"><span class="stat-name">Proteínas</span><span class="stat-val val-ok">NEGATIVO ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Glicose</span><span class="stat-val val-ok">NEGATIVO ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Sangue Oculto</span><span class="stat-val val-ok">NEGATIVO ✅</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sedimento e RPCU</div>
+          <div class="stat-row"><span class="stat-name">Hemácias</span><span class="stat-val val-ok">1–2/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Leucócitos</span><span class="stat-val val-ok">1–2/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cristais</span><span class="stat-val val-ok">AUSENTES ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Bactérias</span><span class="stat-val val-ok">RARAS ✅</span></div>
+          <div class="stat-row"><span class="stat-name">RPCU</span><span class="stat-val val-ok" style="font-weight:700">0,07 — NORMAL ✅</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: IMAGEM -->
+    <div id="panty-imagem" class="inner-pane">
+      <div class="section-title">🔊 Evolução dos Rins</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Rim</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Evolução</th></tr></thead>
+          <tbody>
+            <tr><td><b>RE — tamanho</b></td><td class="val warn">1,79cm</td><td class="val warn">1,89cm</td><td class="val val-alert">1,55cm 🔴</td><td class="val val-alert">1,55cm 🔴</td><td>🟡 Estável (atrofiado)</td></tr>
+            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,34cm</td><td class="val val-ok">3,01cm</td><td class="val val-ok">3,31cm</td><td class="val val-ok">3,24cm</td><td>🟡 Estável</td></tr>
+            <tr><td><b>Nefrólito RE</b></td><td class="val warn">Microcálculos</td><td class="val warn">0,28cm</td><td class="val val-alert">0,23cm + pielectasia</td><td class="val val-alert">0,15×0,17cm</td><td>🟡 Presente</td></tr>
+            <tr><td><b>Ureter esquerdo</b></td><td>—</td><td>—</td><td class="val val-alert">Cristais 0,15–0,16cm</td><td class="val val-alert">Cristais 0,11–0,33cm</td><td>⚠️ Persistem</td></tr>
+            <tr><td><b>Bexiga</b></td><td class="val val-ok">Normal</td><td class="val val-alert">Cistite</td><td class="val val-ok">Normal ✅</td><td class="val warn">Sedimento moderado</td><td>🟡 Monitorar</td></tr>
+            <tr><td><b>Fígado</b></td><td class="val val-ok">Normal</td><td class="val val-ok">Normal</td><td class="val warn">Esteatose discreta</td><td class="val val-ok">Normal ✅</td><td>🟢 Melhorou!</td></tr>
+            <tr><td><b>Pâncreas</b></td><td>—</td><td>—</td><td class="val val-ok">0,56cm normal</td><td class="val warn">0,74cm ↑ ⚠️</td><td>⚠️ Aumentou</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 25/07/2026 · Dr. Matheus Cadamuro · Vet To Go 🆕</div>
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card">
+          <div class="card-title">Rins e Ureteres</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text"><span class="bad">1,55cm — atrofia renal avançada (estável).</span><br>Adelgaçamento cortical, perda córtico-medular parcial. <span class="bad">Pielectasia (0,14cm) + nefrólitos (0,15×0,17cm) em recesso pélvico.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text"><span class="warn">3,24cm — ecogenicidade cortical acentuada, perda córtico-medular parcial.</span><br>Focos hiperecogênicos em recessos pélvicos. <span class="warn">Área infarto renal (0,19×0,53cm).</span></div></div>
+          <div class="us-item"><div class="us-organ">⚠️ Ureter Esquerdo</div><div class="us-text"><span class="bad">Discreta ectasia (0,16cm). Múltiplas estruturas hiperecogênicas agrupadas em terço médio e distal (0,11 / 0,21 / 0,13 / 0,24 / 0,33cm) — microureterólitos persistem.</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text">Paredes normais (0,11cm). <span class="warn">Sedimento hiperecogênico em suspensão — sem cistólitos.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="ok">Ecogenicidade preservada e parênquima homogêneo ✅ — melhora em relação a mai/26 (esteatose resolvida)!</span></div></div>
+          <div class="us-item"><div class="us-organ">🍃 Pâncreas</div><div class="us-text"><span class="warn">Lobo esq. 0,74cm, ecogenicidade discretamente reduzida. Achados compatíveis com pancreatopatia/processo inflamatório incipiente.</span></div></div>
+          <div class="us-item"><div class="us-organ">🍽️ Duodeno</div><div class="us-text"><span class="warn">Espessamentos focais parietais (0,27cm) — sugestivo de DII, infeccioso ou neoplásico.</span></div></div>
+        </div>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 17/04/2024 · Vet To Go · (mais antigo documentado)</div>
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card">
+          <div class="card-title">Rins</div>
+          <div class="us-item" style="border:1px solid rgba(248,113,113,.3);"><div class="us-organ bad">🫘 Rim Esquerdo — 1,68cm 🔴</div><div class="us-text"><span class="bad">Muito reduzido já em abr/2024.</span> Perda de distinção córtico-medular, cortical hiperecogênica. Cristais nos recessos pélvicos.</div></div>
+          <div class="us-item"><div class="us-organ warn">🫘 Rim Direito — 3,47cm</div><div class="us-text">Contornos irregulares, perda córtico-medular, cortical hiperecogênica. Impressão: nefropatia/DRC.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item" style="border:1px solid rgba(251,146,60,.3);"><div class="us-organ warn">🍽️ Duodeno / Jejuno</div><div class="us-text">Duodeno 0,27–0,29cm · Jejuno 0,27–0,32cm — ambos espessados. <span class="warn">DII / infiltrado neoplásico suspeito.</span></div></div>
+          <div class="us-item" style="border:1px solid rgba(251,146,60,.3);"><div class="us-organ warn">🫧 Vesícula Biliar</div><div class="us-text">Espessamento de parede 0,18cm — <span class="warn">colecistite.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text">Parênquima grosseiro, ecogenicidade normal.</div></div>
+          <div class="us-item"><div class="us-organ ok">🔵 Adrenais</div><div class="us-text">ESQ 0,61cm / DIR 0,90cm ✅ normais.</div></div>
+        </div>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 12/05/2026 · Dr. Matheus Cadamuro · Vet To Go</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rins e Ureteres</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text"><span class="bad">1,55cm — atrofia renal avançada.</span><br>Adelgaçamento cortical, perda córtico-medular parcial.<br><span class="bad">Pielectasia (0,28cm) + nefrólito 0,23cm.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text"><span class="warn">3,31cm — ecogenicidade acentuada, perda parcial córtico-medular.</span><br>Focos hiperecogênicos em pelve. Sem hidronefrose.</div></div>
+          <div class="us-item"><div class="us-organ">🔴 Ureter Esquerdo — NOVO</div><div class="us-text"><span class="bad">Cristais agrupados no terço médio (0,15–0,16cm). Microureterólitos — suspeita de obstrução parcial!</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text"><span class="ok">Paredes normais (0,16cm) ✅ — cistite resolvida.</span><br><span class="warn">Sedimento moderado em suspensão — sem cistólitos.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="warn">Ecogenicidade discretamente acentuada — esteatose hepática.</span> Dimensões normais.</div></div>
+          <div class="us-item"><div class="us-organ">🍔 Estômago</div><div class="us-text"><span class="warn">Espessamentos focais de mucosa e muscular — inespecífico.</span></div></div>
+          <div class="us-item"><div class="us-organ">🍃 Intestino / Baço / Pâncreas</div><div class="us-text"><span class="ok">Intestino normal. Baço normal. Pâncreas lobo esq. 0,56cm — normal.</span></div></div>
+          <div class="us-item"><div class="us-organ">🔵 Adrenais</div><div class="us-text"><span class="ok">Esq: 0,87cm / Dir: 0,93cm — normais.</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: HISTÓRICO -->
+    <div id="panty-historico" class="inner-pane">
+      <div class="section-title">📅 Linha do tempo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">17/04/2024</div><div class="tl-label">US abdominal VetToGo · RE 1,68cm (já atrofiado!) · DII/colecistite suspeitos</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">03/05/2025</div><div class="tl-label">Hemograma + Bioquímica + Urina</div></div>
+        <div class="tl-item"><div class="tl-dot">🔬</div><div class="tl-date">11/07/2025</div><div class="tl-label">Hemograma + Perfil Obesidade + Bioquímica</div></div>
+        <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">24/07/2025</div><div class="tl-label">Ultrassom abdominal</div></div>
+        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">19/08/2025</div><div class="tl-label">Mirtz + Hepvet + Prorim</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">16/03/2026</div><div class="tl-label">Hemograma + Bioquímica</div></div>
+        <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">19/03/2026</div><div class="tl-label">US + Urina + UPC</div></div>
+        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">16/04/2026</div><div class="tl-label">Prednisolona + Dieta renal</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">12/05/2026</div><div class="tl-label">Hemograma + Bioquímica + Eletrólitos</div></div>
+        <div class="tl-item"><div class="tl-dot">💨</div><div class="tl-date">13/05/2026</div><div class="tl-label">Hemogasometria + Ácido Lático</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">12/05/2026</div><div class="tl-label">🆕 US abdominal — cristais ureterais!</div></div>
+        <div class="tl-item"><div class="tl-dot new">💊</div><div class="tl-date">21/05/2026</div><div class="tl-label">🆕 Gaviz + Mirtz + Tansulosina</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧪</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Creatinina 2,89 + Ureia 70,90 — VetFácil · Animall Vet</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 US abdômen total — Vet To Go · microureterólitos estáveis · fígado melhorou!</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧬</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Urina Tipo 1 + RPCU 0,07 — Lyra Lab (normal ✅)</div></div>
+        <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">10/08/2026</div><div class="tl-label">🆕 Consulta nefrologia (Dra. Bárbara) — gabapentina + acetato de potássio prescritos · encaminhamento gastro Dra. Gabriele · repetir exames em 45–60 dias</div></div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">💊 Histórico de Medicações</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">19/08/2025 · VetCentral</div>
+          <div class="rx-item"><div class="rx-drug">Mirtz 2mg</div><div class="rx-dose">1 cp a cada 48h por 10 dias</div><div class="rx-date">Mirtazapina — estimulante de apetite</div></div>
+          <div class="rx-item"><div class="rx-drug">Hepvet</div><div class="rx-dose">½ cp a cada 24h por 10 dias</div><div class="rx-date">Hepatoprotetor</div></div>
+          <div class="rx-item"><div class="rx-drug">Prorim</div><div class="rx-dose">1 borrifada oral 3x ao dia por 30 dias</div><div class="rx-date">Suporte renal</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">16/04/2026 · Animall Vet</div>
+          <div class="rx-item"><div class="rx-drug">Prednisolona 5mg</div><div class="rx-dose">½ cp 24h 7d → ½ cp 48h 7d</div><div class="rx-date">Anti-inflamatório — duodenite</div></div>
+          <div class="rx-item"><div class="rx-drug">Dieta renal</div><div class="rx-dose">Ômega 3 + ração renal + sachês baixo fósforo</div><div class="rx-date">Royal Canin · VetLife · Kelcat · Farmina N&D</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">21/05/2026 · Animall Vet</div>
+          <div style="font-size:10px;color:var(--red);margin-bottom:6px;font-weight:600">Peso: 4,200 kg</div>
+          <div class="rx-item"><div class="rx-drug">Gaviz 5mg</div><div class="rx-dose">1 cp/24h por 7 dias</div><div class="rx-date">Meloxicam — anti-inflamatório renal</div></div>
+          <div class="rx-item"><div class="rx-drug">Mirtz 2mg (contínuo)</div><div class="rx-dose">1 cp/48h até novas recomendações</div></div>
+          <div class="rx-item"><div class="rx-drug">Tansulosina 0,025mg</div><div class="rx-dose">1 dose/24h até novas recomendações</div><div class="rx-date">Relaxante ureteral — retomar se obstrução</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">10/08/2026 · Nefro (Dra. Bárbara) 🆕</div>
+          <div class="rx-item"><div class="rx-drug">💊 Gabapentina (manipulada)</div><div class="rx-dose">Dose a confirmar — uso contínuo</div><div class="rx-date">Controle de dor crônica / artrose</div></div>
+          <div class="rx-item"><div class="rx-drug">💊 Acetato de potássio</div><div class="rx-dose">Dose a confirmar — receita via WhatsApp</div><div class="rx-date">Elevar pH urinário — prevenir novos cálculos</div></div>
+          <div class="rx-item"><div class="rx-drug">⚠️ Dipirona</div><div class="rx-dose">Pontual (agudização) — não usar contínuo</div><div class="rx-date">Evitar uso prolongado</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">⚠️ A interpretação final deve ser realizada pela médica veterinária responsável.</div>
+  </div>
+</div>
+</div>
+
+
+<div id="tab-biscoito" class="content">
+<div class="pet-layout">
+
+  <!-- SIDEBAR -->
+  <div class="pet-sidebar">
+    <div class="pet-avatar-lg">🐱</div>
+    <div class="pet-name-lg">Biscoito</div>
+    <div class="pet-alias">Gato SRD · Macho · Castrado</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Creatinina</div>
+        <div class="kpi-val kpi-yellow">2,08</div>
+        <div class="kpi-sub">mg/dL ↓ jul/26 🎉</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Ureia</div>
+        <div class="kpi-val kpi-yellow">59,6</div>
+        <div class="kpi-sub">mg/dL ⚠️ jul/26</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">IRIS</div>
+        <div class="kpi-val kpi-yellow">2</div>
+        <div class="kpi-sub">DRC (melhorou!)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">RPCU</div>
+        <div class="kpi-val kpi-green">0,06</div>
+        <div class="kpi-sub">jul/26 ✅ normal</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Identificação</div>
+    <div class="sidebar-row"><span class="sidebar-label">Nascido</span><span class="sidebar-val">~01/02/2019 · ~7 anos</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Castrado</span><span class="sidebar-val">Sim</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Chip</span><span class="sidebar-val" style="font-size:10px">981020004466436</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Resp.</span><span class="sidebar-val">Yuri / Mayara</span></div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Status</div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px;">
+      <span class="badge badge-renal">DRC Estágio 3</span>
+      <span class="badge badge-resp">Asma felina</span>
+      <span class="badge badge-watch">Fluidoterapia SC</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Veterinárias</div>
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.7">
+      Dra. Fernanda Frois<br>Dra. Barbara Marques<br>
+      Dra. Marina Gama Leitão<br>Dr. Matheus Cadamuro
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">💊 Medicações atuais</div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">💧 Ringer Lactato SC 🆕</div>
+      <div style="font-size:10px;color:var(--text-muted)">200ml · 2x/semana</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Seretide 25/125mcg</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 puff 2x/dia · asma</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Dieta renal + Ômega 3</div>
+      <div style="font-size:10px;color:var(--text-muted)">RC Renal · VetLife · Pet Delícia · Kelcat · Farmina N&D</div>
+    </div>
+
+    <div style="background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:8px;padding:9px 10px;margin-top:8px;font-size:10px;">
+      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames realizados (jul/26)</div>
+      Hemograma · Creatinina · Ureia · Fósforo · Urina+RPCU · US abdominal<br>
+      <span style="color:var(--text-muted)">Animall Vet · 25/07/2026</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="pet-main">
+    <div class="inner-tabs">
+      <button class="inner-tab it-active" onclick="showInner('biscoito','alertas',this)">⚡ Alertas</button>
+      <button class="inner-tab" onclick="showInner('biscoito','exames',this)">🔬 Exames</button>
+      <button class="inner-tab" onclick="showInner('biscoito','imagem',this)">🔊 Imagem</button>
+      <button class="inner-tab" onclick="showInner('biscoito','historico',this)">📅 Histórico</button>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="biscoito-alertas" class="inner-pane ip-active">
+      <div class="section-title">🚨 Críticos</div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🚨</div>
+        <div><div class="alert-title">Infartos renais bilaterais — US 15/05/2026</div>RE: 0,31×0,56cm. RD: 0,76×1,00cm (cresceu de 0,98×0,86cm). Ambos com nefropatia crônica e contornos irregulares (RE).</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Retroperitônio esquerdo com ecogenicidade aumentada</div>Tecidos adjacentes ao rim esquerdo alterados — possível agudização DRC.</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🫀</div>
+        <div><div class="alert-title">Pâncreas com parênquima grosseiro — achado mais preocupante</div>Lobo esq. 0,64–0,73cm. Sugestivo de <b>pancreatopatia crônica e/ou infiltrado neoplásico</b>. Investigação urgente.</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">⚠️ Atenção</div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🫀</div>
+        <div><div class="alert-title">Fígado com ecogenicidade reduzida — toxemia / hepatopatia aguda</div>Inversão em relação ao US de março. Correlacionar com clínica e laboratório.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">💧</div>
+        <div><div class="alert-title">Fluidoterapia SC — Ringer Lactato 200ml 2x/semana</div>Prescrita em 21/05/2026. Controle da desidratação crônica por DRC.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🧂</div>
+        <div><div class="alert-title">Fósforo 6,28 mg/dL — acima do alvo para IRIS 2 (≤4,6)</div>Quelante de fósforo prescrito em 10/08/2026. <b>Administrar junto às refeições principais (2–3x/dia).</b> Repetir fósforo em ~30 dias (~25/08/2026).</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🍽️</div>
+        <div><div class="alert-title">Duodeno espessado + pâncreas grosseiro — investigar</div>Hipótese: DII ou linfoma. <b>Encaminhado para Dra. Gabriele (gastro) · Animall Vet.</b> Biópsia pode ser necessária.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🧪</div>
+        <div><div class="alert-title">Repetir exames em ~30 dias (~25/08/2026)</div>Prioridade: fósforo + creatinina + ureia. Avaliar resposta ao quelante.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">🎉</div>
+        <div><div class="alert-title">Creatinina 2,08 mg/dL — IRIS 2! Melhora expressiva</div>Queda: 3,40→3,19→2,90→2,08 (fev→mar→mai→jul/26). Passou de IRIS 3 para IRIS 2. Fluidoterapia SC + dieta renal funcionando!</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">✅ Positivos</div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">RPCU 0,06 — perda proteica urinária normal</div>Sem proteinúria significativa. Ureia 59,60 ainda dentro da referência (limite 64 mg/dL).</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Hemograma normal — sem anemia</div>Hematócrito 44% · Hemoglobina 14,8 g/dL · Leucócitos e plaquetas normais.</div>
+      </div>
+
+      <!-- IRIS -->
+      <div class="section-title" style="margin-top:16px">🔬 Estadiamento IRIS — Creatinina jul/26: 2,08 mg/dL</div>
+      <div class="card">
+        <div class="iris-bar">
+          <div class="iris-stage"></div>
+          <div class="iris-stage a2"></div>
+          <div class="iris-stage"></div><div class="iris-stage"></div>
+        </div>
+        <div class="iris-labels"><span>E1 &lt;1,6</span><span>E2 1,6–2,8</span><span>E3 2,9–5,0</span><span>E4 &gt;5,0</span></div>
+        <div style="margin-top:8px;font-size:11px;color:var(--green)">🎉 Estágio 2! Melhora em relação a mai/26 (estava em 2,90 = IRIS 3). Manter fluidoterapia SC + dieta renal.</div>
+      </div>
+
+      <!-- RESUMO VET -->
+      <div class="section-title" style="margin-top:16px">📝 Resumo para veterinária</div>
+      <div class="alert-box alert-blue">
+        <div class="alert-icon">📋</div>
+        <div>
+          <div class="alert-title">Biscoito · ~7 anos · Gato SRD · Chip 981020004466436 · Peso 6,5kg (mar/26)</div>
+          DRC estágio 2 (melhora!). Creatinina: 3,40→3,19→2,90→2,08 (fev→mar→mai→jul/26). Ureia 59,60 (normal). Fósforo 6,28 (normal geral, mas acima alvo DRC). RPCU 0,06 ✅. Hemograma normal. <b>US 25/07/26 (Vet To Go): RE 3,03cm contornos irregulares, infarto cunha (0,28×0,43cm), retroperitônio esq. ecogen. aumentada. RD 3,51cm, infarto cunha (0,49×1,11cm), micrólitos pélvicos (0,18cm). Pâncreas 0,59cm, ecogen. acentuada + parênquima grosseiro — pancreatopatia. Fígado ecogen. reduzida. Duodeno espessado (0,30cm) — DII?. Cristais vesicais.</b> Asma felina — Seretide 25/125mcg 1 puff 2x/dia. Ringer SC 200ml 2x/sem.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMES -->
+    <div id="biscoito-exames" class="inner-pane">
+      <div class="section-title">📊 Função Renal</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Fev/2026</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Ref. Felino</th><th>Evolução</th></tr></thead>
+          <tbody>
+            <tr><td><b>Ureia</b></td><td class="val val-alert">131,80</td><td class="val val-alert">143,82</td><td class="val val-ok">50,0</td><td class="val val-ok">59,60</td><td class="ref">10–64 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,40</td><td class="val val-alert">3,19</td><td class="val val-alert">2,90</td><td class="val val-alert">2,08 🎉</td><td class="ref">0,5–1,7 mg/dL</td><td>🟢 IRIS 2!</td></tr>
+            <tr><td><b>Fósforo</b></td><td>—</td><td>—</td><td class="val val-warn">4,60</td><td class="val val-alert">6,28</td><td class="ref">DRC: &lt;4,6</td><td>🔴 Acima alvo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🩸 Hemograma — 25/07/2026 · VetFácil / Animall Vet</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Jul/2026 🆕</th><th>Ref. Felino</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">9,35</td><td class="ref">5,0–10,0 M/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Hemoglobina</b></td><td class="val val-ok">14,8</td><td class="ref">8–15 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-ok">44%</td><td class="ref">24–45%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Leucócitos</b></td><td class="val val-ok">9.600</td><td class="ref">5.500–19.500/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Segmentados</b></td><td class="val val-alert">85% / 8.160µL</td><td class="ref">35–75% rel.</td><td>⚠️ Neutrofilia relativa</td></tr>
+            <tr><td><b>Linfócitos</b></td><td class="val val-warn">11% / 1.056µL</td><td class="ref">20–55% / 1.100µL</td><td>⚠️ Levemente baixo</td></tr>
+            <tr><td><b>Eosinófilos</b></td><td class="val val-warn">1% / 96µL</td><td class="ref">110–2.340µL</td><td>⚠️ Baixo</td></tr>
+            <tr><td><b>Plaquetas</b></td><td class="val val-ok">242 mil</td><td class="ref">230–680 mil/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Proteína total</b></td><td class="val val-ok">7,60</td><td class="ref">6,0–8,0 g/dL</td><td>🟢 Normal</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🧪 Urina Tipo 1 + RPCU — 25/07/2026 · Lyra Lab</div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Caracteres Físicos e Químicos</div>
+          <div class="stat-row"><span class="stat-name">Densidade</span><span class="stat-val val-ok">1044 (ref. 1020–1050) ✅</span></div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-ok">6,0 (ref. 5,5–6,5) ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Proteínas</span><span class="stat-val val-ok">Até 30mg (normal) ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Glicose</span><span class="stat-val val-ok">NEGATIVO ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Sangue Oculto</span><span class="stat-val val-ok">NEGATIVO ✅</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sedimento e RPCU</div>
+          <div class="stat-row"><span class="stat-name">Hemácias</span><span class="stat-val val-ok">0–2/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Leucócitos</span><span class="stat-val val-ok">0–2/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cristais</span><span class="stat-val val-ok">AUSENTES ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Bactérias</span><span class="stat-val val-ok">RARAS ✅</span></div>
+          <div class="stat-row"><span class="stat-name">RPCU</span><span class="stat-val val-ok" style="font-weight:700">0,06 — NORMAL ✅</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGEM -->
+    <div id="biscoito-imagem" class="inner-pane">
+      <div class="section-title">🔊 Evolução — Ultrassons</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Achado</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Evolução</th></tr></thead>
+          <tbody>
+            <tr><td><b>RE — tamanho</b></td><td class="val val-ok">3,07cm</td><td class="val val-ok">3,05cm</td><td class="val val-ok">3,03cm</td><td>🟡 Estável</td></tr>
+            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,59cm</td><td class="val val-ok">3,60cm</td><td class="val val-ok">3,51cm</td><td>🟡 Estável</td></tr>
+            <tr><td><b>Infarto renal RE</b></td><td class="val warn">0,98×0,86cm</td><td class="val val-alert">0,31×0,56cm</td><td class="val val-alert">0,28×0,43cm</td><td>⚠️ Persistente</td></tr>
+            <tr><td><b>Infarto renal RD</b></td><td>—</td><td class="val val-alert">0,76×1,00cm 🔴</td><td class="val val-alert">0,49×1,11cm</td><td>⚠️ Persistente</td></tr>
+            <tr><td><b>Retroperitônio esq.</b></td><td>Normal</td><td class="val val-alert">Ecogen. aumentada</td><td class="val val-alert">Ecogen. aumentada</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Pâncreas</b></td><td class="val val-ok">0,59cm normal</td><td class="val val-alert">0,64–0,73cm grosseiro</td><td class="val val-alert">0,59cm grosseiro</td><td>🔴 Pancreatopatia</td></tr>
+            <tr><td><b>Fígado</b></td><td class="val warn">Ecogen. aumentada</td><td class="val val-alert">Ecogen. reduzida</td><td class="val val-alert">Ecogen. reduzida</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Bexiga</b></td><td>Normal</td><td class="val warn">Sedimento aderido</td><td class="val warn">Cristais/sedimentos</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Duodeno</b></td><td>Normal</td><td class="val warn">Espessado (0,30cm)</td><td class="val warn">Espessado (0,30cm)</td><td>⚠️ Persiste</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 25/07/2026 · Vet To Go 🆕</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rins</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text">3,03cm. <span class="warn">Contornos irregulares, ecogenicidade acentuada.</span><br><span class="bad">Área hiperecogênica (0,28×0,43cm) — infarto renal persistente.</span><br><span class="bad">Retroperitônio esq. com ecogenicidade aumentada — persiste.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text">3,51cm. <span class="warn">Ecogenicidade acentuada.</span><br><span class="bad">Área hiperecogênica (0,49×1,11cm) — infarto renal persistente.</span><br><span class="warn">Micrólitos pélvicos (0,18cm).</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫀 Pâncreas ⚠️</div><div class="us-text"><span class="bad">0,59cm, parênquima grosseiro.</span><br>Sugestivo de <b>pancreatopatia crônica</b> — persiste.</div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="warn">Ecogenicidade reduzida — persiste.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text">Paredes normais. <span class="warn">Cristais/sedimentos.</span></div></div>
+          <div class="us-item"><div class="us-organ">🍲 Duodeno</div><div class="us-text"><span class="warn">Espessado (0,30cm) — persiste desde mai/26.</span></div></div>
+        </div>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 15/05/2026 · Dr. Matheus Cadamuro</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rins</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text">3,05cm. <span class="warn">Contornos irregulares, ecogenicidade acentuada.</span><br><span class="bad">Área em cunha (0,31×0,56cm) — infarto renal.</span><br><span class="bad">Retroperitônio esq. com ecogenicidade aumentada.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text">3,60cm. <span class="warn">Ecogenicidade acentuada, focos hiperecogênicos.</span><br><span class="bad">Área em cunha (0,76×1,00cm) — infarto renal (maior que mar/26).</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫀 Pâncreas ⚠️</div><div class="us-text"><span class="bad">Lobo esq. 0,64–0,73cm, parênquima grosseiro.</span><br>Sugestivo de <b>pancreatopatia crônica / infiltrado neoplásico</b>.</div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="warn">Ecogenicidade reduzida — toxemia, desidratação ou hepatopatia aguda.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text">Paredes normais (0,12cm). <span class="warn">Conteúdo hiperecogênico aderido — cristais/sedimento.</span></div></div>
+          <div class="us-item"><div class="us-organ">🍃 Intestino / Baço / Adrenais</div><div class="us-text"><span class="ok">Intestino normal. Baço normal. Adrenais esq 0,76cm / dir 0,95cm — normais.</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div id="biscoito-historico" class="inner-pane">
+      <div class="section-title">📅 Linha do tempo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">27/02/2026</div><div class="tl-label">Hemograma + Bioquímica</div></div>
+        <div class="tl-item"><div class="tl-dot">🧪</div><div class="tl-date">06/03/2026</div><div class="tl-label">Ureia + Creatinina</div></div>
+        <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">11/03/2026</div><div class="tl-label">Ultrassom abdominal</div></div>
+        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">31/03/2026</div><div class="tl-label">Furanil pomada · Peso 6,5kg</div></div>
+        <div class="tl-item"><div class="tl-dot">🫁</div><div class="tl-date">01/04/2026</div><div class="tl-label">Rx tórax + cervical</div></div>
+        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">16/04/2026</div><div class="tl-label">Seretide + Macrogard + Dieta renal</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">12/05/2026</div><div class="tl-label">Hemograma + Bioquímica + Fósforo</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">15/05/2026</div><div class="tl-label">🆕 US — infartos bilaterais + pâncreas</div></div>
+        <div class="tl-item"><div class="tl-dot new">💧</div><div class="tl-date">21/05/2026</div><div class="tl-label">🆕 Fluidoterapia SC — Ringer 200ml 2x/sem</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Hemograma + Bioquímica — Creatinina 2,08 🎉 IRIS 2 · VetFácil · Animall Vet</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 US abdômen total — infartos bilaterais estáveis · pâncreas grosseiro · Vet To Go</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧬</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Urina Tipo 1 + RPCU 0,06 — Lyra Lab (normal ✅)</div></div>
+        <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">10/08/2026</div><div class="tl-label">🆕 Consulta nefrologia (Dra. Bárbara) — quelante de fósforo prescrito · encaminhamento gastro Dra. Gabriele · repetir exames em 30 dias</div></div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">💊 Histórico de Medicações</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Mar–Abr/2026</div>
+          <div class="rx-item"><div class="rx-drug">Furanil® Pomada</div><div class="rx-dose">2x ao dia por 10 dias</div><div class="rx-date">Lesão de pele</div></div>
+          <div class="rx-item"><div class="rx-drug">Seretide 25/125mcg</div><div class="rx-dose">1 puff 2x ao dia por 30 dias</div><div class="rx-date">Asma felina</div></div>
+          <div class="rx-item"><div class="rx-drug">Macrogard Pasta</div><div class="rx-dose">2g a cada 24h por 15 dias</div><div class="rx-date">Imunomodulador</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">21/05/2026</div>
+          <div class="rx-item"><div class="rx-drug">💧 Ringer Lactato SC</div><div class="rx-dose">200ml, 2x por semana</div><div class="rx-date">Controle desidratação DRC</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">10/08/2026 · Nefro (Dra. Bárbara) 🆕</div>
+          <div class="rx-item"><div class="rx-drug">💊 Quelante de fósforo</div><div class="rx-dose">Junto às refeições principais (2–3x/dia)</div><div class="rx-date">Alvo: fósforo ≤4,6 mg/dL — reavaliar em 30 dias</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Dieta</div>
+          <div class="rx-item"><div class="rx-drug">Dieta renal + hidratação</div><div class="rx-dose">Ômega 3 + ração renal + sachês baixo fósforo</div><div class="rx-date">RC Renal · VetLife · Pet Delícia · Kelcat · Farmina N&D</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">⚠️ A interpretação final deve ser realizada pela médica veterinária responsável.</div>
+  </div>
+</div>
+</div>
+
+
+<div id="tab-mani" class="content">
+<div class="pet-layout">
+  <div class="pet-sidebar">
+    <div class="pet-avatar-lg">🐶</div>
+    <div class="pet-name-lg">Mani</div>
+    <div class="pet-alias">Cachorra · Canino · Responsável: May</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Hemoglobina</div>
+        <div class="kpi-val kpi-red">22,2</div>
+        <div class="kpi-sub">g/dL ⚠️ jul/26</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Hematócrito</div>
+        <div class="kpi-val kpi-red">63%</div>
+        <div class="kpi-sub">ref 37–55% ⚠️</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Creatinina</div>
+        <div class="kpi-val kpi-green">1,10</div>
+        <div class="kpi-sub">mg/dL ✅ jul/26</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Ureia</div>
+        <div class="kpi-val kpi-green">37,0</div>
+        <div class="kpi-sub">mg/dL ✅ jul/26</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Identificação</div>
+    <div class="sidebar-row"><span class="sidebar-label">Nascida</span><span class="sidebar-val">25/06/2021 · 5 anos</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Castrada</span><span class="sidebar-val">Sim</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Chip</span><span class="sidebar-val" style="font-size:10px">963003100401811</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Resp.</span><span class="sidebar-val">Mayara Colin</span></div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">⚠️ Alerta</div>
+    <div style="background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:11px;font-weight:700;color:var(--red)">Policitemia suspeita</div>
+      <div style="font-size:10px;color:var(--text-muted)">Hb 22,2 + Ht 63% — investigar causa</div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Veterinário</div>
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.7">
+      Dr. Vinicius de Paula Francisco<br>CRMV 46678 · Animall Vet
+    </div>
+  </div>
+
+  <div class="pet-main">
+    <div class="inner-tabs">
+      <button class="inner-tab it-active" onclick="showInner('mani','alertas',this)">⚡ Alertas</button>
+      <button class="inner-tab" onclick="showInner('mani','exames',this)">🔬 Exames</button>
+      <button class="inner-tab" onclick="showInner('mani','historico',this)">📅 Histórico</button>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="mani-alertas" class="inner-pane ip-active">
+      <div class="section-title">🚨 Investigar</div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🩸</div>
+        <div><div class="alert-title">Policitemia — Hemoglobina 22,2 g/dL + Hematócrito 63%</div>Hemoglobina (ref. 12–18) e Hematócrito (ref. 37–55%) significativamente acima. Eritrócitos 8,77 M/mm³ (ref. até 8,50). Investigar: desidratação, policitemia vera ou hipoxia crônica.</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">✅ Positivos</div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Função renal preservada — Creatinina 1,10 e Ureia 37,0</div>Creatinina (ref. 0,5–1,6) e Ureia (ref. 10–60) totalmente dentro da normalidade. Sem indicativo de doença renal.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Bioquímica geral normal — fígado, glicose, lipídeos</div>ALT 53 U/L · FA 49 U/L · Glicose 66 · Colesterol 223 · Triglicérides 67 — todos dentro da referência.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Leucograma e plaquetas normais</div>Leucócitos 7.200/mm³ · Plaquetas 406 mil/mm³ · Morfologia celular normal. Sem sinal de infecção.</div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">📝 Resumo para veterinário</div>
+      <div class="alert-box alert-blue">
+        <div class="alert-icon">📋</div>
+        <div>
+          <div class="alert-title">Mani · 5 anos · Cachorra SRD · Chip 963003100401811</div>
+          Hemograma + Bioquímica completa em 13/07/2026 (Provet · Animall Vet · Dr. Vinicius de Paula Francisco CRMV 46678). <b>⚠️ Policitemia: Hb 22,2 g/dL e Ht 63% — acima da referência. Eritrócitos 8,77. HCM 25,3 pg levemente acima. Albumina 4,00 g/dL (levemente acima de 3,9).</b> Função renal preservada (Creat. 1,10 · Ureia 37,0). ALT/FA/Glicose/Colesterol/TG normais. Leucograma e plaquetas normais.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMES -->
+    <div id="mani-exames" class="inner-pane">
+      <div class="section-title">🩸 Hemograma — 13/07/2026 · Provet / Animall Vet</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Jul/2026 🆕</th><th>Ref. Canino</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-alert">8,77</td><td class="ref">5,5–8,5 M/mm³</td><td>⚠️ Acima</td></tr>
+            <tr><td><b>Hemoglobina</b></td><td class="val val-alert">22,2</td><td class="ref">12–18 g/dL</td><td>🔴 Policitemia</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-alert">63,0%</td><td class="ref">37–55%</td><td>🔴 Policitemia</td></tr>
+            <tr><td><b>VCM</b></td><td class="val val-ok">71,8</td><td class="ref">60–77 u³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>HCM</b></td><td class="val val-alert">25,3</td><td class="ref">19,5–24,5 pg</td><td>⚠️ Lev. acima</td></tr>
+            <tr><td><b>CHCM</b></td><td class="val val-ok">35,2</td><td class="ref">31–37,7 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>RDW</b></td><td class="val val-ok">16,1%</td><td class="ref">12–18,4%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Leucócitos</b></td><td class="val val-ok">7.200</td><td class="ref">6–17 mil/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Segmentados</b></td><td class="val val-ok">4.032</td><td class="ref">3.000–11.500/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Linfócitos</b></td><td class="val val-ok">2.088</td><td class="ref">1.000–4.800/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Plaquetas</b></td><td class="val val-ok">406 mil</td><td class="ref">179–555 mil/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Proteína total</b></td><td class="val val-ok">6,6</td><td class="ref">5,5–8,0 g/dL</td><td>🟢 Normal</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🔬 Bioquímica Histórica — 15/02/2024 · Alchemypet</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:8px;border-color:rgba(251,146,60,.25);">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Fev/2024</th><th>Ref. Canino</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-alert">9,36</td><td class="ref">5,1–8,5 M/mm³</td><td class="bad">🔴 Acima</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-alert">59%</td><td class="ref">37–56%</td><td class="bad">🔴 Policitemia</td></tr>
+            <tr><td><b>Glicose</b></td><td class="val val-alert">&lt;60</td><td class="ref">60–118 mg/dL</td><td class="bad">🔴 Hipoglicemia!</td></tr>
+            <tr><td><b>Frutosamina</b></td><td class="val val-alert">1,5 mmol/L</td><td class="ref">1,6–3,5 mmol/L</td><td class="warn">⚠️ Abaixo ref. (confirmado)</td></tr>
+            <tr><td><b>Ferro</b></td><td class="val val-alert">262 µg/dL</td><td class="ref">84–223 µg/dL</td><td class="bad">🔴 Elevado (confirmado)</td></tr>
+            <tr><td><b>Albumina</b></td><td class="val val-alert">4,2</td><td class="ref">2,3–3,9 g/dL</td><td class="warn">⚠️ Acima ref.</td></tr>
+            <tr><td><b>Ureia</b></td><td class="val val-ok">38</td><td class="ref">10–60 mg/dL</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-ok">1,1</td><td class="ref">0,5–1,6 mg/dL</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>ALT</b></td><td class="val val-ok">51</td><td class="ref">7–92 U/L</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>FA</b></td><td class="val val-ok">36</td><td class="ref">10–155 U/L</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Colesterol</b></td><td class="val val-ok">224</td><td class="ref">116–300 mg/dL</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Triglicérides</b></td><td class="val val-ok">107</td><td class="ref">32–125 mg/dL</td><td class="ok">✅ Normal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert-box alert-yellow" style="margin-bottom:14px;">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Hipoglicemia + Frutosamina baixa (fev/2024) — exames repetidos e confirmados</div>Glicose &lt;60 mg/dL e frutosamina 1,5 mmol/L. Laboratorio confirmou repetindo a coleta. Policitemia + ferro elevado associados. <b>Reavaliação em contexto clínico atual necessária.</b></div>
+      </div>
+
+      <div class="section-title">🔬 Bioquímica — 13/07/2026 · Provet / Animall Vet</div>
+      <div class="card" style="overflow-x:auto;margin-bottom:14px">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Jul/2026 🆕</th><th>Ref. Canino</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Ureia</b></td><td class="val val-ok">37,0</td><td class="ref">10–60 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-ok">1,10</td><td class="ref">0,5–1,6 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>ALT (TGP)</b></td><td class="val val-ok">53</td><td class="ref">7–92 U/L</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Fosfatase Alcalina</b></td><td class="val val-ok">49</td><td class="ref">10–155 U/L</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Proteína Total</b></td><td class="val val-ok">6,50</td><td class="ref">5,3–7,7 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Albumina</b></td><td class="val val-alert">4,00</td><td class="ref">2,3–3,9 g/dL</td><td>⚠️ Lev. acima</td></tr>
+            <tr><td><b>Globulinas</b></td><td class="val val-ok">2,50</td><td class="ref">2,4–4,8 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Glicose</b></td><td class="val val-ok">66,0</td><td class="ref">60–118 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Colesterol Total</b></td><td class="val val-ok">223</td><td class="ref">116–300 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Triglicérides</b></td><td class="val val-ok">67,0</td><td class="ref">32–125 mg/dL</td><td>🟢 Normal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div id="mani-historico" class="inner-pane">
+      <div class="section-title">📅 Linha do tempo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">15/02/2024</div><div class="tl-label">Bioquímica Alchemypet · Hipoglicemia &lt;60🔴 + Frutosamina baixa⚠️ + Ferro 262🔴 (confirmados)</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">13/07/2026</div><div class="tl-label">🆕 Hemograma + Bioquímica completa — Provet · Animall Vet · Dr. Vinicius</div></div>
+      </div>
+    </div>
+
+    <div class="notice">⚠️ A interpretação final deve ser realizada pela médica veterinária responsável.</div>
+  </div>
+</div>
+</div>
+
+
+<div id="tab-weed" class="content">
+<div class="pet-layout">
+
+  <!-- SIDEBAR -->
+  <div class="pet-sidebar">
+    <div class="pet-avatar-lg">🐶</div>
+    <div class="pet-name-lg">Weed</div>
+    <div class="pet-alias">Pastor de Shetland · Macho Castrado</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">FA</div>
+        <div class="kpi-val kpi-red">2.066</div>
+        <div class="kpi-sub">U/L ago/2026 🚨</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">ALT</div>
+        <div class="kpi-val kpi-red">115</div>
+        <div class="kpi-sub">U/L ago/2026 ⚠️</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Creatinina</div>
+        <div class="kpi-val kpi-green">0,70</div>
+        <div class="kpi-sub">mg/dL ago/2026 ✅</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Ureia</div>
+        <div class="kpi-val kpi-red">78</div>
+        <div class="kpi-sub">mg/dL ago/2026 🔴</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Identificação</div>
+    <div class="sidebar-row"><span class="sidebar-label">Nascido</span><span class="sidebar-val">07/09/2014 · ~11a 11m</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Castrado</span><span class="sidebar-val">Sim</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Chip</span><span class="sidebar-val" style="font-size:10px">900164000715127</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Resp.</span><span class="sidebar-val">Mayara / Yuri</span></div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Status</div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px;">
+      <span class="badge badge-urg">Neoformação Bexiga 🚨</span>
+      <span class="badge badge-urg">Adrenais bilaterais</span>
+      <span class="badge badge-watch">FA 2066↑↑↑</span>
+      <span class="badge badge-watch">Hepatomegalia</span>
+      <span class="badge badge-watch">Cardiopatia mitral</span>
+      <span class="badge badge-watch">Espondiloses L1–L5</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Próximos passos</div>
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.8">
+      🔴 Oncologista/Cirurgião — neoformação bexiga<br>
+      🔴 Endocrinologista — adrenais + FA (Cushing?)<br>
+      ⚠️ Cardiologista — revisão valvopatia + arritmia<br>
+      ⚠️ Ortopedista — espondilose + coxofemoral<br>
+      ⚠️ Repetir bioquímica em 30 dias
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="pet-main">
+    <div class="inner-tabs">
+      <button class="inner-tab it-active" onclick="showInner('weed','alertas',this)">⚡ Alertas</button>
+      <button class="inner-tab" onclick="showInner('weed','exames',this)">🔬 Exames</button>
+      <button class="inner-tab" onclick="showInner('weed','imagem',this)">🔊 Imagem</button>
+      <button class="inner-tab" onclick="showInner('weed','cardio',this)">❤️ Cardíaco</button>
+      <button class="inner-tab" onclick="showInner('weed','historico',this)">📅 Histórico</button>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="weed-alertas" class="inner-pane ip-active">
+      <div class="section-title">🚨 Críticos — Ação Urgente</div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🚨</div>
+        <div><div class="alert-title">Neoformação bexiga urinária — 4,50×1,62×2,92cm (Insight Vet 12/08/2026)</div>Doppler+, ocupa ~80% do lúmen. 4 litíases associadas (0,30–0,67cm). <b>Avaliação oncológica/cirúrgica urgente.</b> Diferencial principal: carcinoma de células de transição (TCC).</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🔴</div>
+        <div><div class="alert-title">FA 2.066 U/L — pico histórico (07/08/2026)</div>Evolução: 185→275→528→1187→328→<b>2.066</b> U/L. GGT 38🔴, Ureia 78🔴. Hepatopatia severa — diferencial: hepatopatia esteróide (hiperadrenocortisolismo/Cushing), colangiopatia, neoplasia hepática.</div>
+      </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🔴</div>
+        <div><div class="alert-title">Nódulo adrenal DIR 1,91×1,90cm (Insight Vet 12/08/2026)</div>Polo caudal adrenal direita. Tamanho significativo. Diferencial: feocromocitoma, adenoma adrenocortical, carcinoma adrenal. <b>Avaliação endocrinológica urgente.</b></div>
+      </div>
+
+      <div class="section-title">⚠️ Atenção — Monitoramento Ativo</div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Nódulo adrenal ESQ 0,91×0,77cm — bilateral</div>Polo cranial adrenal esquerda. Acometimento bilateral sugere hiperadrenocortisolismo (Cushing) vs. neoplasia adrenal bilateral. Dosagem de cortisol basal + teste ACTH indicados.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Hepatomegalia acentuada + hiperecogenicidade crônica</div>Presente desde out/2023, em progressão. Lama biliar densa. Área ovalada na vesícula biliar 1,92×0,98cm (out/2024) — pólipo/concreção/neoplásico ainda não esclarecido.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Valvopatia mixomatosa mitral + parada sinusal</div>Eco (17/02/2024): insuficiência mitral + tricúspide grau discreto. ECG: arritmia sinusal com marcapasso migratório, parada sinusal R-R 1s, sobrecarga átrio esquerdo. Reavaliação cardiológica indicada.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Urólitos vesicais ≥6 — desde 2023 (maior 0,6–0,88cm)</div>US ago/2026: ≥6 cálculos (maior 0,6cm). Presença documentada por RX desde out/2023. Podem estar associados à neoformação vesical.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Espondiloses anquilosantes L1–L5 + diminuição espaços intervertebrais</div>RX 11/08/2026: L1-2, L2-3, L4-5 com espondiloses ventrais anquilosantes; L1-2, L2-3, L4-5, L5-6 com diminuição de espaços. Articulação coxofemoral ESQ incongruente. Analgesia e fisioterapia indicadas.</div>
+      </div>
+      <div class="alert-box alert-yellow">
+        <div class="alert-icon">🩸</div>
+        <div><div class="alert-title">Anemia discreta — hemograma ago/2026 (amostra hemolisada)</div>Ht 37%⚠️, Hb 13,3⚠️, hemácias 4,99⚠️. Monócitos 7% levemente elevados. Pode refletir processo inflamatório crônico/hepático. Repetir coleta.</div>
+      </div>
+
+      <div class="section-title">✅ Estáveis</div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Função renal preservada — creatinina 0,70 mg/dL (ago/2026)</div>Rins com tamanho adequado (5,37 / 5,01cm). Cistos corticais RE (maior 1,60cm) e mineralizações pélvicas RD — monitoramento por US.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Lipoma abdominal — benigno (PAAF fev/2024)</div>Sem transformação maligna documentada.</div>
+      </div>
+    </div>
+
+    <!-- EXAMES -->
+    <div id="weed-exames" class="inner-pane">
+      <div class="section-title">📊 Bioquímica — Evolução Cronológica</div>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+        <table class="cmp-table">
+          <thead>
+            <tr><th>Data</th><th>Lab</th><th>FA</th><th>ALT</th><th>Creatinina</th><th>Ureia</th><th>Colesterol</th><th>Trigl.</th><th>Outros</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fev/2023</td><td style="font-size:11px">UrbanVet</td>
+              <td class="val val-warn">185,2 ⚠️</td><td class="val">—</td>
+              <td class="val val-ok">0,6 ✅</td><td class="val">—</td>
+              <td class="val val-ok">205,6 ✅</td><td class="val val-warn">143,9 ⚠️</td>
+              <td class="ref">—</td>
+            </tr>
+            <tr>
+              <td>17/10/2023</td><td style="font-size:11px">UrbanVet</td>
+              <td class="val val-warn">275,8 ⚠️</td><td class="val val-ok">74,1 ✅</td>
+              <td class="val val-ok">1,3 ✅</td><td class="val val-ok">42,3 ✅</td>
+              <td class="val val-alert">312,3 🔴</td><td class="val val-ok">87,2 ✅</td>
+              <td class="ref">PT 8,4⚠️ · Glob 5,4⚠️</td>
+            </tr>
+            <tr>
+              <td>24/01/2024</td><td style="font-size:11px">Alchemypet</td>
+              <td class="val val-alert">528 🔴</td><td class="val val-ok">28 ✅</td>
+              <td class="val val-ok">0,8 ✅</td><td class="val val-warn">52 ⚠️</td>
+              <td class="val val-alert">482 🔴</td><td class="val val-alert">494 🔴</td>
+              <td class="ref">Fósforo 10,1🔴 · Ferro 72⚠️</td>
+            </tr>
+            <tr>
+              <td>30/10/2024</td><td style="font-size:11px">WeVets</td>
+              <td class="val val-alert" style="font-weight:900">1187 🔴🔴</td><td class="val val-warn">96 ⚠️</td>
+              <td class="val val-ok">0,60 ✅</td><td class="val val-ok">28,7 ✅</td>
+              <td class="val val-alert">419 🔴</td><td class="val val-alert">272 🔴</td>
+              <td class="ref">Albumina 4,4⚠️</td>
+            </tr>
+            <tr>
+              <td>18/02/2025</td><td style="font-size:11px">WeVets</td>
+              <td class="val val-warn">328 ⚠️</td><td class="val val-ok">44 ✅</td>
+              <td class="val val-ok">0,90 ✅</td><td class="val val-ok">34,8 ✅</td>
+              <td class="val val-ok">355 ✅</td><td class="val val-ok">73 ✅</td>
+              <td class="ref">Albumina 3,5✅</td>
+            </tr>
+            <tr style="background:rgba(248,113,113,.07);">
+              <td><b>07/08/2026</b></td><td style="font-size:11px">Provet/Origami</td>
+              <td class="val val-alert" style="font-weight:900;font-size:14px">2.066 🔴🔴🔴</td>
+              <td class="val val-alert">115 🔴</td>
+              <td class="val val-ok">0,70 ✅</td><td class="val val-alert">78 🔴</td>
+              <td class="val">—</td><td class="val">—</td>
+              <td class="ref">GGT 38🔴</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">🩸 Hemograma — Notas por Data</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Out/2023 — UrbanVet</div>
+          <div style="font-size:12px;color:var(--green)">✅ Normal</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Jan/2024 — Alchemypet</div>
+          <div style="font-size:12px"><span class="val-warn">⚠️ Plaquetose 740.000</span> · restante normal</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Out/2024 — WeVets</div>
+          <div style="font-size:12px">PT 9,2 ⚠️ · Linfócitos reativos · restante normal</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Fev/2025 — WeVets</div>
+          <div style="font-size:12px;color:var(--green)">✅ Normal</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:8px;border-color:rgba(248,113,113,.3);">
+        <div class="card-title" style="color:var(--red)">07/08/2026 — Provet/Origami 🚨 Amostra hemolisada</div>
+        <div style="font-size:12px;line-height:1.9">
+          <span class="val-warn">Ht 37% ⚠️</span> · <span class="val-warn">Hb 13,3 ⚠️</span> · <span class="val-warn">Hemácias 4,99 ⚠️</span> → <b>Anemia discreta</b><br>
+          Monócitos 7% ⚠️ · <span style="color:var(--text-muted)">Repetir coleta em amostra não hemolisada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGEM -->
+    <div id="weed-imagem" class="inner-pane">
+      <div class="section-title">🔊 US Insight Vet — 12/08/2026 🚨 MAIS RECENTE</div>
+      <div class="card" style="margin-bottom:10px;border-color:rgba(248,113,113,.35);">
+        <div class="us-item" style="border:1px solid rgba(248,113,113,.4);">
+          <div class="us-organ bad">🚨 Bexiga Urinária — NEOFORMAÇÃO</div>
+          <div class="us-text">Massa <b>4,50×1,62×2,92cm</b>, Doppler+, ~80% do lúmen. 4 litíases associadas (0,30–0,67cm). <b>Avaliação oncológica URGENTE — suspeita TCC.</b></div>
+        </div>
+        <div class="us-item">
+          <div class="us-organ warn">Fígado / Vesícula</div>
+          <div class="us-text">Hepatomegalia acentuada + hiperecogenicidade. Lama biliar. Compatível com hepatopatia/endocrinopatia.</div>
+        </div>
+        <div class="us-item" style="border:1px solid rgba(248,113,113,.3);">
+          <div class="us-organ bad">Adrenal DIR — Nódulo 1,91×1,90cm 🔴</div>
+          <div class="us-text">Polo caudal. Tamanho expressivo. Diferencial: feocromocitoma / adenoma / carcinoma adrenal.</div>
+        </div>
+        <div class="us-item" style="border:1px solid rgba(251,146,60,.3);">
+          <div class="us-organ warn">Adrenal ESQ — Nódulo 0,91×0,77cm ⚠️</div>
+          <div class="us-text">Polo cranial. Bilateral → hiperadrenocortisolismo vs. neoplasia adrenal bilateral.</div>
+        </div>
+        <div class="us-item">
+          <div class="us-organ">Rins</div>
+          <div class="us-text">RE 5,37cm — cistos corticais (maior 1,60cm). RD 5,01cm — mineralizações pélvicas.</div>
+        </div>
+        <div class="us-item">
+          <div class="us-organ warn">Pâncreas</div>
+          <div class="us-text">1,58cm grosseiro ⚠️ — pancreatite crônica?</div>
+        </div>
+      </div>
+
+      <div class="section-title">🔊 US WeVets — 18/02/2025</div>
+      <div class="card" style="margin-bottom:10px;">
+        <div class="us-item"><div class="us-organ warn">Fígado</div><div class="us-text">Hepatomegalia (3,37cm além das costelas), ecogenicidade elevada, lama biliar densa.</div></div>
+        <div class="us-item"><div class="us-organ warn">Pâncreas</div><div class="us-text">0,85cm grosseiro ⚠️.</div></div>
+        <div class="us-item"><div class="us-organ warn">Baço</div><div class="us-text">Esplenomegalia leve.</div></div>
+        <div class="us-item"><div class="us-organ">Rins</div><div class="us-text">RE 5,04cm / RD 5,14cm · Microcálculos RE.</div></div>
+        <div class="us-item"><div class="us-organ">Adrenais</div><div class="us-text">ESQ 1,63cm normal. DIR não caracterizada.</div></div>
+        <div class="us-item"><div class="us-organ warn">Bexiga</div><div class="us-text">Cálculos 0,44 / 0,29 / 0,39cm.</div></div>
+      </div>
+
+      <div class="section-title">🔊 US WeVets — 31/10/2024</div>
+      <div class="card" style="margin-bottom:10px;">
+        <div class="us-item"><div class="us-organ warn">Fígado</div><div class="us-text">Hepatomegalia discreta, nódulos hipoecogênicos 0,41cm e 1,06cm.</div></div>
+        <div class="us-item" style="border:1px solid rgba(250,204,21,.3);"><div class="us-organ warn">⚠️ Vesícula Biliar</div><div class="us-text">Lama biliar + <b>área ovalada ecogênica aderida à parede ventral: 1,92×0,98cm</b> — concreção / pólipo / neoplásico? A ESCLARECER.</div></div>
+        <div class="us-item"><div class="us-organ warn">Duodeno</div><div class="us-text">Espessado 0,52cm ⚠️.</div></div>
+        <div class="us-item"><div class="us-organ warn">Baço</div><div class="us-text">Esplenomegalia + nódulo hipoecogênico 0,50×0,46cm (hiperplasia nodular?).</div></div>
+        <div class="us-item"><div class="us-organ">Rins</div><div class="us-text">RE 5,39cm / RD 5,02cm — cortical hiperecogênica.</div></div>
+        <div class="us-item"><div class="us-organ warn">Bexiga</div><div class="us-text">1 cálculo 0,88cm.</div></div>
+      </div>
+
+      <div class="section-title">🩻 Radiografias</div>
+      <div class="card" style="margin-bottom:8px;border-color:rgba(251,146,60,.3);">
+        <div class="card-title" style="color:var(--orange)">RX Coluna Lombar + Pelve + Joelhos — M.V. Guilherme Cain/Origami · 11/08/2026</div>
+        <div style="font-size:12px;line-height:1.9">
+          <span class="val-warn">Diminuição espaços intervertebrais:</span> L1-2, L2-3, L4-5, L5-6<br>
+          <span class="val-warn">Espondiloses ventrais anquilosantes:</span> L1-2, L2-3, L4-5<br>
+          <span class="val-warn">Articulação coxofemoral ESQ incongruente</span> ⚠️<br>
+          <span class="val-warn">Urólitos vesicais ≥6</span> (maior ~0,6cm)
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:8px;">
+        <div class="card-title">RX Pelve + Membros Pélvicos — CDXVet/Urban Pet · 23/10/2023</div>
+        <div style="font-size:12px;line-height:1.9">
+          Coxofemorais OK · Discreta degeneração trocanter maior fêmur ESQ · Entesófito tíbia ESQ<br>
+          <span class="val-warn">Suspeita litíase vesical (documentada desde 2023!)</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">RX Cotovelos + Joelhos Bilaterais — CDXVet/Urban Pet · 13/09/2023</div>
+        <div style="font-size:12px;color:var(--green)">✅ Normal</div>
+      </div>
+    </div>
+
+    <!-- CARDÍACO -->
+    <div id="weed-cardio" class="inner-pane">
+      <div class="section-title">❤️ Ecocardiograma — 17/02/2024</div>
+      <div class="card" style="margin-bottom:10px;border-color:rgba(251,146,60,.3);">
+        <div style="font-size:12px;line-height:1.9">
+          <span class="val-warn">Valvopatia mixomatosa mitral (VMM)</span> — prolapso de valva mitral<br>
+          <span class="val-warn">Insuficiência mitral grau discreto</span><br>
+          <span class="val-warn">Insuficiência tricúspide grau discreto</span><br>
+          <span class="ok">Baixa probabilidade de HAS pulmonar ✅</span><br>
+          Funções sistólica e diastólica preservadas
+        </div>
+      </div>
+
+      <div class="section-title">⚡ ECG — 17/02/2024</div>
+      <div class="card" style="margin-bottom:10px;border-color:rgba(248,113,113,.3);">
+        <div style="font-size:12px;line-height:1.9">
+          <span class="val-warn">Arritmia sinusal com marcapasso migratório</span><br>
+          <span class="val-alert"><b>Parada sinusal — intervalo R-R de 1 segundo</b></span><br>
+          <span class="val-warn">Sobrecarga átrio esquerdo</span>
+        </div>
+      </div>
+
+      <div class="section-title">🔬 Outros Procedimentos</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">PAAF Nódulo Abdominal — Alchemypet · 03/02/2024</div>
+          <div style="font-size:12px;color:var(--green)">✅ Lipoma sugestivo — benigno</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Citologia Auricular — TECSA · 14/02/2025</div>
+          <div style="font-size:12px;color:var(--green)">✅ Bilateral normal — cocos gram+, sem inflamação</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div id="weed-historico" class="inner-pane">
+      <div class="section-title">📅 Linha do tempo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">Fev/2023</div><div class="tl-label">Bioquímica UrbanVet · FA 185⚠️ Colesterol 205✅</div></div>
+        <div class="tl-item"><div class="tl-dot">🩻</div><div class="tl-date">13/09/2023</div><div class="tl-label">RX cotovelos + joelhos · Normal</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">17/10/2023</div><div class="tl-label">Bioquímica UrbanVet · FA 275↑ Colesterol 312🔴</div></div>
+        <div class="tl-item"><div class="tl-dot warn">🩻</div><div class="tl-date">23/10/2023</div><div class="tl-label">RX pelve · Entesófito + suspeita litíase vesical</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">24/01/2024</div><div class="tl-label">Bioquímica Alchemypet · FA 528🔴 Colesterol 482🔴 Trigl. 494🔴</div></div>
+        <div class="tl-item"><div class="tl-dot">🔬</div><div class="tl-date">03/02/2024</div><div class="tl-label">PAAF nódulo abdominal · Lipoma benigno ✅</div></div>
+        <div class="tl-item"><div class="tl-dot">❤️</div><div class="tl-date">17/02/2024</div><div class="tl-label">Eco + ECG · VMM + parada sinusal R-R 1s</div></div>
+        <div class="tl-item"><div class="tl-dot">👂</div><div class="tl-date">14/02/2025</div><div class="tl-label">Citologia auricular TECSA · Normal bilateral ✅</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">18/02/2025</div><div class="tl-label">Bioquímica WeVets · FA 328↓ melhora parcial</div></div>
+        <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">18/02/2025</div><div class="tl-label">US WeVets · Hepatomegalia + cálculos bexiga</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">30/10/2024</div><div class="tl-label">Bioquímica WeVets · FA 1187🔴🔴</div></div>
+        <div class="tl-item"><div class="tl-dot warn">🔊</div><div class="tl-date">31/10/2024</div><div class="tl-label">US WeVets · Área ovalada VB 1,92cm⚠️ · nódulo esplênico</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">07/08/2026</div><div class="tl-label">🆕 Bioquímica Provet/Origami · FA 2.066🔴🔴🔴 pico histórico!</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩻</div><div class="tl-date">11/08/2026</div><div class="tl-label">🆕 RX coluna/pelve · Espondiloses anquilosantes L1–L5</div></div>
+        <div class="tl-item"><div class="tl-dot new">🚨</div><div class="tl-date">12/08/2026</div><div class="tl-label">🆕 US Insight Vet · NEOFORMAÇÃO bexiga 4,50cm (Doppler+) + nódulos adrenais bilaterais</div></div>
+      </div>
+    </div>
+
+    <div class="notice">⚠️ A interpretação final deve ser realizada pelo médico veterinário responsável.</div>
+  </div>
+</div>
+</div>
+
+
+<div id="tab-kali" class="content">
+<div class="pet-layout">
+
+  <!-- SIDEBAR -->
+  <div class="pet-sidebar">
+    <div class="pet-avatar-lg">🐱</div>
+    <div class="pet-name-lg">Kali</div>
+    <div class="pet-alias">Gata SRD · Fêmea</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Creatinina</div>
+        <div class="kpi-val kpi-orange">1,90</div>
+        <div class="kpi-sub">mg/dL out/2024 ⚠️</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Ureia</div>
+        <div class="kpi-val kpi-green">42,3</div>
+        <div class="kpi-sub">mg/dL out/2024 ✅</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">IRIS</div>
+        <div class="kpi-val kpi-orange">2?</div>
+        <div class="kpi-sub">borderline — repetir</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">ALT</div>
+        <div class="kpi-val kpi-green">36</div>
+        <div class="kpi-sub">U/L out/2024 ✅</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Identificação</div>
+    <div class="sidebar-row"><span class="sidebar-label">Nascida</span><span class="sidebar-val">31/10/2020 · ~5a 9m</span></div>
+    <div class="sidebar-row"><span class="sidebar-label">Resp.</span><span class="sidebar-val">Yuri</span></div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Status</div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px;">
+      <span class="badge badge-watch">Creatinina borderline</span>
+      <span class="badge badge-watch">Infarto renal RD</span>
+      <span class="badge badge-stable">Exames out/2024</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">Próximos passos</div>
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.8">
+      ⚠️ Repetir bioquímica — confirmar creatinina<br>
+      ⚠️ US de controle — infarto renal RD<br>
+      ⚠️ Confirmar ou excluir DRC IRIS 2
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="pet-main">
+    <div class="inner-tabs">
+      <button class="inner-tab it-active" onclick="showInner('kali','alertas',this)">⚡ Alertas</button>
+      <button class="inner-tab" onclick="showInner('kali','exames',this)">🔬 Exames</button>
+      <button class="inner-tab" onclick="showInner('kali','imagem',this)">🔊 Imagem</button>
+      <button class="inner-tab" onclick="showInner('kali','historico',this)">📅 Histórico</button>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="kali-alertas" class="inner-pane ip-active">
+      <div class="section-title">⚠️ Atenção — Monitoramento</div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Creatinina 1,90 mg/dL — borderline IRIS 2 (out/2024)</div>Acima do ref. felino (0,6–1,8 mg/dL). Único ponto de dados disponível — <b>necessário repetir para confirmar DRC IRIS 2.</b> Ureia 42,3 normal. Monitorar.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">⚠️</div>
+        <div><div class="alert-title">Infarto renal cortical — rim direito (US 25/02/2025)</div>Área 0,88×0,67cm. Monitorar com US seriado. Avaliar causa — tromboembolismo, doença inflamatória intestinal, cardiopatia?</div>
+      </div>
+      <div class="alert-box alert-yellow">
+        <div class="alert-icon">🔬</div>
+        <div><div class="alert-title">Albumina 4,7 g/dL — acima do ref. felino (2,7–3,9)</div>Leve elevação — pode indicar desidratação relativa. Gama GT 5,0 no limite superior. Repetir.</div>
+      </div>
+      <div class="alert-box alert-yellow">
+        <div class="alert-icon">🔬</div>
+        <div><div class="alert-title">Imagem gástrica suspeita 1,50cm (US fev/2025)</div>Possível corpo estranho? Intestinos normais. Reavaliar se surgir sintomatologia digestiva.</div>
+      </div>
+
+      <div class="section-title">✅ Estáveis</div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Hemograma (out/2024)</div>Leucócitos 11.500 com linfócitos reativos leves. Plaquetas 230.000 (limite inferior). Série vermelha normal.</div>
+      </div>
+      <div class="alert-box alert-green">
+        <div class="alert-icon">✅</div>
+        <div><div class="alert-title">Fígado, pâncreas, baço, adrenais e bexiga normais (US fev/2025)</div>Pâncreas 0,64cm ✅. Adrenais normais. Bexiga normal.</div>
+      </div>
+    </div>
+
+    <!-- EXAMES -->
+    <div id="kali-exames" class="inner-pane">
+      <div class="section-title">🩸 Hemograma — WeVets · 31/10/2024</div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="font-size:12px;line-height:1.9">
+          <span class="ok">Leucócitos 11.500 ✅</span> · Linfócitos reativos leves<br>
+          <span class="warn">Plaquetas 230.000 ⚠️</span> — limite inferior ref. (230–600 mil) — monitorar<br>
+          Série vermelha: normal
+        </div>
+      </div>
+
+      <div class="section-title">🔬 Bioquímica — WeVets · 31/10/2024</div>
+      <div class="card" style="overflow-x:auto;">
+        <table class="cmp-table">
+          <thead><tr><th>Parâmetro</th><th>Out/2024</th><th>Ref. Felino</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Ureia</b></td><td class="val val-ok">42,3</td><td class="ref">20–65 mg/dL</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-warn">1,90</td><td class="ref">0,6–1,8 mg/dL</td><td class="warn">⚠️ Borderline IRIS 2</td></tr>
+            <tr><td><b>ALT (TGP)</b></td><td class="val val-ok">36</td><td class="ref">12–130 U/L</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Fosfatase Alcalina</b></td><td class="val val-ok">25</td><td class="ref">14–111 U/L</td><td class="ok">✅ Normal</td></tr>
+            <tr><td><b>Albumina</b></td><td class="val val-warn">4,7</td><td class="ref">2,7–3,9 g/dL</td><td class="warn">⚠️ Acima ref.</td></tr>
+            <tr><td><b>Gama GT</b></td><td class="val val-warn">5,0</td><td class="ref">&lt;5,0 U/L</td><td class="warn">⚠️ No limite</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- IMAGEM -->
+    <div id="kali-imagem" class="inner-pane">
+      <div class="section-title">🔊 US Abdominal — WeVets · 25/02/2025</div>
+      <div class="us-item"><div class="us-organ ok">🫀 Fígado</div><div class="us-text"><span class="ok">Normal ✅</span></div></div>
+      <div class="us-item" style="border:1px solid rgba(251,146,60,.3);"><div class="us-organ warn">🍽️ Estômago</div><div class="us-text">Imagem hiperecogênica de 1,50cm — possível corpo estranho? Reavaliar se sintomas.</div></div>
+      <div class="us-item"><div class="us-organ ok">🫧 Intestinos</div><div class="us-text"><span class="ok">Normais ✅</span></div></div>
+      <div class="us-item"><div class="us-organ ok">🍃 Pâncreas</div><div class="us-text"><span class="ok">0,64cm ✅ — normal</span></div></div>
+      <div class="us-item"><div class="us-organ ok">🫧 Baço</div><div class="us-text"><span class="ok">Normal ✅</span></div></div>
+      <div class="us-item" style="border:1px solid rgba(248,113,113,.3);"><div class="us-organ bad">🫘 Rins</div><div class="us-text">
+        RE: 3,44cm — normal ✅<br>
+        RD: 3,43cm — normal, porém <span class="bad"><b>infarto renal cortical: 0,88×0,67cm 🔴</b> — área isquêmica</span>
+      </div></div>
+      <div class="us-item"><div class="us-organ ok">🔵 Adrenais</div><div class="us-text"><span class="ok">Normais ✅</span></div></div>
+      <div class="us-item"><div class="us-organ ok">🫧 Bexiga</div><div class="us-text"><span class="ok">Normal ✅</span></div></div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div id="kali-historico" class="inner-pane">
+      <div class="section-title">📅 Linha do tempo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">31/10/2024</div><div class="tl-label">Hemograma + Bioquímica WeVets · Creatinina 1,90⚠️</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">25/02/2025</div><div class="tl-label">🆕 US Abdominal WeVets · Infarto renal RD 0,88cm</div></div>
+      </div>
+    </div>
+
+    <div class="notice">⚠️ A interpretação final deve ser realizada pela médica veterinária responsável.</div>
+  </div>
+</div>
+</div>
+
+
+<div id="tab-fin" class="content">
+<div class="fin-layout">
+
+  <!-- KPIs -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--text-muted);font-weight:600;">📆 Ano:</span>
+      <select id="year-select" class="month-dropdown" style="min-width:90px;" onchange="renderFin()">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div style="font-size:10px;color:var(--text-muted)">Clique no ano para filtrar os totais abaixo</div>
+  </div>
+  <div class="fin-kpi-row" style="grid-template-columns:repeat(5,1fr);">
+    <div class="fin-kpi"><div class="fk-label">💰 Total geral</div><div class="fk-val" id="tot-geral">—</div><div class="fk-sub" id="tot-geral-sub">todos os pets</div></div>
+    <div class="fin-kpi" style="border-top:2px solid var(--accent-panty)"><div class="fk-label">🐱 Panty</div><div class="fk-val" style="color:var(--accent-panty)" id="tot-panty">—</div><div class="fk-sub" id="tot-panty-sub">acumulado</div></div>
+    <div class="fin-kpi" style="border-top:2px solid var(--accent-biscoito)"><div class="fk-label">🐱 Biscoito</div><div class="fk-val" style="color:var(--accent-biscoito)" id="tot-biscoito">—</div><div class="fk-sub" id="tot-biscoito-sub">acumulado</div></div>
+    <div class="fin-kpi" style="border-top:2px solid var(--accent-mani)"><div class="fk-label">🐶 Mani</div><div class="fk-val" style="color:var(--accent-mani)" id="tot-mani">—</div><div class="fk-sub" id="tot-mani-sub">acumulado</div></div>
+    <div class="fin-kpi"><div class="fk-label">📅 Mês atual</div><div class="fk-val" id="tot-mes">—</div><div class="fk-sub">mai/2026</div></div>
+  </div>
+
+  <!-- GRÁFICO + SPLIT -->
+  <div class="fin-top-row">
+    <div class="fin-chart-card">
+      <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">📈 Evolução mensal <span style="font-size:10px;font-weight:400;opacity:.7">(clique para filtrar)</span></div>
+      <div id="bar-chart"></div>
+    </div>
+    <div class="fin-pet-split">
+      <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">🐾 Por pet</div>
+      <div id="pet-split-bars"></div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+    <span style="font-size:11px;color:var(--text-muted);font-weight:600;">📅 Mês:</span>
+    <select id="month-select" class="month-dropdown" onchange="setMonthFilter(this.value||null)">
+      <option value="">Todos os meses</option>
+    </select>
+    <span style="font-size:11px;color:var(--text-muted);font-weight:600;margin-left:6px;">🐾 Pet:</span>
+    <button id="pfbtn-all" onclick="setPetFilter(null)" style="padding:4px 10px;border-radius:20px;border:1px solid var(--accent-fin);background:var(--accent-fin);color:#000;font-size:11px;font-weight:700;cursor:pointer;">Todos</button>
+    <button id="pfbtn-Panty" onclick="setPetFilter('Panty')" style="padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;font-weight:600;cursor:pointer;">🐱 Panty</button>
+    <button id="pfbtn-Biscoito" onclick="setPetFilter('Biscoito')" style="padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;font-weight:600;cursor:pointer;">🐱 Biscoito</button>
+    <button id="pfbtn-Mani" onclick="setPetFilter('Mani')" style="padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;font-weight:600;cursor:pointer;">🐶 Mani</button>
+  </div>
+
+  <!-- CARDS MENSAIS -->
+  <div id="month-cards"></div>
+
+  <!-- ADICIONAR -->
+  <div class="section-title" style="margin-top:6px">➕ Adicionar gasto</div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px;margin-bottom:9px;">
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Data</div>
+        <input id="f-data" type="date" class="form-input">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Pet</div>
+        <select id="f-pet" class="form-input">
+          <option value="Panty">🐱 Panty</option>
+          <option value="Biscoito">🐱 Biscoito</option>
+          <option value="Mani">🐶 Mani</option>
+          <option value="Ambos">🐱🐱 Panty + Biscoito</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Categoria</div>
+        <select id="f-cat" class="form-input">
+          <option value="exame">🔬 Exame/Imagem</option>
+          <option value="consul">🏥 Consulta</option>
+          <option value="med">💊 Medicamento</option>
+          <option value="alim">🍖 Alimentação</option>
+          <option value="conv">💳 Convênio/Mensalidade</option>
+          <option value="higiene">🧴 Higiene</option>
+          <option value="outro">📦 Outro</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Descrição</div>
+        <input id="f-desc" type="text" placeholder="Ex: Ultrassom abdominal" class="form-input">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:9px;align-items:end;">
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Mensalidade (R$)</div>
+        <input id="f-conv" type="number" step="0.01" placeholder="0,00" class="form-input">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Coparticipação (R$)</div>
+        <input id="f-copart" type="number" step="0.01" placeholder="0,00" class="form-input">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">Particular (R$)</div>
+        <input id="f-part" type="number" step="0.01" placeholder="0,00" class="form-input">
+      </div>
+      <button onclick="addLancamento()" class="btn-primary">+ Adicionar</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+    <button onclick="exportCSV()" class="btn-ghost">⬇️ Exportar CSV</button>
+    <button onclick="clearAll()" class="btn-danger">🗑️ Limpar tudo</button>
+  </div>
+  <div class="section-title" style="margin-top:20px">📊 Total anual por categoria</div>
+  <div class="card" style="margin-bottom:16px;padding:16px 18px;" id="annual-summary"></div>
+
+  <div class="notice">💡 Dados salvos no navegador. Use "Exportar CSV" para backup.</div>
+</div>
+</div>
+
+
+<script>
+// ── INNER TABS ──
+function showInner(pet, pane, el) {
+  document.querySelectorAll('#tab-' + pet + ' .inner-pane').forEach(p => p.classList.remove('ip-active'));
+  document.querySelectorAll('#tab-' + pet + ' .inner-tab').forEach(t => t.classList.remove('it-active'));
+  document.getElementById(pet + '-' + pane).classList.add('ip-active');
+  el.classList.add('it-active');
+}
+
+// ── TABS ──
+function showTab(pet, el) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => { t.className = 'tab'; });
+  document.getElementById('tab-' + pet).classList.add('active');
+  el.classList.add('active-' + pet);
+  if (pet === 'fin') renderFin();
+}
+
+// ── FINANCEIRO ──
+const CAT_LABELS = { exame:'🔬 Exame/Imagem', consul:'🏥 Consulta', med:'💊 Medicamento', alim:'🍖 Alimentação', conv:'💳 Convênio', higiene:'🧴 Higiene', outro:'📦 Outro' };
+const CAT_CLASS  = { exame:'cat-exame', consul:'cat-consul', med:'cat-med', alim:'cat-alim', conv:'cat-conv', higiene:'cat-higiene', outro:'cat-outro' };
+const CAT_COLORS = { exame:'#60a5fa', consul:'#fb923c', med:'#2dd4bf', alim:'#4ade80', conv:'#a78bfa', higiene:'#f472b6', outro:'#94a3b8' };
+const CAT_ICONS  = { exame:'🔬', consul:'🏥', med:'💊', alim:'🍖', conv:'💳', higiene:'🧴', outro:'📦' };
+const PET_EMOJI  = { Panty:'🐱', Biscoito:'🐱', Mani:'🐶', Ambos:'🐱🐱' };
+const PET_LABEL  = { Panty:'Panty', Biscoito:'Biscoito', Mani:'Mani', Ambos:'Gatos + Mani' };
+
+// Pets que são "gatos" (Ambos = Panty+Biscoito)
+const GATOS_CATS = ['Panty','Biscoito','Ambos'];
+
+function getLancamentos() {
+  try { return JSON.parse(localStorage.getItem('bichos_fin') || '[]'); } catch(e) { return []; }
+}
+function saveLancamentos(data) {
+  localStorage.setItem('bichos_fin', JSON.stringify(data));
+}
+function fmt(v) {
+  return 'R$ ' + Number(v||0).toFixed(2).replace('.',',');
+}
+
+// Retorna valor efetivo para um pet específico, considerando divisão
+function valorParaPet(r, pet) {
+  if (!r.split) return (r.pet === pet || (r.pet === 'Ambos' && (pet === 'Panty' || pet === 'Biscoito'))) ? (r.total||0) : 0;
+  // split: Ambos dividido igualmente entre Panty e Biscoito
+  if (r.pet === 'Ambos' && (pet === 'Panty' || pet === 'Biscoito')) return (r.total||0) / 2;
+  if (r.pet === pet) return (r.total||0);
+  return 0;
+}
+
+function addLancamento() {
+  const data   = document.getElementById('f-data').value;
+  const pet    = document.getElementById('f-pet').value;
+  const cat    = document.getElementById('f-cat').value;
+  const desc   = document.getElementById('f-desc').value.trim();
+  const conv   = parseFloat(document.getElementById('f-conv').value) || 0;
+  const copart = parseFloat(document.getElementById('f-copart').value) || 0;
+  const part   = parseFloat(document.getElementById('f-part').value) || 0;
+  if (!data || !desc) { alert('Preencha ao menos a data e a descrição.'); return; }
+  const total = conv + copart + part;
+  const rows = getLancamentos();
+  rows.push({ id: Date.now(), data, pet, cat, desc, conv, copart, part, total });
+  rows.sort((a,b) => a.data.localeCompare(b.data));
+  saveLancamentos(rows);
+  document.getElementById('f-data').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-conv').value = '';
+  document.getElementById('f-copart').value = '';
+  document.getElementById('f-part').value = '';
+  renderFin();
+}
+
+function removeLancamento(id) {
+  if (!confirm('Remover este lançamento?')) return;
+  saveLancamentos(getLancamentos().filter(r => r.id !== id));
+  renderFin();
+}
+
+let _activeMonth = null;
+let _activePetFilter = null; // null = todos
+
+function setMonthFilter(m) {
+  _activeMonth = m;
+  // atualiza dropdown
+  const sel = document.getElementById('month-select');
+  if (sel) sel.value = m || '';
+  renderMonthCards(getLancamentos());
+}
+
+function setPetFilter(pet) {
+  _activePetFilter = (_activePetFilter === pet) ? null : pet;
+  // atualiza botões
+  ['Panty','Biscoito','Mani','all'].forEach(p => {
+    const btn = document.getElementById('pfbtn-' + p);
+    if (!btn) return;
+    const isActive = (p === 'all' && !_activePetFilter) || p === _activePetFilter;
+    btn.style.background = isActive ? 'var(--accent-fin)' : 'var(--bg3)';
+    btn.style.color = isActive ? '#000' : 'var(--text)';
+    btn.style.borderColor = isActive ? 'var(--accent-fin)' : 'var(--border)';
+  });
+  renderMonthCards(getLancamentos());
+}
+
+function renderFin() {
+  const rows = getLancamentos();
+
+  // year selector
+  const yearSel = document.getElementById('year-select');
+  const allYears = [...new Set(rows.map(r => r.data ? r.data.slice(0,4) : null).filter(Boolean))].sort().reverse();
+  if (yearSel) {
+    const prevYear = yearSel.value;
+    yearSel.innerHTML = '<option value="">Todos os anos</option>' +
+      allYears.map(y => '<option value="' + y + '"' + (y===prevYear?' selected':'') + '>' + y + '</option>').join('');
+  }
+  const activeYear = yearSel ? yearSel.value : '';
+  const rowsY = activeYear ? rows.filter(r => r.data && r.data.startsWith(activeYear)) : rows;
+  const yearLabel = activeYear ? activeYear : 'todos os anos';
+
+  // totais (filtrados por ano se selecionado)
+  const totGeral    = rowsY.reduce((s,r) => s + (r.total||0), 0);
+  const totPanty    = rowsY.filter(r => r.pet === 'Panty' || r.pet === 'Ambos').reduce((s,r) => s + (r.split ? (r.total||0)/2 : (r.total||0)), 0);
+  const totBiscoito = rowsY.filter(r => r.pet === 'Biscoito' || r.pet === 'Ambos').reduce((s,r) => s + (r.split ? (r.total||0)/2 : (r.total||0)), 0);
+  const totMani     = rowsY.filter(r => r.pet === 'Mani').reduce((s,r) => s + (r.total||0), 0);
+  const mes = new Date().toISOString().slice(0,7);
+  const totMes = rows.filter(r => r.data && r.data.slice(0,7) === mes).reduce((s,r) => s + (r.total||0), 0);
+
+  document.getElementById('tot-geral').textContent    = fmt(totGeral);
+  document.getElementById('tot-panty').textContent    = fmt(totPanty);
+  document.getElementById('tot-biscoito').textContent = fmt(totBiscoito);
+  if (document.getElementById('tot-mani')) document.getElementById('tot-mani').textContent = fmt(totMani);
+  // update subtitles
+  ['tot-geral-sub','tot-panty-sub','tot-biscoito-sub','tot-mani-sub'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = activeYear ? activeYear : 'acumulado';
+  });
+  document.getElementById('tot-mes').textContent      = fmt(totMes);
+
+  // pet split bars
+  const petSplitEl = document.getElementById('pet-split-bars');
+  if (petSplitEl) {
+    const petAmts = [
+      { emoji: '🐱', name: 'Panty',    val: totPanty,    color: 'var(--accent-panty)' },
+      { emoji: '🐱', name: 'Biscoito', val: totBiscoito, color: 'var(--accent-biscoito)' },
+      { emoji: '🐶', name: 'Mani',     val: totMani,     color: 'var(--accent-mani)' },
+    ];
+    const maxPet = Math.max(...petAmts.map(p => p.val), 1);
+    petSplitEl.innerHTML = petAmts.map(p => {
+      const pct = Math.round((p.val / maxPet) * 100);
+      return '<div class="ps-row">' +
+        '<div class="ps-emoji">' + p.emoji + '</div>' +
+        '<div class="ps-name">' + p.name + '</div>' +
+        '<div class="ps-track"><div class="ps-fill" style="width:' + pct + '%;background:' + p.color + '"></div></div>' +
+        '<div class="ps-amt">' + fmt(p.val) + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // gráfico de barras
+  const byMonth = {};
+  rowsY.forEach(r => {
+    const m = r.data ? r.data.slice(0,7) : '?';
+    byMonth[m] = (byMonth[m]||0) + (r.total||0);
+  });
+  const months = Object.keys(byMonth).sort();
+  const maxVal = Math.max(...Object.values(byMonth), 1);
+  const barColors = ['#c084fc','#60a5fa','#4ade80','#fb923c','#f87171','#2dd4bf','#facc15','#a78bfa','#c084fc','#60a5fa','#4ade80','#fb923c','#f87171','#2dd4bf','#facc15','#a78bfa','#c084fc','#60a5fa','#4ade80'];
+  const chart = document.getElementById('bar-chart');
+  if (chart) {
+    if (months.length === 0) {
+      chart.innerHTML = '<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:12px">Nenhum lançamento ainda.</div>';
+    } else {
+      chart.innerHTML = months.map((m,i) => {
+        const v = byMonth[m];
+        const pct = Math.round((v/maxVal)*100);
+        const label = m.split('-').reverse().slice(0,2).join('/');
+        const isActive = _activeMonth === m;
+        return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;cursor:pointer;opacity:' + (isActive||!_activeMonth?'1':'0.5') + ';" onclick="setMonthFilter(\'' + m + '\')">' +
+          '<div style="width:48px;font-size:10px;color:var(--text-muted);text-align:right;flex-shrink:0">' + label + '</div>' +
+          '<div style="flex:1;background:var(--bg3);border-radius:3px;height:16px;overflow:hidden;">' +
+            '<div style="width:' + pct + '%;height:100%;background:' + barColors[i%barColors.length] + ';border-radius:3px;display:flex;align-items:center;padding-left:5px;transition:width .3s;">' +
+              (pct>20?('<span style="font-size:9px;font-weight:700;color:#000">'+fmt(v)+'</span>'):'') +
+            '</div></div>' +
+          '<div style="width:72px;font-size:10px;color:var(--text);text-align:right;flex-shrink:0">' + fmt(v) + '</div>' +
+        '</div>';
+      }).join('');
+    }
+  }
+
+  // populate dropdown
+  const sel = document.getElementById('month-select');
+  if (sel) {
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">📅 Todos os meses</option>' +
+      months.slice().reverse().map(m => {
+        const label = m.split('-').reverse().slice(0,2).join('/');
+        return '<option value="' + m + '"' + (m===prev?' selected':'') + '>' + label + '</option>';
+      }).join('');
+  }
+
+  // total anual por categoria
+  renderAnnualSummary(rows);
+
+  renderMonthCards(rows);
+}
+
+function renderAnnualSummary(rows) {
+  const el = document.getElementById('annual-summary');
+  if (!el) return;
+  const years = {};
+  rows.forEach(r => {
+    const y = r.data ? r.data.slice(0,4) : '?';
+    if (!years[y]) years[y] = {};
+    const cat = r.cat || 'outro';
+    years[y][cat] = (years[y][cat]||0) + (r.total||0);
+  });
+  const sortedYears = Object.keys(years).sort().reverse();
+  if (sortedYears.length === 0) { el.innerHTML = ''; return; }
+  const allCats = Object.keys(CAT_LABELS);
+  el.innerHTML = sortedYears.map(y => {
+    const data = years[y];
+    const total = Object.values(data).reduce((s,v) => s+v, 0);
+    const catBars = allCats.filter(c => data[c] > 0).sort((a,b) => (data[b]||0)-(data[a]||0)).map(c => {
+      const v = data[c]||0;
+      const pct = Math.round((v/total)*100);
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">' +
+        '<div style="width:80px;font-size:10px;color:var(--text-muted);text-align:right;flex-shrink:0">' + (CAT_ICONS[c]||'📦') + ' ' + (CAT_LABELS[c]||c).replace(/🔬 |🏥 |💊 |🍖 |💳 |🧴 |📦 /g,'') + '</div>' +
+        '<div style="flex:1;background:var(--bg3);border-radius:3px;height:14px;overflow:hidden;">' +
+          '<div style="width:' + pct + '%;height:100%;background:' + (CAT_COLORS[c]||'#94a3b8') + ';border-radius:3px;"></div>' +
+        '</div>' +
+        '<div style="width:75px;font-size:10px;font-weight:700;color:' + (CAT_COLORS[c]||'#94a3b8') + ';text-align:right;flex-shrink:0">' + fmt(v) + '</div>' +
+      '</div>';
+    }).join('');
+    return '<div style="margin-bottom:14px;">' +
+      '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">' +
+        '<span>📆 ' + y + '</span><span style="color:var(--accent-fin)">' + fmt(total) + '</span>' +
+      '</div>' +
+      catBars +
+    '</div>';
+  }).join('<div style="height:1px;background:var(--border);margin:10px 0;"></div>');
+}
+
+function renderMonthCards(rows) {
+  const container = document.getElementById('month-cards');
+  if (!container) return;
+
+  const byMonth = {};
+  rows.forEach(r => {
+    const m = r.data ? r.data.slice(0,7) : '?';
+    if (!byMonth[m]) byMonth[m] = [];
+    byMonth[m].push(r);
+  });
+
+  const months = Object.keys(byMonth).sort().reverse();
+  const filtered = _activeMonth ? [_activeMonth].filter(m => byMonth[m]) : months;
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="notice">Nenhum lançamento encontrado.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(m => {
+    const allMRows = byMonth[m];
+    const label = m !== '?' ? m.split('-').reverse().slice(0,2).join('/') : '?';
+
+    // Totais gerais do mês
+    const totMes   = allMRows.reduce((s,r) => s+(r.total||0), 0);
+    const totConv  = allMRows.reduce((s,r) => s+(r.conv||0), 0);
+    const totCop   = allMRows.reduce((s,r) => s+(r.copart||0), 0);
+    const totPart  = allMRows.reduce((s,r) => s+(r.part||0), 0);
+
+    // Totais por pet (para coluna 3 cols)
+    const totPantyM    = allMRows.reduce((s,r) => {
+      if (r.pet === 'Panty') return s + (r.total||0);
+      if (r.pet === 'Ambos') return s + ((r.total||0) / (r.split?2:1));
+      return s;
+    }, 0);
+    const totBiscoitoM = allMRows.reduce((s,r) => {
+      if (r.pet === 'Biscoito') return s + (r.total||0);
+      if (r.pet === 'Ambos') return s + ((r.total||0) / (r.split?2:1));
+      return s;
+    }, 0);
+    const totManiM     = allMRows.reduce((s,r) => {
+      if (r.pet === 'Mani') return s + (r.total||0);
+      return s;
+    }, 0);
+
+    // distribuição por categoria
+    const byCat = {};
+    allMRows.forEach(r => { byCat[r.cat] = (byCat[r.cat]||0) + (r.total||0); });
+    const catPills = Object.entries(byCat).filter(([,v]) => v > 0).map(([cat, v]) =>
+      '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:12px;font-size:10px;font-weight:600;background:' + (CAT_COLORS[cat]||'#94a3b8') + '22;color:' + (CAT_COLORS[cat]||'#94a3b8') + ';border:1px solid ' + (CAT_COLORS[cat]||'#94a3b8') + '44;cursor:pointer;" id="catpill-' + m + '-' + cat + '">' + (CAT_ICONS[cat]||'📦') + ' ' + fmt(v) + '</span>'
+    ).join('');
+
+    // filtro de pet ativo — filtrar linhas
+    const mRows = allMRows.filter(r => {
+      if (!_activePetFilter) return r.total > 0 || r.copart > 0;
+      if (_activePetFilter === 'Panty') return (r.pet === 'Panty' || r.pet === 'Ambos') && (r.total > 0 || r.copart > 0);
+      if (_activePetFilter === 'Biscoito') return (r.pet === 'Biscoito' || r.pet === 'Ambos') && (r.total > 0 || r.copart > 0);
+      if (_activePetFilter === 'Mani') return r.pet === 'Mani' && (r.total > 0 || r.copart > 0);
+      return r.total > 0 || r.copart > 0;
+    });
+
+    const linhas = mRows.map(r => {
+      const d = r.data ? r.data.split('-').reverse().slice(0,2).join('/') : '—';
+      const petIcon = PET_EMOJI[r.pet]||'🐾';
+      const petLabel = PET_LABEL[r.pet]||r.pet;
+      const isSplit = r.pet === 'Ambos' && r.split;
+      const valorExibido = isSplit ? (r.total||0)/2 : (r.total||0);
+      const isServExtra = r.desc && r.desc.toLowerCase().includes('serviço extra');
+      const isInternacao = r.desc && r.desc.toLowerCase().includes('internação');
+
+      const extraBadge = isServExtra
+        ? '<span style="display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;background:rgba(250,204,21,.2);color:var(--yellow);border:1px solid rgba(250,204,21,.4);margin-right:4px">EXTRA</span>'
+        : (isInternacao ? '<span style="display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;background:rgba(248,113,113,.2);color:var(--red);border:1px solid rgba(248,113,113,.4);margin-right:4px">INTERNAÇÃO</span>' : '');
+
+      const splitTag = isSplit
+        ? '<span style="font-size:9px;color:var(--text-muted);margin-left:3px" title="Valor dividido entre Panty e Biscoito">÷2</span>'
+        : '';
+
+      const subline = petLabel +
+        (r.copart ? ' · Copart: ' + fmt(r.copart) : '') +
+        (r.part && r.cat !== 'conv' ? ' · Part: ' + fmt(r.part) : '') +
+        (isSplit ? ' · <span style="color:var(--yellow);font-size:9px">dividido igualmente</span>' : '');
+
+      return '<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);">' +
+        '<div style="width:34px;font-size:10px;color:var(--text-muted);flex-shrink:0">' + d + '</div>' +
+        '<div style="width:26px;font-size:12px;text-align:center;flex-shrink:0">' + petIcon + '</div>' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + extraBadge + r.desc + '</div>' +
+          '<div style="font-size:10px;color:var(--text-muted)">' + subline + '</div>' +
+        '</div>' +
+        '<div style="flex-shrink:0;">' +
+          '<span style="font-size:10px;padding:2px 6px;border-radius:10px;background:' + (CAT_COLORS[r.cat]||'#94a3b8') + '22;color:' + (CAT_COLORS[r.cat]||'#94a3b8') + '">' + (CAT_ICONS[r.cat]||'📦') + ' ' + (CAT_LABELS[r.cat]||r.cat).replace(/🔬 |🏥 |💊 |🍖 |💳 |🧴 |📦 /g,'') + '</span>' +
+        '</div>' +
+        '<div style="width:72px;text-align:right;font-size:12px;font-weight:700;flex-shrink:0">' + fmt(valorExibido) + splitTag + '</div>' +
+        '<div style="flex-shrink:0;margin-left:3px;"><button onclick="removeLancamento(' + r.id + ')" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:11px;padding:2px 3px;opacity:.4;" title="Remover">✕</button></div>' +
+      '</div>';
+    }).join('');
+
+    // Header 3 colunas: Panty | Biscoito | Mani | Total
+    const petCols =
+      '<div style="display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap;">' +
+        '<div style="text-align:center;min-width:70px;">' +
+          '<div style="font-size:9px;color:var(--accent-panty);font-weight:700;text-transform:uppercase;letter-spacing:.05em">🐱 Panty</div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--text)">' + fmt(totPantyM) + '</div>' +
+        '</div>' +
+        '<div style="width:1px;background:var(--border);height:28px;"></div>' +
+        '<div style="text-align:center;min-width:70px;">' +
+          '<div style="font-size:9px;color:var(--accent-biscoito);font-weight:700;text-transform:uppercase;letter-spacing:.05em">🐱 Biscoito</div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--text)">' + fmt(totBiscoitoM) + '</div>' +
+        '</div>' +
+        '<div style="width:1px;background:var(--border);height:28px;"></div>' +
+        '<div style="text-align:center;min-width:70px;">' +
+          '<div style="font-size:9px;color:var(--accent-mani);font-weight:700;text-transform:uppercase;letter-spacing:.05em">🐶 Mani</div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--text)">' + fmt(totManiM) + '</div>' +
+        '</div>' +
+      '</div>';
+
+    return '<div class="card" style="margin-bottom:12px;padding:0;overflow:hidden;">' +
+      '<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px;background:var(--bg3);border-bottom:1px solid var(--border);">' +
+        '<div>' +
+          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+            '<span style="font-size:13px;font-weight:700;">📅 ' + label + '</span>' +
+            catPills +
+          '</div>' +
+          petCols +
+        '</div>' +
+        '<div style="text-align:right;flex-shrink:0;margin-left:12px;">' +
+          '<div style="font-size:16px;font-weight:800;color:var(--accent-fin)">' + fmt(totMes) + '</div>' +
+          '<div style="font-size:9px;color:var(--text-muted);margin-top:2px">' + [totConv?'Conv '+fmt(totConv):'', totCop?'Copart '+fmt(totCop):'', totPart?'Part '+fmt(totPart):''].filter(Boolean).join(' · ') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="padding:0 14px 4px;">' +
+        (linhas || '<div style="padding:10px 0;color:var(--text-muted);font-size:12px">Nenhum gasto registrado.</div>') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// Cat filter (toggle highlight) — para clicks nas cat pills
+let _activeCatFilters = {};
+function toggleCatFilter(key) {
+  // toggle visual only for now (future: filter by cat within month)
+  const el = document.getElementById('catpill-' + key);
+  if (!el) return;
+  const isActive = el.getAttribute('data-active') === '1';
+  el.setAttribute('data-active', isActive ? '0' : '1');
+  el.style.opacity = isActive ? '1' : '0.5';
+}
+
+function exportCSV() {
+  const rows = getLancamentos();
+  if (!rows.length) { alert('Nenhum lançamento para exportar.'); return; }
+  const header = 'Data,Pet,Descrição,Categoria,Convênio,Coparticipação,Particular,Total\n';
+  const body = rows.map(r => [r.data,r.pet,'"'+r.desc+'"',CAT_LABELS[r.cat]||r.cat,r.conv||0,r.copart||0,r.part||0,r.total||0].join(',')).join('\n');
+  const blob = new Blob(['\ufeff'+header+body], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'gastos_bichos.csv'; a.click();
+}
+
+function clearAll() {
+  if (!confirm('Apagar TODOS os lançamentos? Esta ação não pode ser desfeita.')) return;
+  saveLancamentos([]);
+  renderFin();
+}
+
+// ── DADOS INICIAIS ──
+function initDefaultData() {
+  const existing = getLancamentos();
+  if (existing.length > 0) return;
+
+  const pedidos = [
+    // ── Abril 2026 — Amazon ──
+    { id: 5001, data: '2026-04-27', pet: 'Ambos',  cat: 'med',  desc: 'Kit Ringer Lactato 500ml 15un',        conv:0, copart:0, part:149.99, total:149.99, split:true },
+    // ── Abril 2026 — Shopee ──
+    { id: 5002, data: '2026-04-20', pet: 'Biscoito', cat: 'med',  desc: 'Revolution antipulgas + Dermotrat', conv:0, copart:0, part:131.89, total:131.89 },
+    // ── Março 2026 — Amazon ──
+    { id: 5003, data: '2026-03-02', pet: 'Mani',   cat: 'med',  desc: 'Ômega 3 Atlantis 300ml',              conv:0, copart:0, part:149.00, total:149.00 },
+    { id: 5004, data: '2026-03-02', pet: 'Ambos',  cat: 'med',  desc: 'Pro Rim Terapia Homeopet 30ml',        conv:0, copart:0, part:77.30,  total:77.30  },
+    { id: 5005, data: '2026-03-02', pet: 'Ambos',  cat: 'alim', desc: 'Fórmula Natural Renal seca mix',       conv:0, copart:0, part:317.30, total:317.30 },
+    // ── Setembro 2025 ──
+    { id: 2001, data: '2025-09-27', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:0, copart:0, part:43.75, total:43.75 },
+    { id: 2002, data: '2025-09-27', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:0, copart:0, part:32.06, total:32.06 },
+    // ── Outubro 2025 ──
+    { id: 2003, data: '2025-10-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    // ── Novembro 2025 ──
+    { id: 2004, data: '2025-11-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2005, data: '2025-11-02', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2006, data: '2025-11-02', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:32.06, copart:0, part:0, total:32.06 },
+    // ── Dezembro 2025 ──
+    { id: 2007, data: '2025-12-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2008, data: '2025-12-03', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2009, data: '2025-12-03', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:35.97, copart:0, part:0, total:35.97 },
+    // ── Janeiro 2026 ──
+    { id: 2010, data: '2026-01-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2011, data: '2026-01-02', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2012, data: '2026-01-02', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:35.97, copart:0, part:0, total:35.97 },
+    // ── Fevereiro 2026 ──
+    { id: 2013, data: '2026-02-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2014, data: '2026-02-02', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2015, data: '2026-02-02', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:35.97, copart:0, part:0, total:35.97 },
+    // ── Março 2026 ──
+    { id: 2016, data: '2026-03-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2017, data: '2026-03-05', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2018, data: '2026-03-05', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:35.97, copart:0, part:0, total:35.97 },
+    // ── Abril 2026 ──
+    { id: 2019, data: '2026-04-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:93.60, copart:0, part:0, total:93.60 },
+    { id: 2020, data: '2026-04-02', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2021, data: '2026-04-02', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:78.06, copart:0, part:0, total:78.06 },
+    // ── Abril 2026 — Serviços extras ──
+    { id: 2022, data: '2026-04-02', pet: 'Panty',  cat: 'exame', desc: 'Serviço extra — Consulta Nefrologia', conv:0, copart:0, part:97.20, total:97.20 },
+    { id: 2023, data: '2026-04-02', pet: 'Biscoito', cat: 'exame', desc: 'Serviço extra — Consulta Nefrologia', conv:0, copart:0, part:97.20, total:97.20 },
+    // ── Maio 2026 ──
+    { id: 2024, data: '2026-05-02', pet: 'Panty',  cat: 'conv', desc: 'Mensalidade Petlove',                  conv:93.60, copart:0, part:0, total:93.60 },
+    { id: 2025, data: '2026-05-03', pet: 'Biscoito', cat: 'conv', desc: 'Mensalidade Petlove',                conv:43.75, copart:0, part:0, total:43.75 },
+    { id: 2026, data: '2026-05-03', pet: 'Mani',   cat: 'conv', desc: 'Mensalidade Petlove',                  conv:78.06, copart:0, part:0, total:78.06 },
+    // ── Maio 2026 — Serviços extras ──
+    { id: 2027, data: '2026-05-12', pet: 'Panty',  cat: 'exame', desc: 'Serviço extra — Hemogasometria',      conv:0, copart:0, part:162.30, total:162.30 },
+    { id: 2028, data: '2026-05-15', pet: 'Biscoito', cat: 'exame', desc: 'Serviço extra — US abdominal',      conv:0, copart:0, part:99.54,  total:99.54  },
+    // ── Coparticipações Petlove — PANTY ──
+    { id: 3001, data: '2024-04-17', pet: 'Panty',  cat: 'exame', desc: 'Copart — Pet Hardy',                 conv:0, copart:30.00, part:0, total:30.00 },
+    { id: 3002, data: '2024-04-17', pet: 'Panty',  cat: 'exame', desc: 'Copart — VET TO GO imagem',          conv:0, copart:60.00, part:0, total:60.00 },
+    { id: 3003, data: '2024-05-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — WeVets Lab',                conv:0, copart:72.00, part:0, total:72.00 },
+    { id: 3004, data: '2024-05-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:70.00, part:0, total:70.00 },
+    { id: 3005, data: '2024-05-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:10.00, part:0, total:10.00 },
+    { id: 3006, data: '2024-06-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 3007, data: '2024-06-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 3008, data: '2024-06-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:10.00, part:0, total:10.00 },
+    { id: 3009, data: '2024-06-24', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:30.00, part:0, total:30.00 },
+    { id: 3010, data: '2024-06-25', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:50.00, part:0, total:50.00 },
+    { id: 3011, data: '2024-06-30', pet: 'Panty',  cat: 'exame', desc: 'Copart — Hospital WeVets',           conv:0, copart:30.00, part:0, total:30.00 },
+    { id: 3012, data: '2025-04-30', pet: 'Panty',  cat: 'consul', desc: 'Copart — Lelu Pets',                conv:0, copart:62.55, part:0, total:62.55 },
+    { id: 3013, data: '2025-05-03', pet: 'Panty',  cat: 'exame', desc: 'Copart — Gold Lab Vet',              conv:0, copart:137.61, part:0, total:137.61 },
+    { id: 3014, data: '2025-05-03', pet: 'Panty',  cat: 'exame', desc: 'Copart — Gold Lab Vet',              conv:0, copart:72.96, part:0, total:72.96 },
+    { id: 3015, data: '2025-05-15', pet: 'Panty',  cat: 'consul', desc: 'Copart — Vetcentral',               conv:0, copart:52.12, part:0, total:52.12 },
+    { id: 3016, data: '2025-05-15', pet: 'Panty',  cat: 'consul', desc: 'Copart — Vetcentral',               conv:0, copart:52.12, part:0, total:52.12 },
+    { id: 3017, data: '2025-07-10', pet: 'Panty',  cat: 'exame', desc: 'Copart — Lab Vet Central',           conv:0, copart:136.56, part:0, total:136.56 },
+    { id: 3018, data: '2025-07-10', pet: 'Panty',  cat: 'exame', desc: 'Copart — Lab Vet Central',           conv:0, copart:12.51, part:0, total:12.51 },
+    { id: 3019, data: '2025-07-10', pet: 'Panty',  cat: 'consul', desc: 'Copart — Vetcentral',               conv:0, copart:41.69, part:0, total:41.69 },
+    { id: 3020, data: '2025-07-24', pet: 'Panty',  cat: 'consul', desc: 'Copart — Vetcentral',               conv:0, copart:62.54, part:0, total:62.54 },
+    { id: 3021, data: '2025-08-20', pet: 'Panty',  cat: 'consul', desc: 'Copart — Vetcentral',               conv:0, copart:52.12, part:0, total:52.12 },
+    { id: 3022, data: '2026-03-14', pet: 'Panty',  cat: 'exame', desc: 'Copart — Gold Lab Vet',              conv:0, copart:84.00, part:0, total:84.00 },
+    { id: 3023, data: '2026-03-14', pet: 'Panty',  cat: 'exame', desc: 'Copart — DermaCare Vet',             conv:0, copart:79.00, part:0, total:79.00 },
+    { id: 3024, data: '2026-03-19', pet: 'Panty',  cat: 'exame', desc: 'Copart — Provet Lab',                conv:0, copart:32.00, part:0, total:32.00 },
+    { id: 3025, data: '2026-03-19', pet: 'Panty',  cat: 'consul', desc: 'Copart — Kahu o Lar do Pet',        conv:0, copart:0,     part:0, total:0    },
+    { id: 3026, data: '2026-03-19', pet: 'Panty',  cat: 'exame', desc: 'Copart — TrustVet Diagnósticos',     conv:0, copart:82.00, part:0, total:82.00 },
+    { id: 3027, data: '2026-04-17', pet: 'Panty',  cat: 'consul', desc: 'Copart — Animall Vet',              conv:0, copart:70.00, part:0, total:70.00 },
+    { id: 3028, data: '2026-05-12', pet: 'Panty',  cat: 'exame', desc: 'Copart — VET TO GO imagem',          conv:0, copart:70.00, part:0, total:70.00 },
+    { id: 3029, data: '2026-05-12', pet: 'Panty',  cat: 'consul', desc: 'Copart — Animall Vet',              conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 3030, data: '2026-05-12', pet: 'Panty',  cat: 'exame', desc: 'Copart — Provet Lab',                conv:0, copart:80.00, part:0, total:80.00 },
+    { id: 3031, data: '2026-05-13', pet: 'Panty',  cat: 'consul', desc: 'Copart — Animal Bello',             conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 3032, data: '2026-05-13', pet: 'Panty',  cat: 'exame', desc: 'Copart — Vetus Lab Vet',             conv:0, copart:0,     part:0, total:0    },
+    { id: 3033, data: '2026-05-15', pet: 'Panty',  cat: 'consul', desc: 'Copart — Animall Vet',              conv:0, copart:70.00, part:0, total:70.00 },
+    // ── Coparticipações Petlove — BISCOITO ──
+    { id: 4001, data: '2026-02-19', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Petlove Campo Belo',     conv:0, copart:0,     part:0, total:0    },
+    { id: 4002, data: '2026-02-27', pet: 'Biscoito', cat: 'exame', desc: 'Copart — DermaCare Vet',           conv:0, copart:54.65, part:0, total:54.65 },
+    { id: 4003, data: '2026-02-27', pet: 'Biscoito', cat: 'exame', desc: 'Copart — Gold Lab Vet',            conv:0, copart:100.96, part:0, total:100.96 },
+    { id: 4004, data: '2026-03-05', pet: 'Biscoito', cat: 'exame', desc: 'Copart — DermaCare Vet',           conv:0, copart:15.52, part:0, total:15.52 },
+    { id: 4005, data: '2026-03-05', pet: 'Biscoito', cat: 'exame', desc: 'Copart — Gold Lab Vet',            conv:0, copart:25.24, part:0, total:25.24 },
+    { id: 4006, data: '2026-03-11', pet: 'Biscoito', cat: 'exame', desc: 'Copart — TrustVet Diagnósticos',   conv:0, copart:70.00, part:0, total:70.00 },
+    { id: 4007, data: '2026-03-31', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:30.00, part:0, total:30.00 },
+    { id: 4008, data: '2026-04-01', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:0,     part:0, total:0    },
+    { id: 4009, data: '2026-04-01', pet: 'Biscoito', cat: 'exame', desc: 'Copart — VET TO GO imagem',        conv:0, copart:203.00, part:0, total:203.00 },
+    { id: 4010, data: '2026-04-07', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:0,     part:0, total:0    },
+    { id: 4011, data: '2026-04-07', pet: 'Biscoito', cat: 'exame', desc: 'Copart — Lyra Lab Vet',            conv:0, copart:44.00, part:0, total:44.00 },
+    { id: 4012, data: '2026-04-07', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 4013, data: '2026-04-07', pet: 'Biscoito', cat: 'exame', desc: 'Copart — VET TO GO imagem',        conv:0, copart:42.00, part:0, total:42.00 },
+    { id: 4014, data: '2026-04-16', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:0,     part:0, total:0    },
+    { id: 4015, data: '2026-04-01', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:70.00, part:0, total:70.00 },
+    { id: 4016, data: '2026-05-12', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:12.00, part:0, total:12.00 },
+    { id: 4017, data: '2026-05-12', pet: 'Biscoito', cat: 'exame', desc: 'Copart — Provet Lab',              conv:0, copart:48.00, part:0, total:48.00 },
+    { id: 4018, data: '2026-05-15', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:50.00, part:0, total:50.00 },
+    { id: 4019, data: '2026-05-15', pet: 'Biscoito', cat: 'consul', desc: 'Copart — Animall Vet',            conv:0, copart:0,     part:0, total:0    },
+    { id: 4020, data: '2026-05-15', pet: 'Biscoito', cat: 'exame', desc: 'Copart — VET TO GO imagem',        conv:0, copart:70.00, part:0, total:70.00 },
+    // ── Compras/pedidos ──
+    // ── Abril 2025 ──
+    { id: 1000, data: '2025-04-30', pet: 'Ambos',  cat: 'alim', desc: 'Fórmula Natural Renal 1,5kg',          conv:0, copart:0, part:90.99,  total:90.99  },
+    // ── Maio 2025 ──
+    { id: 1001, data: '2025-05-11', pet: 'Ambos',  cat: 'alim', desc: 'Gran Plus sachê gatos 18un carne',     conv:0, copart:0, part:49.90,  total:49.90, split:true  },
+    // ── Junho 2025 ──
+    { id: 1002, data: '2025-06-24', pet: 'Ambos',  cat: 'alim', desc: 'Gran Plus sachê gatos 18un carne',     conv:0, copart:0, part:48.75,  total:48.75, split:true  },
+    // ── Outubro 2025 ──
+    { id: 1003, data: '2025-10-02', pet: 'Ambos',  cat: 'alim', desc: 'Fórmula Natural Renal 1,5kg',          conv:0, copart:0, part:84.36,  total:84.36  },
+    { id: 1004, data: '2025-10-15', pet: 'Ambos',  cat: 'alim', desc: 'Gran Plus sachê gatos 18un atum',      conv:0, copart:0, part:46.24,  total:46.24, split:true  },
+    { id: 1005, data: '2025-10-23', pet: 'Ambos',  cat: 'higiene', desc: 'Areia Wisecat Sensitive 2kg',          conv:0, copart:0, part:23.99,  total:23.99  },
+    { id: 1006, data: '2025-10-24', pet: 'Mani',   cat: 'alim', desc: 'Ração QualiLife + PremieR',            conv:0, copart:0, part:479.78, total:479.78 },
+    { id: 1007, data: '2025-10-31', pet: 'Ambos',  cat: 'higiene', desc: 'Areia mandioca 8kg (2 pac)',           conv:0, copart:0, part:79.16,  total:79.16  },
+    // ── Novembro 2025 ──
+    { id: 1008, data: '2025-11-01', pet: 'Ambos',  cat: 'higiene', desc: 'Areia mandioca 8kg (2 pac)',           conv:0, copart:0, part:78.85,  total:78.85  },
+    { id: 1009, data: '2025-11-01', pet: 'Ambos',  cat: 'alim', desc: 'Ração QualiLife Salmão 10,1kg + Helfine Plus — gatos', conv:0, copart:0, part:175.05, total:175.05, split:true },
+    { id: 1009, data: '2025-11-01', pet: 'Mani',   cat: 'alim', desc: 'Vermívet + Ball Free Pasta + True Tiras Frango — Mani',  conv:0, copart:0, part:77.56,  total:77.56  },
+    { id: 10091,data: '2025-11-01', pet: 'Mani',   cat: 'alim', desc: 'Orelha Bovina — Mani',                                  conv:0, copart:0, part:9.26,   total:9.26   },
+    { id: 1010, data: '2025-11-23', pet: 'Ambos',  cat: 'alim', desc: 'Ração Fórmula Natural Renal + mix',   conv:0, copart:0, part:87.47,  total:87.47  },
+    // ── Dezembro 2025 ──
+    { id: 1011, data: '2025-12-12', pet: 'Ambos',  cat: 'higiene', desc: 'Areia Wisecat 8kg',                   conv:0, copart:0, part:73.41,  total:73.41  },
+    // ── Janeiro 2026 ──
+    { id: 1012, data: '2026-01-01', pet: 'Ambos',  cat: 'alim', desc: 'Gran Plus sachê gatos 20un',          conv:0, copart:0, part:52.04,  total:52.04, split:true  },
+    // ── Fevereiro 2026 ──
+    { id: 1013, data: '2026-02-23', pet: 'Mani',   cat: 'alim', desc: 'Kit Ração Seca + Mixer True (Mani)',              conv:0, copart:0, part:172.43, total:172.43 },
+    { id: 1013, data: '2026-02-23', pet: 'Ambos',  cat: 'alim', desc: 'True Creamy — gatos',                         conv:0, copart:0, part:67.23,  total:67.23, split:true  },
+    { id: 1014, data: '2026-02-26', pet: 'Ambos',  cat: 'higiene', desc: 'Areia Wisecat 8kg',                   conv:0, copart:0, part:84.76,  total:84.76  },
+    // ── Março 2026 ──
+    { id: 1015, data: '2026-03-27', pet: 'Ambos',  cat: 'higiene', desc: 'Areia Wisecat 8kg',                   conv:0, copart:0, part:83.52,  total:83.52  },
+    // ── Abril 2026 ──
+    { id: 1016, data: '2026-04-07', pet: 'Biscoito', cat: 'outro', desc: 'Colar elizabetano',                conv:0, copart:0, part:42.59,  total:42.59  },
+    { id: 1017, data: '2026-04-16', pet: 'Biscoito', cat: 'outro', desc: 'Espaçador Agachamber (inalação)',   conv:0, copart:0, part:71.97,  total:71.97  },
+    // ── Maio 2026 ──
+    { id: 1018, data: '2026-05-09', pet: 'Mani',   cat: 'alim', desc: 'Ração True + True Mixer Frango/Carne (Mani)',  conv:0, copart:0, part:172.43, total:172.43 },
+    { id: 1018, data: '2026-05-09', pet: 'Ambos',  cat: 'alim', desc: 'True Creamy 3un — gatos (Camarão/Atum, Frango, Renal)', conv:0, copart:0, part:56.04,  total:56.04, split:true  },
+    { id: 1019, data: '2026-05-26', pet: 'Panty',    cat: 'med',   desc: 'Fórmula manipulada Tansulosina 0,025mg 30cáp — Botica Natuvita', conv:0, copart:0, part:78.00, total:78.00 },
+    // ── Internação Biscoito ──
+    { id: 6001, data: '2026-03-11', pet: 'Biscoito', cat: 'consul', desc: 'Internação — Hospital WeVets',        conv:0, copart:0, part:427.50, total:427.50 },
+    { id: 6002, data: '2026-04-07', pet: 'Biscoito', cat: 'consul', desc: 'Internação — Hospital WeVets',        conv:0, copart:0, part:427.50, total:427.50 },
+  ];
+
+  saveLancamentos(pedidos);
+}
+
+// init
+initDefaultData();
+renderFin();
+</script>
+</body>
+</html>
