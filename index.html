@@ -183,6 +183,13 @@
   ::-webkit-scrollbar-track{background:var(--bg2);}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 
+  /* DIÁRIO */
+  .diary-entry{background:var(--bg3);border-radius:9px;padding:10px 13px;margin-bottom:7px;border-left:3px solid var(--border);}
+  .diary-date{font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:.03em;}
+  .diary-text{font-size:12px;line-height:1.65;margin-top:5px;color:var(--text);white-space:pre-wrap;}
+  .diary-del{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;padding:0 2px;opacity:.5;transition:opacity .15s;}
+  .diary-del:hover{opacity:1;color:var(--red);}
+
   /* PASSWORD MODAL */
   .pwd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;display:flex;align-items:center;justify-content:center;}
   .pwd-modal{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px 32px;width:290px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
@@ -202,7 +209,8 @@
   <div class="paw">🐾</div>
   <div>
     <h1>Saúde dos Bichos</h1>
-    <p>Sistema de acompanhamento veterinário · Panty · Biscoito · Mani · Weed · Kali · Atualizado em 13/08/2026</p>
+    <p>Sistema de acompanhamento veterinário · Panty · Biscoito · Mani · Weed · Kali · Atualizado em 18/11/2026</p>
+
   </div>
 </div>
 
@@ -228,18 +236,18 @@
     <div class="kpi-grid">
       <div class="kpi-box">
         <div class="kpi-label">Creatinina</div>
-        <div class="kpi-val kpi-orange">2,89</div>
-        <div class="kpi-sub">mg/dL ↓ jul/26 🎉</div>
+        <div class="kpi-val kpi-orange">2,84</div>
+        <div class="kpi-sub">mg/dL ↓ out/26</div>
       </div>
       <div class="kpi-box">
         <div class="kpi-label">Ureia</div>
-        <div class="kpi-val kpi-yellow">70,9</div>
-        <div class="kpi-sub">mg/dL ⚠️ jul/26</div>
+        <div class="kpi-val kpi-red">110,9</div>
+        <div class="kpi-sub">mg/dL 🔴 out/26</div>
       </div>
       <div class="kpi-box">
         <div class="kpi-label">IRIS</div>
-        <div class="kpi-val kpi-orange">3</div>
-        <div class="kpi-sub">DRC (melhorou!)</div>
+        <div class="kpi-val kpi-orange">II/III</div>
+        <div class="kpi-sub">DRC (bordeline)</div>
       </div>
       <div class="kpi-box">
         <div class="kpi-label">RPCU</div>
@@ -273,22 +281,26 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">💊 Medicações atuais</div>
     <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
-      <div style="font-size:12px;font-weight:700;color:var(--teal)">Gaviz 5mg</div>
-      <div style="font-size:10px;color:var(--text-muted)">1 cp/24h · 7 dias</div>
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Kalium Gatos</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 cp/12h · contínuo (09/10/26)</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Citrato de Potássio 200mg</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 dose/12h · contínuo (15/10/26)</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">Fluidoterapia SC</div>
+      <div style="font-size:10px;color:var(--text-muted)">contínua até novas recomendações</div>
     </div>
     <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
       <div style="font-size:12px;font-weight:700;color:var(--teal)">Mirtz 2mg <span style="color:var(--orange);font-size:10px">contínuo</span></div>
       <div style="font-size:10px;color:var(--text-muted)">1 cp/48h</div>
     </div>
-    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
-      <div style="font-size:12px;font-weight:700;color:var(--teal)">Tansulosina 0,025mg 🆕</div>
-      <div style="font-size:10px;color:var(--text-muted)">1 dose/24h · relaxante ureteral</div>
-    </div>
 
     <div style="background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:8px;padding:9px 10px;margin-top:8px;font-size:10px;">
-      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames realizados (jul/26)</div>
-      Creatinina · Ureia · Urina+RPCU · US abdominal<br>
-      <span style="color:var(--text-muted)">Animall Vet · 25/07/2026</span>
+      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames realizados (out/26)</div>
+      Hemograma · Bioquímica · B12 · T4 · Hemogasometria · US abdominal<br>
+      <span style="color:var(--text-muted)">Nofaro/Animal Bello · 02/10/2026</span>
     </div>
   </div>
 
@@ -315,7 +327,7 @@
       </div>
       <div class="alert-box alert-red">
         <div class="alert-icon">⚖️</div>
-        <div><div class="alert-title">Peso crítico — 4,2kg (21/05/26)</div>Mirtz contínuo como estimulante de apetite. Monitorar ingestão.</div>
+        <div><div class="alert-title">Peso — 4,4kg (01/09/26)</div>Mirtz contínuo como estimulante de apetite. ECC 5/9 na consulta gastro. Monitorar ingestão.</div>
       </div>
       <div class="alert-box alert-red">
         <div class="alert-icon">📈</div>
@@ -329,11 +341,15 @@
       </div>
       <div class="alert-box alert-orange">
         <div class="alert-icon">🫁</div>
-        <div><div class="alert-title">Espessamentos focais no estômago / duodeno inflamatório (US mai-jul/26)</div>Alteração pancreática leve associada. Hipótese: DII ou linfoma — biópsia necessária para diagnóstico definitivo. <b>Encaminhada para Dra. Gabriele (gastro) · Animall Vet.</b></div>
+        <div><div class="alert-title">Espessamentos focais no estômago / duodeno inflamatório (US mai-jul/26)</div>Alteração pancreática leve associada. Hipótese: DII ou linfoma. <b>Dra. Gabrielle Carmona (gastro) — avaliando.</b> Preocupação: duodenite persistente como gatilho de pancreatite.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🩸</div>
+        <div><div class="alert-title">Hematoquezia em 31/08/2026 — fezes mucóides escore 6–7</div>Provavelmente associada a ingestão de comida da Weed (contactante). Evacuou escore 2 na consulta de 01/09. Ciclo de cortisona disponível se crise.</div>
       </div>
       <div class="alert-box alert-orange">
         <div class="alert-icon">🧪</div>
-        <div><div class="alert-title">Repetir exames em 45–60 dias (~10/09/2026)</div>Monitorar creatinina, fósforo, pH urinário e cálculos ureterais. Consulta de retorno com Dra. Bárbara.</div>
+        <div><div class="alert-title">Exames solicitados pela gastro (01/09/2026)</div>Hemograma · Bioquímica completa · US abdominal · FIV/FELV · PCR FELV · Cobalamina · T4 · Frutosamina · Coproparasitológico + SNAP Giardia</div>
       </div>
 
       <div class="section-title" style="margin-top:16px">✅ Positivos</div>
@@ -368,7 +384,7 @@
       <div class="alert-box alert-purple">
         <div class="alert-icon">📋</div>
         <div>
-          <div class="alert-title">Panty · ~17a 4m · Gata SRD · Chip 981020004087847 · Peso 4,2kg (21/05/26)</div>
+          <div class="alert-title">Panty · ~17a 10m · Gata SRD · Chip 981020004087847 · Peso 4,4kg (01/09/26)</div>
           DRC estágio 3. <b>Creatinina caiu de 5,20 → 2,89 mg/dL (jul/26) — melhora de 44%!</b> Ureia 70,90 mg/dL (acima ref.). RPCU 0,07 (normal ✅). <b>US 25/07/26 (Vet To Go): microureterólitos ureter esq. persistem (0,11–0,33cm) + ectasia 0,16cm. RE estável (1,55cm, atrofiado). RD 3,24cm, infarto (0,19×0,53cm). Fígado NORMALIZADO ✅ (era esteatose em mai). Pâncreas 0,74cm, leve espessamento. Sedimento vesical sem cistólitos.</b> Urina Tipo 1: pH 5,0 (baixo), densidade 1020 (mínima), sem proteína/cristais. Medicações: Mirtz 2mg contínuo, Tansulosina 0,025mg contínuo.
         </div>
       </div>
@@ -379,11 +395,24 @@
       <div class="section-title">📊 Função Renal</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Parâmetro</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Ref.</th><th>Evolução</th></tr></thead>
+          <thead><tr><th>Parâmetro</th><th>Mai/2024</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026</th><th>Out/2026 🆕</th><th>Ref.</th><th>Evolução</th></tr></thead>
           <tbody>
-            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,00</td><td class="val val-alert">2,61</td><td class="val val-alert">2,69</td><td class="val val-alert">5,20</td><td class="val val-alert">2,89 🎉</td><td class="ref">0,5–1,7 mg/dL</td><td>🟢 Melhorou!</td></tr>
-            <tr><td><b>Ureia</b></td><td class="val val-alert">87,89</td><td class="val val-alert">128,6</td><td class="val val-alert">84,85</td><td class="val val-alert">80,0</td><td class="val val-alert">70,90</td><td class="ref">10–60 mg/dL</td><td>🟡 Ainda alta</td></tr>
-            <tr><td><b>Fósforo</b></td><td>—</td><td>—</td><td>—</td><td class="val val-ok">4,40</td><td>—</td><td class="ref">DRC: 2,7–4,6</td><td>🟢 No alvo</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,10</td><td class="val val-alert">3,00</td><td class="val val-alert">2,61</td><td class="val val-alert">2,69</td><td class="val val-alert">5,20</td><td class="val val-alert">2,89</td><td class="val val-alert">2,84</td><td class="ref">0,5–1,7 mg/dL</td><td>🟡 Estável</td></tr>
+            <tr><td><b>Ureia</b></td><td class="val val-alert">97,20</td><td class="val val-alert">87,89</td><td class="val val-alert">128,6</td><td class="val val-alert">84,85</td><td class="val val-alert">80,0</td><td class="val val-alert">70,90</td><td class="val val-alert">110,90 🔴</td><td class="ref">10–60 mg/dL</td><td>🔴 Piorou</td></tr>
+            <tr><td><b>Albumina</b></td><td class="val val-ok">3,8</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">3,38</td><td class="ref">2,1–3,9 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Globulina</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">3,16</td><td class="ref">2,6–5,1 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Colesterol</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">178 mg/dL</td><td class="ref">85–230 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Triglicérides</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">39 mg/dL</td><td class="ref">24–138 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>FA</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">37,10 U/L</td><td class="ref">4–81 U/L</td><td>🟢 Normal</td></tr>
+            <tr><td><b>GGT</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">8 U/L</td><td class="ref">0–10 U/L</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Fósforo</b></td><td class="val val-ok">4,0</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">4,40</td><td>—</td><td>—</td><td class="ref">DRC: 2,7–4,6</td><td>🟢 No alvo</td></tr>
+            <tr><td><b>Cálcio Total</b></td><td class="val val-ok">8,10</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="ref">6,2–10,2 mg/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Cálcio Ionizado</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">1,32 mmol/L</td><td class="ref">1,2–1,32</td><td>🟡 Limite sup.</td></tr>
+            <tr><td><b>TGP (ALT)</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">50,50 U/L</td><td class="ref">6–83 U/L</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Vitamina B12</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-warn">897 pg/mL ⚠️</td><td class="ref">900–2000</td><td>⚠️ Levemente baixa</td></tr>
+            <tr><td><b>T4 Total</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">1,44 µg/dL</td><td class="ref">1,2–4,0</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Frutosamina</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">222 µmol/L</td><td class="ref">219–340</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Glicose</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">71 mg/dL</td><td class="ref">60–132</td><td>🟢 Normal</td></tr>
           </tbody>
         </table>
       </div>
@@ -391,14 +420,17 @@
       <div class="section-title">🩸 Hemograma</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Parâmetro</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Ref.</th><th>Evolução</th></tr></thead>
+          <thead><tr><th>Parâmetro</th><th>Mai/2024</th><th>Mai/2025</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Out/2026 🆕</th><th>Ref.</th><th>Evolução</th></tr></thead>
           <tbody>
-            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">8,69</td><td class="val val-ok">8,13</td><td class="val val-ok">9,08</td><td class="val val-alert">10,98</td><td class="ref">5,0–10,0</td><td>⚠️ Acima</td></tr>
-            <tr><td><b>Hemoglobina</b></td><td class="val val-ok">13,80</td><td class="val val-ok">13,0</td><td class="val val-ok">14,40</td><td class="val val-alert">16,1</td><td class="ref">8–15 g/dL</td><td>⚠️ Acima</td></tr>
-            <tr><td><b>Hematócrito</b></td><td class="val val-ok">45,0</td><td class="val val-ok">39,7</td><td class="val val-alert">49,0</td><td class="val val-alert">49,3</td><td class="ref">24–45%</td><td>🔴 Acima</td></tr>
-            <tr><td><b>Leucócitos</b></td><td class="val val-ok">7.900</td><td class="val val-ok">10.920</td><td class="val val-ok">16.000</td><td class="val val-ok">12.300</td><td class="ref">5.500–19.500</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Plaquetas</b></td><td class="val val-ok">301 mil</td><td class="val val-alert">105 mil ⚠️</td><td class="val val-ok">300 mil</td><td class="val val-ok">324 mil</td><td class="ref">200–800 mil</td><td>🟢 Ok</td></tr>
-            <tr><td><b>Proteínas Totais</b></td><td class="val val-alert">8,50</td><td class="val val-alert">8,2</td><td class="val val-alert">8,20</td><td class="val val-ok">7,6</td><td class="ref">6,0–8,0</td><td>🟢 Normalizou</td></tr>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">9,68</td><td class="val val-ok">8,69</td><td class="val val-ok">8,13</td><td class="val val-ok">9,08</td><td class="val val-alert">10,98</td><td class="val val-ok">8,9</td><td class="ref">5,0–10,0</td><td>🟢 Normalizou</td></tr>
+            <tr><td><b>Hemoglobina</b></td><td class="val val-alert">15,7</td><td class="val val-ok">13,80</td><td class="val val-ok">13,0</td><td class="val val-ok">14,40</td><td class="val val-alert">16,1</td><td class="val val-ok">11,8</td><td class="ref">8–15 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-ok">45,0</td><td class="val val-ok">45,0</td><td class="val val-ok">39,7</td><td class="val val-alert">49,0</td><td class="val val-alert">49,3</td><td class="val val-ok">39%</td><td class="ref">24–45%</td><td>🟢 Normalizou</td></tr>
+            <tr><td><b>Leucócitos</b></td><td class="val val-ok">11.410</td><td class="val val-ok">7.900</td><td class="val val-ok">10.920</td><td class="val val-ok">16.000</td><td class="val val-ok">12.300</td><td class="val val-warn">19.400 ⚠️</td><td class="ref">5.500–19.500</td><td>⚠️ Limite sup.</td></tr>
+            <tr><td><b>Eosinófilos</b></td><td class="val val-alert">12% ⚠️</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-ok">9%</td><td class="ref">2–12%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Linfócitos</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-warn">15% ⚠️</td><td class="ref">20–55%</td><td>⚠️ Baixo</td></tr>
+            <tr><td><b>Monócitos</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="val val-warn">5% ⚠️</td><td class="ref">1–4%</td><td>⚠️ Levemente alto</td></tr>
+            <tr><td><b>Plaquetas</b></td><td class="val val-ok">296 mil</td><td class="val val-ok">301 mil</td><td class="val val-alert">105 mil ⚠️</td><td class="val val-ok">300 mil</td><td class="val val-ok">324 mil</td><td class="val val-alert">160 mil 🔴</td><td class="ref">230–680 mil</td><td>🔴 Baixou</td></tr>
+            <tr><td><b>Proteínas Totais</b></td><td class="val val-alert">8,6</td><td class="val val-alert">8,50</td><td class="val val-alert">8,2</td><td class="val val-alert">8,20</td><td class="val val-ok">7,6</td><td class="val val-ok">7,7</td><td class="ref">6,0–8,0</td><td>🟢 Normal</td></tr>
           </tbody>
         </table>
       </div>
@@ -424,6 +456,49 @@
           <div class="stat-row"><span class="stat-name">Cálcio ionizado</span><span class="stat-val val-ok">1,28 mmol/L ✅</span></div>
           <div class="stat-row"><span class="stat-name">Hematócrito (PCV)</span><span class="stat-val val-ok">50% ✅</span></div>
           <div class="stat-row"><span class="stat-name">Hemoglobina</span><span class="stat-val val-ok">16,9 g/dL ✅</span></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">💨 Hemogasometria — 02/10/2026 · Vetuslab · Animal Bello</div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Gases e Ácido-Base</div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-warn">7,293 ⚠️ (limite inferior, ref 7,29–7,45)</span></div>
+          <div class="stat-row"><span class="stat-name">PCO₂</span><span class="stat-val val-ok">49,0 mmHg ✅</span></div>
+          <div class="stat-row"><span class="stat-name">HCO₃</span><span class="stat-val val-ok">23,7 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">BE(ecf)</span><span class="stat-val val-ok">-2,8 ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Ânion Gap</span><span class="stat-val val-ok">22 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Ácido Lático</span><span class="stat-val val-ok">0,94 mmol/L ✅</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Eletrólitos</div>
+          <div class="stat-row"><span class="stat-name">Sódio</span><span class="stat-val val-alert">157,4 mmol/L 🔴 (ref 138–150) hipernatremia</span></div>
+          <div class="stat-row"><span class="stat-name">Potássio</span><span class="stat-val val-ok">3,98 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cloreto</span><span class="stat-val val-ok">116,1 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cálcio ionizado</span><span class="stat-val val-ok">1,27 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Hematócrito (PCV)</span><span class="stat-val val-ok">42% ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Hemoglobina</span><span class="stat-val val-ok">14,2 g/dL ✅</span></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">🧪 Urina Tipo 1 — 24/06/2024 · WeVets Café</div>
+      <div class="alert-box alert-orange" style="margin-bottom:10px"><div class="alert-icon">⚠️</div><div><b>Bacteriúria (Cocos ++) + Proteínas + + Cilindro Granuloso</b> — sugestivo de ITU. Leucócitos 3–5/campo acima do ref. (até 3).</div></div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Físico-Químico</div>
+          <div class="stat-row"><span class="stat-name">Densidade</span><span class="stat-val val-ok">1031 (ref. 1020–1050) ✅</span></div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-ok">6,0 ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Proteínas</span><span class="stat-val val-warn">+ ⚠️</span></div>
+          <div class="stat-row"><span class="stat-name">Glicose</span><span class="stat-val val-ok">Ausente ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Sangue Oculto</span><span class="stat-val val-ok">Ausente ✅</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sedimentoscopia</div>
+          <div class="stat-row"><span class="stat-name">Hemácias</span><span class="stat-val val-warn">4–6/campo ⚠️ (ref até 2)</span></div>
+          <div class="stat-row"><span class="stat-name">Leucócitos</span><span class="stat-val val-warn">3–5/campo ⚠️ (ref até 3)</span></div>
+          <div class="stat-row"><span class="stat-name">Cilindros</span><span class="stat-val val-warn">Granuloso + ⚠️</span></div>
+          <div class="stat-row"><span class="stat-name">Bactérias</span><span class="stat-val val-alert">Cocos ++ 🔴</span></div>
+          <div class="stat-row"><span class="stat-name">Muco</span><span class="stat-val val-warn">+ ⚠️</span></div>
         </div>
       </div>
 
@@ -453,20 +528,44 @@
       <div class="section-title">🔊 Evolução dos Rins</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Rim</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Evolução</th></tr></thead>
+          <thead><tr><th>Rim</th><th>Jul/2025</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026</th><th>Out/2026 🆕</th><th>Evolução</th></tr></thead>
           <tbody>
-            <tr><td><b>RE — tamanho</b></td><td class="val warn">1,79cm</td><td class="val warn">1,89cm</td><td class="val val-alert">1,55cm 🔴</td><td class="val val-alert">1,55cm 🔴</td><td>🟡 Estável (atrofiado)</td></tr>
-            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,34cm</td><td class="val val-ok">3,01cm</td><td class="val val-ok">3,31cm</td><td class="val val-ok">3,24cm</td><td>🟡 Estável</td></tr>
-            <tr><td><b>Nefrólito RE</b></td><td class="val warn">Microcálculos</td><td class="val warn">0,28cm</td><td class="val val-alert">0,23cm + pielectasia</td><td class="val val-alert">0,15×0,17cm</td><td>🟡 Presente</td></tr>
-            <tr><td><b>Ureter esquerdo</b></td><td>—</td><td>—</td><td class="val val-alert">Cristais 0,15–0,16cm</td><td class="val val-alert">Cristais 0,11–0,33cm</td><td>⚠️ Persistem</td></tr>
-            <tr><td><b>Bexiga</b></td><td class="val val-ok">Normal</td><td class="val val-alert">Cistite</td><td class="val val-ok">Normal ✅</td><td class="val warn">Sedimento moderado</td><td>🟡 Monitorar</td></tr>
-            <tr><td><b>Fígado</b></td><td class="val val-ok">Normal</td><td class="val val-ok">Normal</td><td class="val warn">Esteatose discreta</td><td class="val val-ok">Normal ✅</td><td>🟢 Melhorou!</td></tr>
-            <tr><td><b>Pâncreas</b></td><td>—</td><td>—</td><td class="val val-ok">0,56cm normal</td><td class="val warn">0,74cm ↑ ⚠️</td><td>⚠️ Aumentou</td></tr>
+            <tr><td><b>RE — tamanho</b></td><td class="val warn">1,79cm</td><td class="val warn">1,89cm</td><td class="val val-alert">1,55cm 🔴</td><td class="val val-alert">1,55cm 🔴</td><td class="val val-alert">1,69cm</td><td>🟡 Estável (atrofiado)</td></tr>
+            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,34cm</td><td class="val val-ok">3,01cm</td><td class="val val-ok">3,31cm</td><td class="val val-ok">3,24cm</td><td class="val val-ok">2,82cm</td><td>🟡 Leve redução</td></tr>
+            <tr><td><b>Nefrólito/Microlitíase</b></td><td class="val warn">Microcálculos</td><td class="val warn">0,28cm</td><td class="val val-alert">0,23cm + pielectasia</td><td class="val val-alert">0,15×0,17cm</td><td class="val val-alert">Bilateral (0,19 RE / 0,13 RD)</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Ureter esquerdo</b></td><td>—</td><td>—</td><td class="val val-alert">Cristais 0,15–0,16cm</td><td class="val val-alert">Cristais 0,11–0,33cm</td><td class="val val-ok">Sem ectasia</td><td>🟢 Melhorou</td></tr>
+            <tr><td><b>Bexiga</b></td><td class="val val-ok">Normal</td><td class="val val-alert">Cistite</td><td class="val val-ok">Normal ✅</td><td class="val warn">Sedimento moderado</td><td class="val warn">Microcristais/sedimento</td><td>🟡 Monitorar</td></tr>
+            <tr><td><b>Fígado</b></td><td class="val val-ok">Normal</td><td class="val val-ok">Normal</td><td class="val warn">Esteatose discreta</td><td class="val val-ok">Normal ✅</td><td class="val val-ok">Normal ✅</td><td>🟢 OK</td></tr>
+            <tr><td><b>Pâncreas</b></td><td>—</td><td>—</td><td class="val val-ok">0,56cm normal</td><td class="val warn">0,74cm ↑ ⚠️</td><td class="val val-ok">0,63cm ↓</td><td>🟡 Estável</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="section-title">🔊 US Abdominal — 25/07/2026 · Dr. Matheus Cadamuro · Vet To Go 🆕</div>
+      <div class="section-title">🔊 US Abdominal — 02/10/2026 · Dr. Guilherme Fernandes · Animal Bello 🆕</div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-title">📷 Laudo completo — clique para ampliar</div>
+        <a href="EXAMES/panty_us_out26_p1.jpg" target="_blank" rel="noopener">
+          <img src="EXAMES/panty_us_out26_p1.jpg" alt="US Panty 02/10/2026" style="width:100%;border-radius:6px;cursor:zoom-in;" />
+        </a>
+      </div>
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card">
+          <div class="card-title">Rins e Bexiga</div>
+          <div class="us-item"><div class="us-organ">🫘 Rins (geral)</div><div class="us-text"><span class="bad">Simétricos, dimensões reduzidas: RE 1,69cm / RD 2,82cm. Ecogenicidade cortical elevada, perda córtico-medular.</span> Compatível com DRC/senilidade. Sugeridos exames complementares (função renal + urinálise).</div></div>
+          <div class="us-item"><div class="us-organ">🔮 Microlitíase</div><div class="us-text"><span class="bad">Focos ecogênicos em pelve renal bilateral: 0,19cm (RE) e 0,13cm (RD) — microlitíase.</span> Sem dilatação pélvica no momento.</div></div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text">Distensão moderada, paredes finas (0,09cm). <span class="warn">Pontos ecogênicos em suspensão + depositados na parede ventral — microcristais/sedimentos.</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="ok">Dimensões preservadas, ecogenicidade habitual, parênquima homogêneo ✅</span></div></div>
+          <div class="us-item"><div class="us-organ">🍃 Pâncreas</div><div class="us-text"><span class="ok">Parcialmente caracterizado, 0,63cm, contornos bem definidos — normal.</span></div></div>
+          <div class="us-item"><div class="us-organ">🍽️ Intestinos</div><div class="us-text"><span class="ok">Delgado e grosso com distribuição adequada, espessuras preservadas ✅</span></div></div>
+          <div class="us-item"><div class="us-organ">🫁 Aparelho reprodutor</div><div class="us-text"><span class="ok">Sem alterações em topografia de pedículos ovarianos/coto uterino ✅</span></div></div>
+          <div class="us-item"><div class="us-organ">💧 Cavidade</div><div class="us-text"><span class="ok">Sem líquido livre ✅</span></div></div>
+        </div>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 25/07/2026 · Dr. Matheus Cadamuro · Vet To Go</div>
       <div class="grid-2" style="margin-bottom:18px">
         <div class="card">
           <div class="card-title">Rins e Ureteres</div>
@@ -524,6 +623,8 @@
       <div class="timeline">
         <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">17/04/2024</div><div class="tl-label">US abdominal VetToGo · RE 1,68cm (já atrofiado!) · DII/colecistite suspeitos</div></div>
         <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">03/05/2025</div><div class="tl-label">Hemograma + Bioquímica + Urina</div></div>
+        <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">24/05/2024</div><div class="tl-label">Hemograma + Bioquímica — WeVets Café · Creatinina 3,10🔴 · Ureia 97,20🔴 · Hemoglobina 15,7 ⚠️</div></div>
+        <div class="tl-item"><div class="tl-dot">🧪</div><div class="tl-date">24/06/2024</div><div class="tl-label">Urinálise — WeVets Café · Bacteriúria Cocos ++ 🔴 · Proteínas + · Cilindro Granuloso</div></div>
         <div class="tl-item"><div class="tl-dot">🔬</div><div class="tl-date">11/07/2025</div><div class="tl-label">Hemograma + Perfil Obesidade + Bioquímica</div></div>
         <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">24/07/2025</div><div class="tl-label">Ultrassom abdominal</div></div>
         <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">19/08/2025</div><div class="tl-label">Mirtz + Hepvet + Prorim</div></div>
@@ -538,6 +639,13 @@
         <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 US abdômen total — Vet To Go · microureterólitos estáveis · fígado melhorou!</div></div>
         <div class="tl-item"><div class="tl-dot new">🧬</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Urina Tipo 1 + RPCU 0,07 — Lyra Lab (normal ✅)</div></div>
         <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">10/08/2026</div><div class="tl-label">🆕 Consulta nefrologia (Dra. Bárbara) — gabapentina + acetato de potássio prescritos · encaminhamento gastro Dra. Gabriele · repetir exames em 45–60 dias</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">31/08/2026</div><div class="tl-label">🆕 Fezes mucóides escore 6–7 com estria de hematoquezia (roubou comida da Weed)</div></div>
+        <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">01/09/2026</div><div class="tl-label">🆕 Consulta Gastroenterologia (Dra. Gabrielle Carmona) — ECC 5/9 · Peso 4,4kg · tentativa alimento hidrolisado low fat · ciclo cortisona se crise · exames solicitados (hemograma, bioquímica completa, US, FIV/FELV, cobalamina, T4, coproparasitológico)</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">02/10/2026</div><div class="tl-label">🆕 Hemograma + Bioquímica completa + B12 897⚠️ + T4 1,44✅ + Frutosamina 222✅ — Vetnova/Nofaro Animal Bello · Creatinina 2,84🔴 · Ureia 110,9🔴 · Plaquetas 160mil🔴</div></div>
+        <div class="tl-item"><div class="tl-dot new">💨</div><div class="tl-date">02/10/2026</div><div class="tl-label">🆕 Hemogasometria venosa — Vetuslab/Animal Bello · Na+ 157,4🔴 (hipernatremia) · pH 7,293 ⚠️ · Ácido Lático 0,94 ✅</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">02/10/2026</div><div class="tl-label">🆕 Ultrassom abdominal — Dr. Guilherme Fernandes · Animal Bello · Rins reduzidos RE 1,69cm / RD 2,82cm · microlitíase bilateral · microcristais bexiga · restante normal</div></div>
+        <div class="tl-item"><div class="tl-dot new">💊</div><div class="tl-date">09/10/2026</div><div class="tl-label">🆕 Receita Dra. Bárbara Marques (Nefro/Animall Vet) · Kalium Gatos 1cp/12h + Fluidoterapia SC contínua</div></div>
+        <div class="tl-item"><div class="tl-dot new">💊</div><div class="tl-date">15/10/2026</div><div class="tl-label">🆕 Receita Dra. Bárbara Marques (Nefro/Animall Vet) · Citrato de Potássio 200mg 1 dose/12h</div></div>
       </div>
 
       <div class="section-title" style="margin-top:16px">💊 Histórico de Medicações</div>
@@ -561,10 +669,20 @@
           <div class="rx-item"><div class="rx-drug">Tansulosina 0,025mg</div><div class="rx-dose">1 dose/24h até novas recomendações</div><div class="rx-date">Relaxante ureteral — retomar se obstrução</div></div>
         </div>
         <div class="card">
-          <div class="card-title">10/08/2026 · Nefro (Dra. Bárbara) 🆕</div>
+          <div class="card-title">10/08/2026 · Nefro (Dra. Bárbara)</div>
           <div class="rx-item"><div class="rx-drug">💊 Gabapentina (manipulada)</div><div class="rx-dose">Dose a confirmar — uso contínuo</div><div class="rx-date">Controle de dor crônica / artrose</div></div>
           <div class="rx-item"><div class="rx-drug">💊 Acetato de potássio</div><div class="rx-dose">Dose a confirmar — receita via WhatsApp</div><div class="rx-date">Elevar pH urinário — prevenir novos cálculos</div></div>
           <div class="rx-item"><div class="rx-drug">⚠️ Dipirona</div><div class="rx-dose">Pontual (agudização) — não usar contínuo</div><div class="rx-date">Evitar uso prolongado</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">09/10/2026 · Nefro (Dra. Bárbara) · Animall Vet 🆕</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">Peso: 4,200kg (21/05/26)</div>
+          <div class="rx-item"><div class="rx-drug">💊 Kalium Gatos (F.Vet.)</div><div class="rx-dose">1 comprimido a cada 12h — contínuo</div><div class="rx-date">Reposição de potássio</div></div>
+          <div class="rx-item"><div class="rx-drug">💧 Fluidoterapia SC</div><div class="rx-dose">Manter até novas recomendações</div><div class="rx-date">Hidratação contínua DRC</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">15/10/2026 · Nefro (Dra. Bárbara) · Animall Vet 🆕</div>
+          <div class="rx-item"><div class="rx-drug">💊 Citrato de Potássio 200mg</div><div class="rx-dose">1 dose a cada 12h — 60 doses</div><div class="rx-date">Alcalinização urinária — prevenir urolitíase</div></div>
         </div>
       </div>
     </div>
@@ -587,23 +705,23 @@
     <div class="kpi-grid">
       <div class="kpi-box">
         <div class="kpi-label">Creatinina</div>
-        <div class="kpi-val kpi-yellow">2,08</div>
-        <div class="kpi-sub">mg/dL ↓ jul/26 🎉</div>
+        <div class="kpi-val kpi-yellow">1,97</div>
+        <div class="kpi-sub">mg/dL ↓ nov/26 🎉</div>
       </div>
       <div class="kpi-box">
         <div class="kpi-label">Ureia</div>
-        <div class="kpi-val kpi-yellow">59,6</div>
-        <div class="kpi-sub">mg/dL ⚠️ jul/26</div>
+        <div class="kpi-val kpi-red">72,62</div>
+        <div class="kpi-sub">mg/dL 🔴 nov/26</div>
       </div>
       <div class="kpi-box">
         <div class="kpi-label">IRIS</div>
         <div class="kpi-val kpi-yellow">2</div>
-        <div class="kpi-sub">DRC (melhorou!)</div>
+        <div class="kpi-sub">DRC (estável!)</div>
       </div>
       <div class="kpi-box">
-        <div class="kpi-label">RPCU</div>
-        <div class="kpi-val kpi-green">0,06</div>
-        <div class="kpi-sub">jul/26 ✅ normal</div>
+        <div class="kpi-label">Fósforo</div>
+        <div class="kpi-val kpi-green">4,46</div>
+        <div class="kpi-sub">mg/dL ✅ nov/26</div>
       </div>
     </div>
 
@@ -617,7 +735,7 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">Status</div>
     <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px;">
-      <span class="badge badge-renal">DRC Estágio 3</span>
+      <span class="badge badge-renal">DRC Estágio 2</span>
       <span class="badge badge-resp">Asma felina</span>
       <span class="badge badge-watch">Fluidoterapia SC</span>
     </div>
@@ -632,7 +750,15 @@
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">💊 Medicações atuais</div>
     <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
-      <div style="font-size:12px;font-weight:700;color:var(--teal)">💧 Ringer Lactato SC 🆕</div>
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">🧡 Kalium Gatos 🆕</div>
+      <div style="font-size:10px;color:var(--text-muted)">1,5 cp a cada 12h · desde out/26</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">🧡 Citrato de Potássio 300mg 🆕</div>
+      <div style="font-size:10px;color:var(--text-muted)">1 dose/12h · 60 doses · desde 16/out/26</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
+      <div style="font-size:12px;font-weight:700;color:var(--teal)">💧 Ringer Lactato SC</div>
       <div style="font-size:10px;color:var(--text-muted)">200ml · 2x/semana</div>
     </div>
     <div style="background:var(--bg3);border-radius:8px;padding:9px 10px;margin-bottom:5px;">
@@ -645,9 +771,9 @@
     </div>
 
     <div style="background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:8px;padding:9px 10px;margin-top:8px;font-size:10px;">
-      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames realizados (jul/26)</div>
-      Hemograma · Creatinina · Ureia · Fósforo · Urina+RPCU · US abdominal<br>
-      <span style="color:var(--text-muted)">Animall Vet · 25/07/2026</span>
+      <div style="font-weight:700;color:var(--green);margin-bottom:3px">✅ Exames (out/nov 26)</div>
+      Hemogasometria · US abdominal<br>
+      <span style="color:var(--text-muted)">Animal Bello/Vet To Go · out–nov/2026</span>
     </div>
   </div>
 
@@ -697,9 +823,25 @@
         <div class="alert-icon">🧪</div>
         <div><div class="alert-title">Repetir exames em ~30 dias (~25/08/2026)</div>Prioridade: fósforo + creatinina + ureia. Avaliar resposta ao quelante.</div>
       </div>
+      <div class="alert-box alert-red">
+        <div class="alert-icon">🧫</div>
+        <div><div class="alert-title">Acidose metabólica — Hemogasometria 14/11/2026 (Vetdue)</div>HCO3 18,1🔴 (ref 18–24) · CO2 total 19,2🔴 · pH 7,34 ✅ · Na+ 165,0⚠️ (hipernatremia leve) · K+ 4,6✅ · BE -6,0🔴. Monitorar evolução — correlacionar com DRC.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🧡</div>
+        <div><div class="alert-title">K+ baixo confirmado em out/26 — Kalium Gatos + Citrato de Potássio prescrito</div>K+ 2,00🔴 na hemogasometria de 02/10/26 (atentar para possível interferência de amostra). Kalium Gatos 1,5cp/12h + Citrato K+ 300mg/12h desde 16/10/2026. Reavaliação com nov/26: K+ 4,6✅.</div>
+      </div>
       <div class="alert-box alert-green">
         <div class="alert-icon">🎉</div>
-        <div><div class="alert-title">Creatinina 2,08 mg/dL — IRIS 2! Melhora expressiva</div>Queda: 3,40→3,19→2,90→2,08 (fev→mar→mai→jul/26). Passou de IRIS 3 para IRIS 2. Fluidoterapia SC + dieta renal funcionando!</div>
+        <div><div class="alert-title">Creatinina 1,97 mg/dL — nov/26! Continua IRIS 2</div>Queda: 3,40→3,19→2,90→2,08→2,84→1,97 (fev→mar→mai→jul→out→nov/26). Creatinina mais baixa já registrada! Tratamento funcionando.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🧪</div>
+        <div><div class="alert-title">Proteinúria ++ — Urina 15/11/2026 (cistocentese)</div>Proteínas ++ no EAS — significativo em paciente com DRC. Correlacionar com RPCU (último 0,06 em jul/26). Solicitar novo RPCU para quantificar.</div>
+      </div>
+      <div class="alert-box alert-orange">
+        <div class="alert-icon">🔴</div>
+        <div><div class="alert-title">Ureia 72,62 mg/dL — acima da referência (ref. ≤64)</div>Piorou em relação a jul/26 (59,60) mas compatível com DRC. Monitorar.</div>
       </div>
 
       <div class="section-title" style="margin-top:16px">✅ Positivos</div>
@@ -713,7 +855,7 @@
       </div>
 
       <!-- IRIS -->
-      <div class="section-title" style="margin-top:16px">🔬 Estadiamento IRIS — Creatinina jul/26: 2,08 mg/dL</div>
+      <div class="section-title" style="margin-top:16px">🔬 Estadiamento IRIS — Creatinina nov/26: 1,97 mg/dL</div>
       <div class="card">
         <div class="iris-bar">
           <div class="iris-stage"></div>
@@ -721,7 +863,7 @@
           <div class="iris-stage"></div><div class="iris-stage"></div>
         </div>
         <div class="iris-labels"><span>E1 &lt;1,6</span><span>E2 1,6–2,8</span><span>E3 2,9–5,0</span><span>E4 &gt;5,0</span></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--green)">🎉 Estágio 2! Melhora em relação a mai/26 (estava em 2,90 = IRIS 3). Manter fluidoterapia SC + dieta renal.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--green)">🎉 Estágio 2! Creatinina mais baixa da série: 3,40→3,19→2,90→2,08→2,84→1,97. Manter fluidoterapia SC + dieta renal.</div>
       </div>
 
       <!-- RESUMO VET -->
@@ -729,8 +871,8 @@
       <div class="alert-box alert-blue">
         <div class="alert-icon">📋</div>
         <div>
-          <div class="alert-title">Biscoito · ~7 anos · Gato SRD · Chip 981020004466436 · Peso 6,5kg (mar/26)</div>
-          DRC estágio 2 (melhora!). Creatinina: 3,40→3,19→2,90→2,08 (fev→mar→mai→jul/26). Ureia 59,60 (normal). Fósforo 6,28 (normal geral, mas acima alvo DRC). RPCU 0,06 ✅. Hemograma normal. <b>US 25/07/26 (Vet To Go): RE 3,03cm contornos irregulares, infarto cunha (0,28×0,43cm), retroperitônio esq. ecogen. aumentada. RD 3,51cm, infarto cunha (0,49×1,11cm), micrólitos pélvicos (0,18cm). Pâncreas 0,59cm, ecogen. acentuada + parênquima grosseiro — pancreatopatia. Fígado ecogen. reduzida. Duodeno espessado (0,30cm) — DII?. Cristais vesicais.</b> Asma felina — Seretide 25/125mcg 1 puff 2x/dia. Ringer SC 200ml 2x/sem.
+          <div class="alert-title">Biscoito · ~7 anos e 9m · Gato SRD · Chip 981020004466436 · Peso 6,5kg (16/10/26)</div>
+          DRC estágio 2. Creatinina: 3,40→3,19→2,90→2,08→2,84→<b>1,97 mg/dL (nov/26 — mínima registrada!)</b>. Ureia 72,62 (acima ref.). Fósforo 4,46 ✅. Plaquetas 281mil (leve queda). Proteína total 9 g/dL ⚠️. <b>Urina 15/11/26 (cistocentese): Proteínas ++ ⚠️, densidade 1023, pH 6, sem cristais/bactérias.</b> <b>US 14/11/26 (Dr. Guilherme Fernandes): Pâncreas NORMALIZADO ✅ (dimensões normais, ecogenicidade preservada — era grosseiro 0,74cm em out). Fígado NORMALIZADO ✅ (ecogenicidade habitual — era reduzida). Rins: RE 3,44cm, microlitíase pélvica 0,08cm (diminuiu). Bexiga: microcristais/sedimentos.</b> Hemogasometria 14/11: acidose metabólica (HCO3 18,1🔴). K+ 4,6 ✅ (normalizou!). Kalium Gatos + Citrato K+ + Ringer SC + Seretide.
         </div>
       </div>
     </div>
@@ -740,29 +882,29 @@
       <div class="section-title">📊 Função Renal</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Parâmetro</th><th>Fev/2026</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Ref. Felino</th><th>Evolução</th></tr></thead>
+          <thead><tr><th>Parâmetro</th><th>Fev/2026</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026</th><th>Out/2026</th><th>Nov/2026 🆕</th><th>Ref. Felino</th><th>Evolução</th></tr></thead>
           <tbody>
-            <tr><td><b>Ureia</b></td><td class="val val-alert">131,80</td><td class="val val-alert">143,82</td><td class="val val-ok">50,0</td><td class="val val-ok">59,60</td><td class="ref">10–64 mg/dL</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,40</td><td class="val val-alert">3,19</td><td class="val val-alert">2,90</td><td class="val val-alert">2,08 🎉</td><td class="ref">0,5–1,7 mg/dL</td><td>🟢 IRIS 2!</td></tr>
-            <tr><td><b>Fósforo</b></td><td>—</td><td>—</td><td class="val val-warn">4,60</td><td class="val val-alert">6,28</td><td class="ref">DRC: &lt;4,6</td><td>🔴 Acima alvo</td></tr>
+            <tr><td><b>Ureia</b></td><td class="val val-alert">131,80</td><td class="val val-alert">143,82</td><td class="val val-ok">50,0</td><td class="val val-ok">59,60</td><td class="val val-alert">110,9</td><td class="val val-alert">72,62</td><td class="ref">10–64 mg/dL</td><td>⚠️ Acima</td></tr>
+            <tr><td><b>Creatinina</b></td><td class="val val-alert">3,40</td><td class="val val-alert">3,19</td><td class="val val-alert">2,90</td><td class="val val-alert">2,08 🎉</td><td class="val val-alert">2,84</td><td class="val val-warn">1,97 🎉</td><td class="ref">0,5–1,7 mg/dL</td><td>🟢 Melhorou!</td></tr>
+            <tr><td><b>Fósforo</b></td><td>—</td><td>—</td><td class="val val-warn">4,60</td><td class="val val-alert">6,28</td><td>—</td><td class="val val-ok">4,46</td><td class="ref">DRC: &lt;4,6</td><td>🟢 Dentro alvo</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="section-title">🩸 Hemograma — 25/07/2026 · VetFácil / Animall Vet</div>
+      <div class="section-title">🩸 Hemograma comparativo</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Parâmetro</th><th>Jul/2026 🆕</th><th>Ref. Felino</th><th>Status</th></tr></thead>
+          <thead><tr><th>Parâmetro</th><th>Jul/2026</th><th>Nov/2026 🆕</th><th>Ref. Felino</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">9,35</td><td class="ref">5,0–10,0 M/mm³</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Hemoglobina</b></td><td class="val val-ok">14,8</td><td class="ref">8–15 g/dL</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Hematócrito</b></td><td class="val val-ok">44%</td><td class="ref">24–45%</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Leucócitos</b></td><td class="val val-ok">9.600</td><td class="ref">5.500–19.500/mm³</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Segmentados</b></td><td class="val val-alert">85% / 8.160µL</td><td class="ref">35–75% rel.</td><td>⚠️ Neutrofilia relativa</td></tr>
-            <tr><td><b>Linfócitos</b></td><td class="val val-warn">11% / 1.056µL</td><td class="ref">20–55% / 1.100µL</td><td>⚠️ Levemente baixo</td></tr>
-            <tr><td><b>Eosinófilos</b></td><td class="val val-warn">1% / 96µL</td><td class="ref">110–2.340µL</td><td>⚠️ Baixo</td></tr>
-            <tr><td><b>Plaquetas</b></td><td class="val val-ok">242 mil</td><td class="ref">230–680 mil/mm³</td><td>🟢 Normal</td></tr>
-            <tr><td><b>Proteína total</b></td><td class="val val-ok">7,60</td><td class="ref">6,0–8,0 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Eritrócitos</b></td><td class="val val-ok">9,35</td><td class="val val-ok">9,28</td><td class="ref">5,0–10,0 M/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Hemoglobina</b></td><td class="val val-ok">14,8</td><td class="val val-ok">14,66</td><td class="ref">8–15 g/dL</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Hematócrito</b></td><td class="val val-ok">44%</td><td class="val val-ok">44%</td><td class="ref">24–45%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Leucócitos</b></td><td class="val val-ok">9.600</td><td class="val val-ok">9.400</td><td class="ref">5.500–19.500/mm³</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Eosinófilos</b></td><td class="val val-warn">1%</td><td class="val val-ok">5%</td><td class="ref">2–12%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Linfócitos</b></td><td class="val val-warn">11%</td><td class="val val-ok">24%</td><td class="ref">20–55%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Monócitos</b></td><td>—</td><td class="val val-ok">0%</td><td class="ref">1–4%</td><td>🟢 Normal</td></tr>
+            <tr><td><b>Plaquetas</b></td><td class="val val-ok">242 mil</td><td class="val val-warn">281 mil ⚠️</td><td class="ref">300–700 mil/mm³</td><td>⚠️ Leve queda</td></tr>
+            <tr><td><b>Proteína total</b></td><td class="val val-ok">7,60</td><td class="val val-warn">9,0 ⚠️</td><td class="ref">5,6–8,0 g/dL</td><td>⚠️ Levemente alto</td></tr>
           </tbody>
         </table>
       </div>
@@ -786,6 +928,67 @@
           <div class="stat-row"><span class="stat-name">RPCU</span><span class="stat-val val-ok" style="font-weight:700">0,06 — NORMAL ✅</span></div>
         </div>
       </div>
+      <div class="section-title" style="margin-top:16px">💨 Hemogasometria venosa — 02/10/2026 · Vetuslab · Animal Bello</div>
+      <div class="alert-box alert-red" style="margin-bottom:10px"><div class="alert-icon">⚠️</div><div><b>Valores muito alterados — possível interferência de amostra.</b> Na+ 121,3 e Ca++ &lt;0,25 são contraditorios com Cl- &gt;140. Interpretar com cautela em contexto clínico.</div></div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Gases e Ácido-Base</div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-alert">7,533 🔴 (alcalose, ref 7,27–7,42)</span></div>
+          <div class="stat-row"><span class="stat-name">PCO₂</span><span class="stat-val val-ok">44,6 mmHg ✅</span></div>
+          <div class="stat-row"><span class="stat-name">HCO₃</span><span class="stat-val val-alert">37,6 mmol/L 🔴 (ref 16–30)</span></div>
+          <div class="stat-row"><span class="stat-name">BE(ecf)</span><span class="stat-val val-alert">+14,9 🔴 (alcalose metabólica)</span></div>
+          <div class="stat-row"><span class="stat-name">Ácido Lático</span><span class="stat-val val-warn">2,42 mmol/L ⚠️ (ref 0,5–2,7)</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Eletrólitos</div>
+          <div class="stat-row"><span class="stat-name">Sódio</span><span class="stat-val val-alert">121,3 mmol/L 🔴 (hiponatremia grave?)</span></div>
+          <div class="stat-row"><span class="stat-name">Potássio</span><span class="stat-val val-alert">2,00 mmol/L 🔴 (hipocalemia)</span></div>
+          <div class="stat-row"><span class="stat-name">Cloreto</span><span class="stat-val val-alert">&gt;140 mmol/L 🔴 (hipercloremia?)</span></div>
+          <div class="stat-row"><span class="stat-name">Cálcio ionizado</span><span class="stat-val val-alert">&lt;0,25 mmol/L 🔴 (hipocalcemia grave?)</span></div>
+          <div class="stat-row"><span class="stat-name">Hematócrito (PCV)</span><span class="stat-val val-warn">50% ⚠️ (ref 24–48%)</span></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">🧪 Urina Tipo 1 — 15/11/2026 · Vetuslab · Animal Bello 🆕</div>
+      <div class="alert-box alert-orange" style="margin-bottom:10px"><div class="alert-icon">⚠️</div><div><b>Proteinúria ++</b> — significativa em paciente com DRC. Correlacionar com RPCU (último 0,06 em jul/26). Solicitar novo RPCU.</div></div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Caracteres Físicos e Químicos</div>
+          <div class="stat-row"><span class="stat-name">Coleta</span><span class="stat-val">Cistocentese</span></div>
+          <div class="stat-row"><span class="stat-name">Densidade</span><span class="stat-val val-ok">1023 ✅ (ref. 1020–1050)</span></div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-ok">6 ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Proteínas</span><span class="stat-val val-warn">++ ⚠️ (proteinúria)</span></div>
+          <div class="stat-row"><span class="stat-name">Glicose</span><span class="stat-val val-ok">Ausente ✅</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sedimento</div>
+          <div class="stat-row"><span class="stat-name">Hemácias</span><span class="stat-val val-ok">1–2/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Leucócitos</span><span class="stat-val val-ok">2–3/campo ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cristais</span><span class="stat-val val-ok">Ausente ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Bactérias</span><span class="stat-val val-ok">Ausente ✅</span></div>
+          <div class="stat-row"><span class="stat-name">MV resp.</span><span class="stat-val" style="font-size:10px">Dra. Isabella / MV Stephanie Brizzi CRMV-SP 42.363</span></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">💨 Hemogasometria venosa — 14/11/2026 · IDEXX VetStat · Vetdue</div>
+      <div class="alert-box alert-orange" style="margin-bottom:10px"><div class="alert-icon">⚠️</div><div><b>Acidose metabólica</b> — HCO₃ e CO₂ total abaixo do referência. Sódio no limite superior (165,0 mmol/L).</div></div>
+      <div class="grid-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-title">Gases e Ácido-Base</div>
+          <div class="stat-row"><span class="stat-name">pH</span><span class="stat-val val-ok">7,34 ✅ (ref 7,24–7,40)</span></div>
+          <div class="stat-row"><span class="stat-name">pCO₂</span><span class="stat-val val-ok">37,0 mmHg ✅ (ref 34–38)</span></div>
+          <div class="stat-row"><span class="stat-name">CO₂ total</span><span class="stat-val val-alert">19,2 mmol/L 🔴 (ref 27–31)</span></div>
+          <div class="stat-row"><span class="stat-name">HCO₃</span><span class="stat-val val-alert">18,1 mmol/L 🔴 (ref 22–24) — acidose metabólica</span></div>
+          <div class="stat-row"><span class="stat-name">Base Excess</span><span class="stat-val val-alert">-6,0 mmol/L 🔴</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Eletrólitos</div>
+          <div class="stat-row"><span class="stat-name">Sódio</span><span class="stat-val val-warn">165,0 mmol/L ⚠️ (ref 150–165, limite sup.)</span></div>
+          <div class="stat-row"><span class="stat-name">Potássio</span><span class="stat-val val-ok">4,6 mmol/L ✅</span></div>
+          <div class="stat-row"><span class="stat-name">Cloreto</span><span class="stat-val val-ok">120,0 mmol/L ✅</span></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- IMAGEM -->
@@ -793,19 +996,43 @@
       <div class="section-title">🔊 Evolução — Ultrassons</div>
       <div class="card" style="overflow-x:auto;margin-bottom:14px">
         <table class="cmp-table">
-          <thead><tr><th>Achado</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026 🆕</th><th>Evolução</th></tr></thead>
+          <thead><tr><th>Achado</th><th>Mar/2026</th><th>Mai/2026</th><th>Jul/2026</th><th>Out/2026</th><th>Nov/2026 🆕</th><th>Evolução</th></tr></thead>
           <tbody>
-            <tr><td><b>RE — tamanho</b></td><td class="val val-ok">3,07cm</td><td class="val val-ok">3,05cm</td><td class="val val-ok">3,03cm</td><td>🟡 Estável</td></tr>
-            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,59cm</td><td class="val val-ok">3,60cm</td><td class="val val-ok">3,51cm</td><td>🟡 Estável</td></tr>
-            <tr><td><b>Infarto renal RE</b></td><td class="val warn">0,98×0,86cm</td><td class="val val-alert">0,31×0,56cm</td><td class="val val-alert">0,28×0,43cm</td><td>⚠️ Persistente</td></tr>
-            <tr><td><b>Infarto renal RD</b></td><td>—</td><td class="val val-alert">0,76×1,00cm 🔴</td><td class="val val-alert">0,49×1,11cm</td><td>⚠️ Persistente</td></tr>
-            <tr><td><b>Retroperitônio esq.</b></td><td>Normal</td><td class="val val-alert">Ecogen. aumentada</td><td class="val val-alert">Ecogen. aumentada</td><td>⚠️ Persiste</td></tr>
-            <tr><td><b>Pâncreas</b></td><td class="val val-ok">0,59cm normal</td><td class="val val-alert">0,64–0,73cm grosseiro</td><td class="val val-alert">0,59cm grosseiro</td><td>🔴 Pancreatopatia</td></tr>
-            <tr><td><b>Fígado</b></td><td class="val warn">Ecogen. aumentada</td><td class="val val-alert">Ecogen. reduzida</td><td class="val val-alert">Ecogen. reduzida</td><td>⚠️ Persiste</td></tr>
-            <tr><td><b>Bexiga</b></td><td>Normal</td><td class="val warn">Sedimento aderido</td><td class="val warn">Cristais/sedimentos</td><td>⚠️ Persiste</td></tr>
-            <tr><td><b>Duodeno</b></td><td>Normal</td><td class="val warn">Espessado (0,30cm)</td><td class="val warn">Espessado (0,30cm)</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>RE — tamanho</b></td><td class="val val-ok">3,07cm</td><td class="val val-ok">3,05cm</td><td class="val val-ok">3,03cm</td><td class="val val-alert">3,22cm</td><td class="val val-warn">3,44cm</td><td>🟡 DRC</td></tr>
+            <tr><td><b>RD — tamanho</b></td><td class="val val-ok">3,59cm</td><td class="val val-ok">3,60cm</td><td class="val val-ok">3,51cm</td><td class="val val-ok">3,64cm</td><td>—</td><td>🟡 Estável</td></tr>
+            <tr><td><b>Infarto renal RE</b></td><td class="val warn">0,98×0,86cm</td><td class="val val-alert">0,31×0,56cm</td><td class="val val-alert">0,28×0,43cm</td><td class="val val-alert">0,35×0,38cm</td><td>—</td><td>⚠️ Persistente</td></tr>
+            <tr><td><b>Infarto renal RD</b></td><td>—</td><td class="val val-alert">0,76×1,00cm 🔴</td><td class="val val-alert">0,49×1,11cm</td><td class="val val-alert">0,37×0,83cm</td><td>—</td><td>⚠️ Persistente</td></tr>
+            <tr><td><b>Retroperitônio esq.</b></td><td>Normal</td><td class="val val-alert">Ecogen. aumentada</td><td class="val val-alert">Ecogen. aumentada</td><td class="val val-alert">Ecogen. aumentada</td><td>—</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Pâncreas</b></td><td class="val val-ok">0,59cm normal</td><td class="val val-alert">0,64–0,73cm grosseiro</td><td class="val val-alert">0,59cm grosseiro</td><td class="val val-alert">0,74cm grosseiro 🔴</td><td class="val val-ok">Normal ✅</td><td>🟢 Melhorou!</td></tr>
+            <tr><td><b>Fígado</b></td><td class="val warn">Ecogen. aumentada</td><td class="val val-alert">Ecogen. reduzida</td><td class="val val-alert">Ecogen. reduzida</td><td class="val val-alert">Ecogen. reduzida 🔴</td><td class="val val-ok">Normal ✅</td><td>🟢 Normalizou!</td></tr>
+            <tr><td><b>Bexiga</b></td><td>Normal</td><td class="val warn">Sedimento aderido</td><td class="val warn">Cristais/sedimentos</td><td class="val warn">Cristais + sedimento parede (0,11cm)</td><td class="val warn">Microcristais/sedimentos</td><td>⚠️ Persiste</td></tr>
+            <tr><td><b>Microlitíase RE</b></td><td>—</td><td>—</td><td class="val warn">0,18cm</td><td class="val val-alert">Pielectasia 0,28cm + microlitíase</td><td class="val warn">Microlitíase 0,08cm (s/ pielectasia)</td><td>🟡 Melhorou</td></tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="section-title">🔊 US Abdominal — 14/11/2026 · Dr. Guilherme Fernandes · Clínica Vet Animal Bello 🆕</div>
+      <div class="alert-box alert-green" style="margin-bottom:10px"><div class="alert-icon">🎉</div><div><b>Pâncreas e Fígado normalizados!</b> Pâncreas com ecogenicidade preservada e dimensões normais (era 0,74cm grosseiro em out). Fígado com ecogenicidade habitual (era reduzida desde mai/26).</div></div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-title">📷 Laudo completo — clique para ampliar</div>
+        <a href="EXAMES/bisco_us_nov26_p1.jpg" target="_blank" rel="noopener">
+          <img src="EXAMES/bisco_us_nov26_p1.jpg" alt="Biscoito US 14/11/2026" style="width:100%;border-radius:6px;cursor:zoom-in;" />
+        </a>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rins</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text">3,44cm. <span class="warn">Ecogenicidade das córtices aumentada (nefropatia/senilidade).</span><br><span class="warn">Microlitíase pelve 0,08cm.</span> Sem pielectasia.</div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text">Contornos regulares, ecogenicidade usual.</div></div>
+          <div class="us-item"><div class="us-organ">🫁 Adrenais</div><div class="us-text"><span class="ok">AE: 0,22cm × 0,84cm. AD: 0,28cm × 0,62cm — normais.</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫀 Pâncreas ✅</div><div class="us-text"><span class="ok">Ecogenicidade preservada, dimensões normais. <b>Normalizado!</b></span></div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado ✅</div><div class="us-text"><span class="ok">Ecogenicidade habitual, ecotextura preservada. <b>Normalizado!</b></span></div></div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text">Moderada distensão. <span class="warn">Microcristais/sedimentos. Parede 0,08cm (normal).</span></div></div>
+          <div class="us-item"><div class="us-organ">🏮 Vesícula biliar</div><div class="us-text"><span class="warn">Conteúdo gasoso/pastoso em porção visualizada.</span> Paredes 0,14cm — normais.</div></div>
+        </div>
       </div>
 
       <div class="section-title">🔊 US Abdominal — 25/07/2026 · Vet To Go 🆕</div>
@@ -839,6 +1066,35 @@
           <div class="us-item"><div class="us-organ">🍃 Intestino / Baço / Adrenais</div><div class="us-text"><span class="ok">Intestino normal. Baço normal. Adrenais esq 0,76cm / dir 0,95cm — normais.</span></div></div>
         </div>
       </div>
+
+      <div class="section-title">🔊 US Abdominal — 13/10/2026 · Dr. Matheus Cadamuro dos Santos · Vet To Go 🆕</div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-title">📷 Laudo completo — clique em cada página para ampliar</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="EXAMES/bisco_us_out26_p1.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p1.jpg" alt="Biscoito US p1" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p2.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p2.jpg" alt="Biscoito US p2" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p3.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p3.jpg" alt="Biscoito US p3" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p4.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p4.jpg" alt="Biscoito US p4" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p5.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p5.jpg" alt="Biscoito US p5" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p6.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p6.jpg" alt="Biscoito US p6" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p7.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p7.jpg" alt="Biscoito US p7" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+          <a href="EXAMES/bisco_us_out26_p8.jpg" target="_blank" rel="noopener"><img src="EXAMES/bisco_us_out26_p8.jpg" alt="Biscoito US p8" style="height:200px;border-radius:6px;cursor:zoom-in;" /></a>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rins</div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Esquerdo</div><div class="us-text">3,22cm. <span class="warn">Contornos irregulares, DRC.</span><br><span class="bad">Infarto renal (0,35×0,38cm).</span><br><span class="warn">Pielectasia 0,28cm. Microlitíase pélvica.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫘 Rim Direito</div><div class="us-text">3,64cm.<br><span class="bad">Infarto renal (0,37×0,83cm).</span><br><span class="warn">Mineralizações.</span></div></div>
+          <div class="us-item"><div class="us-organ">📌 Retroperitônio</div><div class="us-text"><span class="bad">Retroperitônio esq. com ecogenicidade aumentada — persiste.</span></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Outros órgãos</div>
+          <div class="us-item"><div class="us-organ">🫀 Pâncreas 🔴</div><div class="us-text"><span class="bad">0,74cm, ecogenicidade acentuada, parênquima grosseiro.</span><br><b>Pancreatopatia crônica.</b></div></div>
+          <div class="us-item"><div class="us-organ">🫀 Fígado</div><div class="us-text"><span class="warn">Ecogenicidade reduzida — persiste.</span></div></div>
+          <div class="us-item"><div class="us-organ">🫧 Bexiga</div><div class="us-text"><span class="warn">Cristais suspensos e sedimento. Parede dorsal 0,11cm.</span></div></div>
+        </div>
+      </div>
     </div>
 
     <!-- HISTÓRICO -->
@@ -848,7 +1104,7 @@
         <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">27/02/2026</div><div class="tl-label">Hemograma + Bioquímica</div></div>
         <div class="tl-item"><div class="tl-dot">🧪</div><div class="tl-date">06/03/2026</div><div class="tl-label">Ureia + Creatinina</div></div>
         <div class="tl-item"><div class="tl-dot">🔊</div><div class="tl-date">11/03/2026</div><div class="tl-label">Ultrassom abdominal</div></div>
-        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">31/03/2026</div><div class="tl-label">Furanil pomada · Peso 6,5kg</div></div>
+        <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">31/03/2026</div><div class="tl-label">Furanil pomada · Peso 6,5kg (histórico)</div></div>
         <div class="tl-item"><div class="tl-dot">🫁</div><div class="tl-date">01/04/2026</div><div class="tl-label">Rx tórax + cervical</div></div>
         <div class="tl-item"><div class="tl-dot">💊</div><div class="tl-date">16/04/2026</div><div class="tl-label">Seretide + Macrogard + Dieta renal</div></div>
         <div class="tl-item"><div class="tl-dot">🩸</div><div class="tl-date">12/05/2026</div><div class="tl-label">Hemograma + Bioquímica + Fósforo</div></div>
@@ -858,6 +1114,15 @@
         <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 US abdômen total — infartos bilaterais estáveis · pâncreas grosseiro · Vet To Go</div></div>
         <div class="tl-item"><div class="tl-dot new">🧬</div><div class="tl-date">25/07/2026</div><div class="tl-label">🆕 Urina Tipo 1 + RPCU 0,06 — Lyra Lab (normal ✅)</div></div>
         <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">10/08/2026</div><div class="tl-label">🆕 Consulta nefrologia (Dra. Bárbara) — quelante de fósforo prescrito · encaminhamento gastro Dra. Gabriele · repetir exames em 30 dias</div></div>
+        <div class="tl-item"><div class="tl-dot new">👩‍⚕️</div><div class="tl-date">01/09/2026</div><div class="tl-label">🆕 Consulta Gastroenterologia (Dra. Gabrielle Carmona) — Enteropatia crônica · Peso 5,5kg · Solicitados US abdominal + Coproparasitológico + SNAP Giardia · Chip 981020004466436</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧫</div><div class="tl-date">02/10/2026</div><div class="tl-label">🆕 Hemogasometria (Vetuslab / Animal Bello) — alcalose metabólica ⚠️ pH 7,533🔴 · Na+ 121,3🔴 · K+ 2,00🔴 (possível interferência de amostra)</div></div>
+        <div class="tl-item"><div class="tl-dot new">💊</div><div class="tl-date">09/10/2026</div><div class="tl-label">🆕 Prescrito Kalium Gatos 1,5cp/12h + Nuxcell Fel 1 bisnaga/24h (3 dias) + Inalação solução fisiológica 2x/dia (7 dias) — Dra. Bárbara · Animall Vet</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">13/10/2026</div><div class="tl-label">🆕 US abdominal (Vet To Go · Dr. Matheus Cadamuro) — Infartos bilaterais estáveis · Pâncreas 0,74cm grosseiro · Pielectasia RE 0,28cm · Bexiga cristais/sedimento</div></div>
+        <div class="tl-item"><div class="tl-dot new">💊</div><div class="tl-date">16/10/2026</div><div class="tl-label">🆕 Prescrito Citrato de Potássio 300mg 1 dose/12h (60 doses) — Dra. Bárbara Marques · Animall Vet · Peso 6,500kg</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧫</div><div class="tl-date">14/11/2026</div><div class="tl-label">🆕 Hemogasometria (Vetdue · Dra. Isabella Miranda) — Acidose metabólica 🔴 pH 7,34 · HCO3 18,1🔴 · CO2 total 19,2🔴 · Na+ 165,0⚠️ · K+ 4,6✅</div></div>
+        <div class="tl-item"><div class="tl-dot new">🩸</div><div class="tl-date">14/11/2026</div><div class="tl-label">🆕 Hemograma + Fósforo + Ureia + Creatinina (Vetuslab / Animal Bello · MV Stephanie Brizzi) — Creatinina 1,97⚠️ IRIS 2 · Ureia 72,62🔴 · Fósforo 4,46✅ · Plaquetas 281mil⚠️</div></div>
+        <div class="tl-item"><div class="tl-dot new">🔊</div><div class="tl-date">14/11/2026</div><div class="tl-label">🆕 US abdominal (Dr. Guilherme Fernandes · Animal Bello) — Pâncreas NORMALIZADO ✅ · Fígado NORMALIZADO ✅ · Rins DRC + microlitíase 0,08cm RE · Bexiga microcristais/sedimentos</div></div>
+        <div class="tl-item"><div class="tl-dot new">🧪</div><div class="tl-date">15/11/2026</div><div class="tl-label">🆕 Urina Tipo 1 cistocentese (Vetuslab / Animal Bello · MV Stephanie Brizzi) — Proteínas ++⚠️ · Densidade 1023✅ · pH 6✅ · sem cristais/bactérias</div></div>
       </div>
 
       <div class="section-title" style="margin-top:16px">💊 Histórico de Medicações</div>
@@ -875,6 +1140,16 @@
         <div class="card">
           <div class="card-title">10/08/2026 · Nefro (Dra. Bárbara) 🆕</div>
           <div class="rx-item"><div class="rx-drug">💊 Quelante de fósforo</div><div class="rx-dose">Junto às refeições principais (2–3x/dia)</div><div class="rx-date">Alvo: fósforo ≤4,6 mg/dL — reavaliar em 30 dias</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">09/10/2026 · Dra. Bárbara · Animall Vet 🆕</div>
+          <div class="rx-item"><div class="rx-drug">🧡 Kalium Gatos</div><div class="rx-dose">1,5 comprimido a cada 12h</div><div class="rx-date">Reposição de potássio (K+ 2,00🔴)</div></div>
+          <div class="rx-item"><div class="rx-drug">🔬 Nuxcell Fel</div><div class="rx-dose">1 bisnaga a cada 24h por 3 dias</div><div class="rx-date">Suporte celular</div></div>
+          <div class="rx-item"><div class="rx-drug">🌬️ Inalação SF</div><div class="rx-dose">Solução fisiológica 2x ao dia por 7 dias</div><div class="rx-date">Suporte respiratório</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">16/10/2026 · Dra. Bárbara · Animall Vet 🆕</div>
+          <div class="rx-item"><div class="rx-drug">🧡 Citrato de Potássio 300mg</div><div class="rx-dose">1 dose a cada 12h · 60 doses</div><div class="rx-date">Reposição potássio + alcalinização</div></div>
         </div>
         <div class="card">
           <div class="card-title">Dieta</div>
@@ -1690,6 +1965,11 @@ function showInner(pet, pane, el) {
   document.querySelectorAll('#tab-' + pet + ' .inner-tab').forEach(t => t.classList.remove('it-active'));
   document.getElementById(pet + '-' + pane).classList.add('ip-active');
   el.classList.add('it-active');
+  if (pane === 'diario') {
+    const d = document.getElementById(pet + '-diary-date');
+    if (d && !d.value) d.value = new Date().toISOString().slice(0,10);
+    renderDiaryEntries(pet);
+  }
 }
 
 // ── TABS ──
@@ -1729,6 +2009,91 @@ function checkPwd() {
     document.getElementById('pwd-input').focus();
   }
 }
+
+// ── DIÁRIO ──
+function _dKey(pet){ return 'diary_' + pet; }
+function loadDiary(pet){ try{ return JSON.parse(localStorage.getItem(_dKey(pet))||'[]'); }catch{ return []; } }
+function saveDiary(pet,e){ localStorage.setItem(_dKey(pet),JSON.stringify(e)); }
+
+function _fmt(ds){
+  const [y,m,d]=ds.split('-');
+  const M=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  return `${parseInt(d)} de ${M[parseInt(m)-1]} de ${y}`;
+}
+function _esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderDiaryEntries(pet){
+  const entries=loadDiary(pet);
+  const el=document.getElementById(pet+'-diary-entries');
+  if(!el)return;
+  if(!entries.length){
+    el.innerHTML='<div class="notice" style="margin-top:0">Nenhuma anotação ainda.</div>';
+    return;
+  }
+  el.innerHTML=entries.slice().reverse().map(e=>`
+    <div class="diary-entry">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="diary-date">📅 ${_fmt(e.date)}</div>
+        <button class="diary-del" onclick="deleteDiary('${pet}',${e.id})" title="Excluir">✕</button>
+      </div>
+      <div class="diary-text">${_esc(e.text)}</div>
+    </div>`).join('');
+}
+
+function addDiary(pet){
+  const dateEl=document.getElementById(pet+'-diary-date');
+  const textEl=document.getElementById(pet+'-diary-text');
+  const text=textEl.value.trim();
+  if(!text){textEl.focus();return;}
+  const date=dateEl.value||new Date().toISOString().slice(0,10);
+  const entries=loadDiary(pet);
+  entries.push({date,text,id:Date.now()});
+  saveDiary(pet,entries);
+  textEl.value='';
+  renderDiaryEntries(pet);
+}
+
+function deleteDiary(pet,id){
+  if(!confirm('Excluir esta anotação?'))return;
+  saveDiary(pet,loadDiary(pet).filter(e=>e.id!==id));
+  renderDiaryEntries(pet);
+}
+
+function initAllDiaries(){
+  const pets=['panty','biscoito','mani','weed','kali'];
+  pets.forEach(pet=>{
+    const tabs=document.querySelector('#tab-'+pet+' .inner-tabs');
+    if(tabs){
+      const btn=document.createElement('button');
+      btn.className='inner-tab';
+      btn.textContent='📝 Diário';
+      btn.onclick=function(){showInner(pet,'diario',this);};
+      tabs.appendChild(btn);
+    }
+    const main=document.querySelector('#tab-'+pet+' .pet-main');
+    if(main){
+      const pane=document.createElement('div');
+      pane.id=pet+'-diario';
+      pane.className='inner-pane';
+      pane.innerHTML=`
+        <div class="card" style="margin-bottom:14px">
+          <div class="card-title" style="margin-bottom:10px">✏️ Nova anotação</div>
+          <input type="date" id="${pet}-diary-date" class="form-input" style="margin-bottom:8px">
+          <textarea id="${pet}-diary-text" class="form-input" rows="3" placeholder="O que aconteceu hoje?" style="resize:vertical;font-family:inherit;margin-bottom:10px"></textarea>
+          <button class="btn-primary" onclick="addDiary('${pet}')">Salvar</button>
+        </div>
+        <div id="${pet}-diary-entries"></div>`;
+      const notice=main.querySelector('.notice');
+      notice?main.insertBefore(pane,notice):main.appendChild(pane);
+    }
+  });
+  // Entrada inicial do Biscoito
+  if(!loadDiary('biscoito').length){
+    saveDiary('biscoito',[{date:'2026-08-15',text:'Vomitou depois de comer Churu.',id:1}]);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initAllDiaries);
 
 // ── FINANCEIRO ──
 const CAT_LABELS = { exame:'🔬 Exame/Imagem', consul:'🏥 Consulta', med:'💊 Medicamento', alim:'🍖 Alimentação', conv:'💳 Convênio', higiene:'🧴 Higiene', outro:'📦 Outro' };
